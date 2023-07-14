@@ -116,26 +116,47 @@ console.log(cleanArray1);
  console.log("removed duplicates from the object", cleanarray);
 
 let myString = "Elephant";
-console.log(myString[0]);
-console.log(myString.split(""));
-console.log([...myString]);
+console.log(myString[0]); //E
+console.log(myString.split("")); //['E','l','e','p','h','a','n','t']
+console.log([...myString]); //['E','l','e','p','h','a','n','t']
 console.log(Array.from(myString));
-console.log(Object.assign({}, myString));
-console.log(myString.slice());
+console.log(Object.assign({}, myString)); //{"0": "E","1": "l","2": "e","3": "p","4": "h","5": "a","6": "n","7": "t"}
+console.log(myString.slice()); // create a shallow copy both  refers to same memory locations.
+console.log([...myString]) // creates a deep copy where both refers to different memory locations
 
 const numbersToBeSliced = [0,1,2,3,4,5];
 const numberToBeSpliced = [100,200,300,400,500];
 
-const silcedArray = numbersToBeSliced.slice(0,4
-);
-console.log(numbersToBeSliced,silcedArray);
+const silcedArray = numbersToBeSliced.slice(0,4);
+console.log(`Actual Array [0,1,2,3,4,5] Post slice of Original Array ${numbersToBeSliced} Slice of (0,4) ${silcedArray}`);
 
-const splicedArray = numberToBeSpliced.splice(1,3,'Naseer','Mohammed','Azhaan',"Aydin");
-console.log(splicedArray,numberToBeSpliced);
-
+const splicedArray = numberToBeSpliced.splice(1,3);
+console.log(`Actual Array [100,200,300,400,500] Post slice of Original Array ${numberToBeSpliced} Splice of (1,3) ${splicedArray}`);
 
 
+//Array.from converts an iteriable string or iteriable object to Array.
+//Array.fromEntries converts array of key value variables [[key, value]] or Map into object.
+// 
+
+const val = Array.from({length:10}, (_,value) => value*2);
+console.log(val); //[0,2,4,6,8,10,12,14,16,18]
+
+const NumberInSeries = Array.from({length:10}, (_,value) => (value*1)+1);
+console.log(NumberInSeries); //[1,2,3,4,5,6,7,8,9,10]
 
 
+console.log(Array.apply(null, Array(5)).map(function (x, i) { return (i*1)+1; }));
+console.log(Array.from(Array(5)).map((x,i) => {return (i*1)+1}));
+console.log(Array.from('abcd')); //['a','b','c','d']
+console.log('x'.repeat(5)) // 'xxxxx'
+console.log(Array.from('x'.repeat(5)).map( function(x,i){ return (i*1)+1}));
 
-
+// Function Borrowing, replacing this keyword with null also give use the same output 60.
+function functionBorrowing(x,y,z) {
+    return x+y+z;
+  }
+  
+  console.log(functionBorrowing.call(this,10,20,30)); // functionBorrowing.call(null,10,20,30)
+  console.log(functionBorrowing.apply(this,[10,20,30])); // functionBorrowing.apply(null,[10,20,30])
+  var bindingFunction  = functionBorrowing.bind(this,10,20,30); // functionBorrowing.bind(null,10,20,30)
+  console.log(bindingFunction());
