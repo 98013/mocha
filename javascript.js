@@ -128,11 +128,10 @@ const numbersToBeSliced = [0,1,2,3,4,5];
 const numberToBeSpliced = [100,200,300,400,500];
 
 const silcedArray = numbersToBeSliced.slice(0,4);
-console.log(`Actual Array [0,1,2,3,4,5] Post slice of Original Array ${numbersToBeSliced} Slice of (0,4) ${silcedArray}`);
+console.log(`Actual Array [0,1,2,3,4,5] Post slice of Original Array [${numbersToBeSliced}] Slice of (0,4) [${silcedArray}]`);
 
-const splicedArray = numberToBeSpliced.splice(1,3);
-console.log(`Actual Array [100,200,300,400,500] Post slice of Original Array ${numberToBeSpliced} Splice of (1,3) ${splicedArray}`);
-
+const splicedArray = numberToBeSpliced.splice(1,3,'A','B','C'); // insert element's.
+console.log(`Actual Array [100,200,300,400,500] Post splice of Original Array [${numberToBeSpliced}] Splice of (1,3) [${splicedArray}]`);
 
 //Array.from converts an iteriable string or iteriable object to Array.
 //Array.fromEntries converts array of key value variables [[key, value]] or Map into object.
