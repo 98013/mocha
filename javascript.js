@@ -114,3 +114,28 @@ console.log(cleanArray1);
  const duplicateObject =[{name:"jhon"},{name:"Orange"},{name:"Brinjal"},{name:"jhon"},{name:"jhon"}];
  duplicateObject.reduce((previous,current) =>  cleanObject[current?.name] || (cleanObject[current?.name]=true && cleanarray.push(current)),[]); 
  console.log("removed duplicates from the object", cleanarray);
+
+let myString = "Elephant";
+console.log(myString[0]);
+console.log(myString.split(""));
+console.log([...myString]);
+console.log(Array.from(myString));
+console.log(Object.assign({}, myString));
+console.log(myString.slice());
+
+const numbersToBeSliced = [0,1,2,3,4,5];
+const numberToBeSpliced = [100,200,300,400,500];
+
+const silcedArray = numbersToBeSliced.slice(0,4
+);
+console.log(numbersToBeSliced,silcedArray);
+
+const splicedArray = numberToBeSpliced.splice(1,3,'Naseer','Mohammed','Azhaan',"Aydin");
+console.log(splicedArray,numberToBeSpliced);
+
+
+
+
+
+
+
