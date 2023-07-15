@@ -159,3 +159,11 @@ function functionBorrowing(x,y,z) {
   console.log(functionBorrowing.apply(this,[10,20,30])); // functionBorrowing.apply(null,[10,20,30])
   var bindingFunction  = functionBorrowing.bind(this,10,20,30); // functionBorrowing.bind(null,10,20,30)
   console.log(bindingFunction());
+
+const elementMissing = [1,2,4,5];
+function elementMissingPlaced(arr, item, index) {
+    return [...elementMissing.slice(0,index), item, ...elementMissing.slice(index)]
+}
+
+console.log(`Array with new Element ${elementMissingPlaced(elementMissing, 3, 0)}`);
+
