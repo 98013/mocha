@@ -340,3 +340,13 @@ async function main() {
 }
 
 main();
+
+// making Object Property hide when we iteritate over the Object 
+const hideObjectProperties = { name:'naseer', age:32, secret:'Secret' };
+console.log(hideObjectProperties)
+Object.defineProperty(hideObjectProperties, 'secret', { enumerable:false, value:'Secret Service' });
+console.log(hideObjectProperties);
+for(const props in hideObjectProperties){
+    console.log('loop over objects',props);
+}
+console.log(hideObjectProperties);
