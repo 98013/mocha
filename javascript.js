@@ -132,7 +132,7 @@ differenceMapperUsingIncludes = Array.from(
 );
 console.log("differenceMapperUsingIncludes", differenceMapperUsingIncludes);
 differenceMapper = diffmapper.filter(
-  (item, index, arr) => item.name !== mapper[index]?.name
+  (item, index, _arr) => item.name !== mapper[index]?.name
 );
 console.log(differenceMapper);
 
@@ -148,15 +148,15 @@ diffFilterArray = [
 ];
 console.log(
   "the difference of two arrays using filter ",
-  diffFilterArray.filter((x, index) => !filterArray.includes(x))
+  diffFilterArray.filter((x, _index) => !filterArray.includes(x))
 );
 console.log(
   "the difference of two arrays using map ",
-  diffFilterArray.map((x, index) => !filterArray.includes(x))
+  diffFilterArray.map((x, _index) => !filterArray.includes(x))
 );
 console.log(
   "the difference of two arrays using foreach ",
-  diffFilterArray.forEach((x, index) => !filterArray.includes(x))
+  diffFilterArray.forEach((x, _index) => !filterArray.includes(x))
 );
 
 //remove duplicates using reduce function.
@@ -164,7 +164,7 @@ const cleanArray = [];
 const cleanArray1 = [];
 const reduceRemoveDuplicates = [1, 1, 2, 6, 7, 8, 9, 9, 70, 70, 1, 1, 1, 9];
 console.time();
-reduceRemoveDuplicates.reduce((preValue, currentValues) => {
+reduceRemoveDuplicates.reduce((_preValue, currentValues) => {
   !cleanArray.includes(currentValues) && cleanArray.push(currentValues);
 }, []);
 console.timeEnd();
@@ -195,7 +195,7 @@ const duplicateObject = [
   { name: "jhon" },
 ];
 duplicateObject.reduce(
-  (previous, current) =>
+  (_previous, current) =>
     cleanObject[current?.name] ||
     (cleanObject[current?.name] = true && cleanarray.push(current)),
   []
@@ -235,19 +235,19 @@ const NumberInSeries = Array.from({ length: 10 }, (_, value) => value * 1 + 1);
 console.log(NumberInSeries); //[1,2,3,4,5,6,7,8,9,10]
 
 console.log(
-  Array.apply(null, Array(5)).map(function (x, i) {
+  Array.apply(null, Array(5)).map(function (_x, i) {
     return i * 1 + 1;
   })
 );
 console.log(
-  Array.from(Array(5)).map((x, i) => {
+  Array.from(Array(5)).map((_x, i) => {
     return i * 1 + 1;
   })
 );
 console.log(Array.from("abcd")); //['a','b','c','d']
 console.log("x".repeat(5)); // 'xxxxx'
 console.log(
-  Array.from("x".repeat(5)).map(function (x, i) {
+  Array.from("x".repeat(5)).map(function (_x, i) {
     return i * 1 + 1;
   })
 );
@@ -263,7 +263,7 @@ var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorro
 console.log(bindingFunction());
 
 const elementMissing = [1, 2, 4, 5];
-function elementMissingPlaced(arr, item, index) {
+function elementMissingPlaced(_arr, item, index) {
   return [
     ...elementMissing.slice(0, index),
     item,
@@ -315,17 +315,17 @@ setImmediate(() => {
   console.log("setImmediate call");
 });
 
-console.log("Execution Starts Here.");
-setTimeout(() => {
+console.log("Execution Starts Here."); // # will part of Main Thread.
+setTimeout(() => {   // #will be part of  Callback Queue Priority(2).  
   console.log("Callback queue executed after Microtask Queue.");
 }, 0);
-new Promise((resolve) => {
+new Promise((resolve) => { // # will be part of Micro Task Queue. Highest Priority(1).
   resolve("Promise: Microtask executed because of highest priority.");
   for (i = 0; i <= 1000000000; i++);
 }).then((data) => {
   console.log(data);
 });
-console.log("Execution Ends Here.");
+console.log("Execution Ends Here."); // # will be part of Main Thread.
 
 //for await...of it maintains the order of the loop. promise.all will won't maintain the order.
 async function main() {
@@ -350,3 +350,38 @@ for(const props in hideObjectProperties){
     console.log('loop over objects',props);
 }
 console.log(hideObjectProperties);
+
+// #Generators in Javasript - USE CASE #used for Infinte Loop.
+// #We can exit Generator Prematurely using gen.return(value) value in Argument is to return value and exit.
+// #we can throw Error using gen.throw(new throw('local error'))
+function* localGenerator() {
+  yield* ['A','B','C','D','E'];
+}
+
+// IIFE(Immedietly Invoked Function - SELF INVOKING FUNCTION).
+const genClosure = (function(){
+  gen = localGenerator();
+  console.log(gen.next().value);
+  console.log(gen.next().value);
+  console.log(gen.next().value);
+  console.log(gen.next().value);
+  console.log(gen.next().value);
+  console.log(gen.next().value);
+  return innerFunction = () => { console.log('Inner Function Exexution ' + new Date().getHours() + ':'+ new Date().getMinutes() + ':'+ new Date().getSeconds())  };
+})()
+
+console.log(genClosure());
+
+// #Example 2.
+function* IteriatorFunction() {
+  yield* 'x'.repeat(10).split('').map((_value, index) => (index*1) + 1000);
+}
+
+;(async function() { 
+    const IteriatorFunctionLogger = IteriatorFunction();
+    for await(const _logs of IteriatorFunctionLogger) {
+          console.log('IteriatorFunctionLogger', IteriatorFunctionLogger.next());
+        }
+}());
+
+
