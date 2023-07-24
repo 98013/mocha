@@ -1,5 +1,24 @@
-// 4 ways to convert array to object
+
 console.log("*****javascript*****");
+// # Object.Create() is used to create a new object using exsiting object as Prototype.
+const person = {
+  name:'Naseer',
+  gender:'male',
+  age:32,
+  gettingInfo : function () {
+      return console.log(`Name ${this.name} - age ${this.age} - gender ${this.gender}`);
+  }
+};
+
+const personBluePrint = Object.create(person);
+console.log('Object.Create',personBluePrint.gettingInfo());
+
+personBluePrint.name ='Naseer Mohammed';
+personBluePrint.gener = 'Male';
+personBluePrint.age= 30;
+console.log(personBluePrint.gettingInfo());
+
+// 4 ways to convert array to object
 let arr = ["Apple", "Orange", "Banana"];
 let obj = Object.assign({}, arr);
 console.log("Type-1", obj);
@@ -27,7 +46,7 @@ for (let [key, value] of Object.entries(tempObj)) {
 }
 console.log("converting Object to Array", tempArray);
 
-//we can use Array.from() to convert objec to Array.
+//we can use Array.from() to convert object to Array.
 console.log(
   "converting Array to Object using Array.from method ",
   Array.from({ 0: "Apple" })
