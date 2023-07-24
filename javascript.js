@@ -1,5 +1,5 @@
 
-console.log("*****javascript*****");
+console.log("%c********************************************************javascript**********************************************************************************","color: yellow; font-weight: bold;");
 // # Object.Create() is used to create a new object using exsiting object as Prototype.
 const person = {
   name:'Naseer',
@@ -70,7 +70,7 @@ console.log(
   slicedArray,
   initiaArray === slicedArray
 );
-//Array.from() used to create a shallow copy of an Array. which might be a string or having length property.
+// #Array.from() used to create a shallow copy of an Array. which might be a string or having length property.
 const shallowCopyArray = Array.from(initiaArray);
 console.log(
   "array from method",
