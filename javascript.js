@@ -263,10 +263,10 @@ var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorro
 console.log(bindingFunction());
 
 const elementMissing = [1, 2, 4, 5];
-function elementMissingPlaced(_arr, item, index) {
+function elementMissingPlaced(_arr, itemTobeAdded, index) {
   return [
     ...elementMissing.slice(0, index),
-    item,
+    itemTobeAdded,
     ...elementMissing.slice(index),
   ];
 }
