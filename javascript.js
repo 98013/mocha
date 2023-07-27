@@ -1,21 +1,25 @@
-
-console.log("%c********************************************************javascript**********************************************************************************","color: yellow; font-weight: bold;");
+console.log(
+  "%c********************************************************javascript**********************************************************************************",
+  "color: yellow; font-weight: bold;"
+);
 // # Object.Create() is used to create a new object using exsiting object as Prototype.
 const person = {
-  name:'Naseer',
-  gender:'male',
-  age:32,
-  gettingInfo : function () {
-      return console.log(`Name ${this.name} - age ${this.age} - gender ${this.gender}`);
-  }
+  name: "Naseer",
+  gender: "male",
+  age: 32,
+  gettingInfo: function () {
+    return console.log(
+      `Name ${this.name} - age ${this.age} - gender ${this.gender}`
+    );
+  },
 };
 
 const personBluePrint = Object.create(person);
-console.log('Object.Create',personBluePrint.gettingInfo());
+console.log("Object.Create", personBluePrint.gettingInfo());
 
-personBluePrint.name ='Naseer Mohammed';
-personBluePrint.gener = 'Male';
-personBluePrint.age= 30;
+personBluePrint.name = "Naseer Mohammed";
+personBluePrint.gener = "Male";
+personBluePrint.age = 30;
 console.log(personBluePrint.gettingInfo());
 
 // 4 ways to convert array to object
@@ -335,10 +339,12 @@ setImmediate(() => {
 });
 
 console.log("Execution Starts Here."); // # will part of Main Thread.
-setTimeout(() => {   // #will be part of  Callback Queue Priority(2).  
+setTimeout(() => {
+  // #will be part of  Callback Queue Priority(2).
   console.log("Callback queue executed after Microtask Queue.");
 }, 0);
-new Promise((resolve) => { // # will be part of Micro Task Queue. Highest Priority(1).
+new Promise((resolve) => {
+  // # will be part of Micro Task Queue. Highest Priority(1).
   resolve("Promise: Microtask executed because of highest priority.");
   for (i = 0; i <= 1000000000; i++);
 }).then((data) => {
@@ -360,13 +366,16 @@ async function main() {
 
 main();
 
-// making Object Property hide when we iteritate over the Object 
-const hideObjectProperties = { name:'naseer', age:32, secret:'Secret' };
-console.log(hideObjectProperties)
-Object.defineProperty(hideObjectProperties, 'secret', { enumerable:false, value:'Secret Service' });
+// making Object Property hide when we iteritate over the Object
+const hideObjectProperties = { name: "naseer", age: 32, secret: "Secret" };
 console.log(hideObjectProperties);
-for(const props in hideObjectProperties){
-    console.log('loop over objects',props);
+Object.defineProperty(hideObjectProperties, "secret", {
+  enumerable: false,
+  value: "Secret Service",
+});
+console.log(hideObjectProperties);
+for (const props in hideObjectProperties) {
+  console.log("loop over objects", props);
 }
 console.log(hideObjectProperties);
 
@@ -374,11 +383,11 @@ console.log(hideObjectProperties);
 // #We can exit Generator Prematurely using gen.return(value) value in Argument is to return value and exit.
 // #we can throw Error using gen.throw(new throw('local error'))
 function* localGenerator() {
-  yield* ['A','B','C','D','E'];
+  yield* ["A", "B", "C", "D", "E"];
 }
 
 // IIFE(Immedietly Invoked Function - SELF INVOKING FUNCTION).
-const genClosure = (function(){
+const genClosure = (function () {
   gen = localGenerator();
   console.log(gen.next().value);
   console.log(gen.next().value);
@@ -386,21 +395,41 @@ const genClosure = (function(){
   console.log(gen.next().value);
   console.log(gen.next().value);
   console.log(gen.next().value);
-  return innerFunction = () => { console.log('Inner Function Exexution ' + new Date().getHours() + ':'+ new Date().getMinutes() + ':'+ new Date().getSeconds())  };
-})()
+  return (innerFunction = () => {
+    console.log(
+      "Inner Function Exexution " +
+        new Date().getHours() +
+        ":" +
+        new Date().getMinutes() +
+        ":" +
+        new Date().getSeconds()
+    );
+  });
+})();
 
 console.log(genClosure());
 
 // #Example 2.
 function* IteriatorFunction() {
-  yield* 'x'.repeat(10).split('').map((_value, index) => (index*1) + 1000);
+  yield* "x"
+    .repeat(10)
+    .split("")
+    .map((_value, index) => index * 1 + 1000);
 }
 
-;(async function() { 
-    const IteriatorFunctionLogger = IteriatorFunction();
-    for await(const _logs of IteriatorFunctionLogger) {
-          console.log('IteriatorFunctionLogger', IteriatorFunctionLogger.next());
-        }
-}());
+(async function () {
+  const IteriatorFunctionLogger = IteriatorFunction();
+  for await (const _logs of IteriatorFunctionLogger) {
+    console.log("IteriatorFunctionLogger", IteriatorFunctionLogger.next());
+  }
+})();
 
+const globalContext = () => {
+  return {
+    firstName: () => ({ case: "First Name" }),
+    secondName: () => ({ case: "second Name" }),
+  };
+};
 
+console.log(globalContext().firstName());
+console.log(globalContext().secondName());
