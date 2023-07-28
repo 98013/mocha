@@ -1,95 +1,95 @@
 console.log(
-  "%c********************************************************javascript**********************************************************************************",
-  "color: yellow; font-weight: bold;"
+  '%c********************************************************javascript**********************************************************************************',
+  'color: yellow; font-weight: bold;',
 );
 // # Object.Create() is used to create a new object using exsiting object as Prototype.
 const person = {
-  name: "Naseer",
-  gender: "male",
+  name: 'Naseer',
+  gender: 'male',
   age: 32,
   gettingInfo: function () {
     return console.log(
-      `Name ${this.name} - age ${this.age} - gender ${this.gender}`
+      `Name ${this.name} - age ${this.age} - gender ${this.gender}`,
     );
   },
 };
 
 const personBluePrint = Object.create(person);
-console.log("Object.Create", personBluePrint.gettingInfo());
+console.log('Object.Create', personBluePrint.gettingInfo());
 
-personBluePrint.name = "Naseer Mohammed";
-personBluePrint.gener = "Male";
+personBluePrint.name = 'Naseer Mohammed';
+personBluePrint.gener = 'Male';
 personBluePrint.age = 30;
 console.log(personBluePrint.gettingInfo());
 
 // 4 ways to convert array to object
-let arr = ["Apple", "Orange", "Banana"];
+let arr = ['Apple', 'Orange', 'Banana'];
 let obj = Object.assign({}, arr);
-console.log("Type-1", obj);
-console.log("Type-2", { ...obj });
+console.log('Type-1', obj);
+console.log('Type-2', { ...obj });
 let temp = {};
 arr.map((item, index) => (temp[index] = item));
-console.log("Type-3", temp);
+console.log('Type-3', temp);
 //fromEntries is used to create a object form the array of array or Map Object.
 let temp1 = Object.fromEntries([
-  ["0", "Apple"],
-  ["1", "Orange"],
-  ["2", "Banana"],
+  ['0', 'Apple'],
+  ['1', 'Orange'],
+  ['2', 'Banana'],
 ]);
-console.log("Type-4", temp1);
+console.log('Type-4', temp1);
 
 //convert object to array
 let tempArray = {};
-const tempObj = { 0: "Apple", 1: "Orange", 2: "Banana" };
-console.log("Object keys", Object.keys(tempObj));
-console.log("Object values", Object.values(tempObj));
-console.log("keys and values-1", Object.entries(tempObj));
-console.log("keys and values-2", { ...Object.entries(tempObj) });
+const tempObj = { 0: 'Apple', 1: 'Orange', 2: 'Banana' };
+console.log('Object keys', Object.keys(tempObj));
+console.log('Object values', Object.values(tempObj));
+console.log('keys and values-1', Object.entries(tempObj));
+console.log('keys and values-2', { ...Object.entries(tempObj) });
 for (let [key, value] of Object.entries(tempObj)) {
   console.log(`${key}:${value}`, (tempArray[key] = value));
 }
-console.log("converting Object to Array", tempArray);
+console.log('converting Object to Array', tempArray);
 
 //we can use Array.from() to convert object to Array.
 console.log(
-  "converting Array to Object using Array.from method ",
-  Array.from({ 0: "Apple" })
+  'converting Array to Object using Array.from method ',
+  Array.from({ 0: 'Apple' }),
 );
 
 // uses of spread operator
 //creating a copy of an orignial array
-const initiaArray = ["Apple", "Orange", "Banana"];
+const initiaArray = ['Apple', 'Orange', 'Banana'];
 const tempInitialArray = [...initiaArray];
 console.log(
-  "creating new array from existing array",
+  'creating new array from existing array',
   initiaArray,
   tempInitialArray,
-  initiaArray === tempInitialArray
+  initiaArray === tempInitialArray,
 );
 // we can use slice to create a new array from exising Array using slice
 const slicedArray = initiaArray.slice();
 console.log(
-  "slice method",
+  'slice method',
   initiaArray,
   slicedArray,
-  initiaArray === slicedArray
+  initiaArray === slicedArray,
 );
 // #Array.from() used to create a shallow copy of an Array. which might be a string or having length property.
 const shallowCopyArray = Array.from(initiaArray);
 console.log(
-  "array from method",
+  'array from method',
   initiaArray,
   shallowCopyArray,
-  initiaArray === shallowCopyArray
+  initiaArray === shallowCopyArray,
 );
 //concatenate two array
-console.log("concatenating two arrays", [...initiaArray, ...tempInitialArray]);
+console.log('concatenating two arrays', [...initiaArray, ...tempInitialArray]);
 //concatenate two array and remove duplicates
-console.log("concatenating two arrays and removing duplicates ", [
+console.log('concatenating two arrays and removing duplicates ', [
   ...new Set([...initiaArray, ...tempInitialArray]),
 ]);
 function cleanCode(a, b, c) {
-  console.log("spreading it to pass as arguments", `${a}, ${b}, ${c}`);
+  console.log('spreading it to pass as arguments', `${a}, ${b}, ${c}`);
 }
 cleanCode(...initiaArray);
 //flattening an array
@@ -99,87 +99,87 @@ const flatteningArray = [
   [5, 6],
 ];
 const concatenatedArray = [].concat(...flatteningArray);
-console.log("Concatenated Array", concatenatedArray);
-console.log("Creating Object - 1", { ...flatteningArray });
-console.log("Creating Object - 1", Object.assign({}, flatteningArray));
-console.log("Creating Object - 2", Object.assign([], flatteningArray));
-console.log("Creating Object - 2", Object.assign(flatteningArray));
-console.log("Creating Object - 3", { ...concatenatedArray });
-console.log("Creating Object - 3", Object.assign({}, concatenatedArray));
-console.log("Creating Object - 4", Object.assign([], concatenatedArray));
-console.log("Creating Object - 4", Object.assign(concatenatedArray));
+console.log('Concatenated Array', concatenatedArray);
+console.log('Creating Object - 1', { ...flatteningArray });
+console.log('Creating Object - 1', Object.assign({}, flatteningArray));
+console.log('Creating Object - 2', Object.assign([], flatteningArray));
+console.log('Creating Object - 2', Object.assign(flatteningArray));
+console.log('Creating Object - 3', { ...concatenatedArray });
+console.log('Creating Object - 3', Object.assign({}, concatenatedArray));
+console.log('Creating Object - 4', Object.assign([], concatenatedArray));
+console.log('Creating Object - 4', Object.assign(concatenatedArray));
 console.log(
-  "Creating Object - 5",
+  'Creating Object - 5',
   Object.fromEntries([
     [1, 2],
     [3, 4],
     [5, 6],
-  ])
+  ]),
 );
 
 //converting string to numbers
-const numbers = "123456789";
+const numbers = '123456789';
 let conversion = Array.from(numbers, Number);
 console.log(conversion);
-let trueStatement = Array.from(["", "Apple", undefined, null, 0], Boolean);
+let trueStatement = Array.from(['', 'Apple', undefined, null, 0], Boolean);
 console.log(trueStatement);
 
 //conditional way of adding properties
-const objConditional = { name: "Aple", age: 30 };
+const objConditional = { name: 'Aple', age: 30 };
 console.log({
   ...objConditional,
-  ...(Boolean(1) ? { type: "working" } : { type: "Not working" }),
+  ...(Boolean(1) ? { type: 'working' } : { type: 'Not working' }),
 });
 
 // map function
 mapper = [
-  { name: "Apple 1" },
-  { name: "Orange 2" },
-  { name: "PineApple 3" },
-  { name: "Banana 4" },
+  { name: 'Apple 1' },
+  { name: 'Orange 2' },
+  { name: 'PineApple 3' },
+  { name: 'Banana 4' },
 ];
 diffmapper = [
-  { name: "Apple 1" },
-  { name: "Orange 2" },
-  { name: "PineApple 3" },
-  { name: "Banana 4" },
-  { name: "Mango 5" },
-  { name: "carrot 6" },
+  { name: 'Apple 1' },
+  { name: 'Orange 2' },
+  { name: 'PineApple 3' },
+  { name: 'Banana 4' },
+  { name: 'Mango 5' },
+  { name: 'carrot 6' },
 ];
-newMapper = mapper.map((item) => item.name.split(" ")[0]);
+newMapper = mapper.map((item) => item.name.split(' ')[0]);
 console.log(newMapper);
 // difference between two arrays
 differenceMapperUsingIncludes = Array.from(
   diffmapper,
-  (x, index) => x.name !== mapper[index]?.name
+  (x, index) => x.name !== mapper[index]?.name,
 );
-console.log("differenceMapperUsingIncludes", differenceMapperUsingIncludes);
+console.log('differenceMapperUsingIncludes', differenceMapperUsingIncludes);
 differenceMapper = diffmapper.filter(
-  (item, index, _arr) => item.name !== mapper[index]?.name
+  (item, index, _arr) => item.name !== mapper[index]?.name,
 );
 console.log(differenceMapper);
 
 //filter to arrays
-filterArray = ["Apple 1", "Orange 2", "PineApple 3", "Banana 4"];
+filterArray = ['Apple 1', 'Orange 2', 'PineApple 3', 'Banana 4'];
 diffFilterArray = [
-  "Apple 1",
-  "Orange 2",
-  "PineApple 3",
-  "Banana 4",
-  "Mango 5",
-  "Carrot 6",
+  'Apple 1',
+  'Orange 2',
+  'PineApple 3',
+  'Banana 4',
+  'Mango 5',
+  'Carrot 6',
 ];
 console.log(
-  "the difference of two arrays using filter ",
-  diffFilterArray.filter((x, _index) => !filterArray.includes(x))
+  'the difference of two arrays using filter ',
+  diffFilterArray.filter((x, _index) => !filterArray.includes(x)),
 );
 console.log(
-  "the difference of two arrays using map ",
-  diffFilterArray.map((x, _index) => !filterArray.includes(x))
+  'the difference of two arrays using map ',
+  diffFilterArray.map((x, _index) => !filterArray.includes(x)),
 );
 console.log(
-  "the difference of two arrays using foreach ",
-  diffFilterArray.forEach((x, _index) => !filterArray.includes(x))
+  'the difference of two arrays using foreach ',
+  diffFilterArray.forEach((x, _index) => !filterArray.includes(x)),
 );
 
 //remove duplicates using reduce function.
@@ -211,23 +211,23 @@ console.log(filteredArrays.filter(Boolean));
 const cleanObject = {};
 const cleanarray = [];
 const duplicateObject = [
-  { name: "jhon" },
-  { name: "Orange" },
-  { name: "Brinjal" },
-  { name: "jhon" },
-  { name: "jhon" },
+  { name: 'jhon' },
+  { name: 'Orange' },
+  { name: 'Brinjal' },
+  { name: 'jhon' },
+  { name: 'jhon' },
 ];
 duplicateObject.reduce(
   (_previous, current) =>
     cleanObject[current?.name] ||
     (cleanObject[current?.name] = true && cleanarray.push(current)),
-  []
+  [],
 );
-console.log("removed duplicates from the object", cleanarray);
+console.log('removed duplicates from the object', cleanarray);
 
-let myString = "Elephant";
+let myString = 'Elephant';
 console.log(myString[0]); //E
-console.log(myString.split("")); //['E','l','e','p','h','a','n','t']
+console.log(myString.split('')); //['E','l','e','p','h','a','n','t']
 console.log([...myString]); //['E','l','e','p','h','a','n','t']
 console.log(Array.from(myString));
 console.log(Object.assign({}, myString)); //{"0": "E","1": "l","2": "e","3": "p","4": "h","5": "a","6": "n","7": "t"}
@@ -239,12 +239,12 @@ const numberToBeSpliced = [100, 200, 300, 400, 500];
 
 const silcedArray = numbersToBeSliced.slice(0, 4);
 console.log(
-  `Actual Array [0,1,2,3,4,5] Post slice of Original Array [${numbersToBeSliced}] Slice of (0,4) [${silcedArray}]`
+  `Actual Array [0,1,2,3,4,5] Post slice of Original Array [${numbersToBeSliced}] Slice of (0,4) [${silcedArray}]`,
 );
 
-const splicedArray = numberToBeSpliced.splice(1, 3, "A", "B", "C"); // insert element's.
+const splicedArray = numberToBeSpliced.splice(1, 3, 'A', 'B', 'C'); // insert element's.
 console.log(
-  `Actual Array [100,200,300,400,500] Post splice of Original Array [${numberToBeSpliced}] Splice of (1,3) [${splicedArray}]`
+  `Actual Array [100,200,300,400,500] Post splice of Original Array [${numberToBeSpliced}] Splice of (1,3) [${splicedArray}]`,
 );
 
 //Array.from converts an iteriable string or iteriable object to Array.
@@ -260,19 +260,19 @@ console.log(NumberInSeries); //[1,2,3,4,5,6,7,8,9,10]
 console.log(
   Array.apply(null, Array(5)).map(function (_x, i) {
     return i * 1 + 1;
-  })
+  }),
 );
 console.log(
   Array.from(Array(5)).map((_x, i) => {
     return i * 1 + 1;
-  })
+  }),
 );
-console.log(Array.from("abcd")); //['a','b','c','d']
-console.log("x".repeat(5)); // 'xxxxx'
+console.log(Array.from('abcd')); //['a','b','c','d']
+console.log('x'.repeat(5)); // 'xxxxx'
 console.log(
-  Array.from("x".repeat(5)).map(function (_x, i) {
+  Array.from('x'.repeat(5)).map(function (_x, i) {
     return i * 1 + 1;
-  })
+  }),
 );
 
 // Function Borrowing, replacing this keyword with null also give use the same output 60.
@@ -295,7 +295,7 @@ function elementMissingPlaced(_arr, itemTobeAdded, index) {
 }
 
 console.log(
-  `Array with new Element ${elementMissingPlaced(elementMissing, 3, 0)}`
+  `Array with new Element ${elementMissingPlaced(elementMissing, 3, 0)}`,
 );
 
 // in javascript string a immutable.
@@ -306,11 +306,11 @@ console.log(a, c);
 c = 200;
 console.log(a, c);
 
-var a = "naseer",
-  b = "mohammed",
-  c = "naseer";
+var a = 'naseer',
+  b = 'mohammed',
+  c = 'naseer';
 console.log(a, c);
-c = "azhaan";
+c = 'azhaan';
 console.log(a, c);
 
 /*
@@ -318,11 +318,11 @@ console.log(a, c);
 */
 
 function callMicrotask() {
-  console.log("Task 1");
+  console.log('Task 1');
   queueMicrotask(() => {
-    console.log("Mimics Microtask Queue");
+    console.log('Mimics Microtask Queue');
   });
-  console.log("Task 2");
+  console.log('Task 2');
 }
 
 callMicrotask();
@@ -335,30 +335,30 @@ callMicrotask();
 
 // setImmediate same as setTimeout.
 setImmediate(() => {
-  console.log("setImmediate call");
+  console.log('setImmediate call');
 });
 
-console.log("Execution Starts Here."); // # will part of Main Thread.
+console.log('Execution Starts Here.'); // # will part of Main Thread.
 setTimeout(() => {
   // #will be part of  Callback Queue Priority(2).
-  console.log("Callback queue executed after Microtask Queue.");
+  console.log('Callback queue executed after Microtask Queue.');
 }, 0);
 new Promise((resolve) => {
   // # will be part of Micro Task Queue. Highest Priority(1).
-  resolve("Promise: Microtask executed because of highest priority.");
+  resolve('Promise: Microtask executed because of highest priority.');
   for (i = 0; i <= 1000000000; i++);
 }).then((data) => {
   console.log(data);
 });
-console.log("Execution Ends Here."); // # will be part of Main Thread.
+console.log('Execution Ends Here.'); // # will be part of Main Thread.
 
 //for await...of it maintains the order of the loop. promise.all will won't maintain the order.
 async function main() {
   for await (const user of [
-    { name: "naseer" },
-    { name: "mohammed" },
-    { name: "Azhaan" },
-    { name: "Aydin" },
+    { name: 'naseer' },
+    { name: 'mohammed' },
+    { name: 'Azhaan' },
+    { name: 'Aydin' },
   ]) {
     console.log(user.name);
   }
@@ -367,15 +367,15 @@ async function main() {
 main();
 
 // making Object Property hide when we iteritate over the Object
-const hideObjectProperties = { name: "naseer", age: 32, secret: "Secret" };
+const hideObjectProperties = { name: 'naseer', age: 32, secret: 'Secret' };
 console.log(hideObjectProperties);
-Object.defineProperty(hideObjectProperties, "secret", {
+Object.defineProperty(hideObjectProperties, 'secret', {
   enumerable: false,
-  value: "Secret Service",
+  value: 'Secret Service',
 });
 console.log(hideObjectProperties);
 for (const props in hideObjectProperties) {
-  console.log("loop over objects", props);
+  console.log('loop over objects', props);
 }
 console.log(hideObjectProperties);
 
@@ -383,7 +383,7 @@ console.log(hideObjectProperties);
 // #We can exit Generator Prematurely using gen.return(value) value in Argument is to return value and exit.
 // #we can throw Error using gen.throw(new throw('local error'))
 function* localGenerator() {
-  yield* ["A", "B", "C", "D", "E"];
+  yield* ['A', 'B', 'C', 'D', 'E'];
 }
 
 // IIFE(Immedietly Invoked Function - SELF INVOKING FUNCTION).
@@ -397,12 +397,12 @@ const genClosure = (function () {
   console.log(gen.next().value);
   return (innerFunction = () => {
     console.log(
-      "Inner Function Exexution " +
+      'Inner Function Exexution ' +
         new Date().getHours() +
-        ":" +
+        ':' +
         new Date().getMinutes() +
-        ":" +
-        new Date().getSeconds()
+        ':' +
+        new Date().getSeconds(),
     );
   });
 })();
@@ -411,23 +411,23 @@ console.log(genClosure());
 
 // #Example 2.
 function* IteriatorFunction() {
-  yield* "x"
+  yield* 'x'
     .repeat(10)
-    .split("")
+    .split('')
     .map((_value, index) => index * 1 + 1000);
 }
 
 (async function () {
   const IteriatorFunctionLogger = IteriatorFunction();
   for await (const _logs of IteriatorFunctionLogger) {
-    console.log("IteriatorFunctionLogger", IteriatorFunctionLogger.next());
+    console.log('IteriatorFunctionLogger', IteriatorFunctionLogger.next());
   }
 })();
 
 const globalContext = () => {
   return {
-    firstName: () => ({ case: "First Name" }),
-    secondName: () => ({ case: "second Name" }),
+    firstName: () => ({ case: 'First Name' }),
+    secondName: () => ({ case: 'second Name' }),
   };
 };
 
