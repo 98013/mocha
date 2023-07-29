@@ -3,6 +3,34 @@ console.log(
   'color: yellow; font-weight: bold;',
 );
 // # Object.Create() is used to create a new object using exsiting object as Prototype.
+// # Object.create used to create a new Object.
+var createObject = {
+  name: 'Naseer Mohammed',
+  age: 21,
+  gender: 'Male',
+  printName: function () {
+    console.log(`My name is ${this.name}`);
+  },
+};
+
+const duplicatecreateObject = Object.create(createObject);
+
+let duplicatecreateObject1 = Object.create(createObject, {
+  email: { value: 'mdnaseer70@gmail.com' },
+  getName: {
+    value: function () {
+      return this.email;
+    },
+  },
+});
+
+console.log(createObject);
+console.log(duplicatecreateObject);
+console.log(duplicatecreateObject1);
+console.log(Object.getPrototypeOf(duplicatecreateObject) === createObject);
+console.log(Object.getPrototypeOf(duplicatecreateObject1) === createObject);
+console.log(duplicatecreateObject === duplicatecreateObject1);
+
 const person = {
   name: 'Naseer',
   gender: 'male',
@@ -21,6 +49,30 @@ personBluePrint.name = 'Naseer Mohammed';
 personBluePrint.gener = 'Male';
 personBluePrint.age = 30;
 console.log(personBluePrint.gettingInfo());
+
+// #Object.assign copies all the properties for the specified source to target.
+var assingObject = {
+  name: 'x',
+  age: 21,
+  gender: 'Male',
+  printName: function () {
+    console.log('My name is ${this.name}');
+  },
+};
+
+var assingObjectDuplicate = {
+  nickName: 'Another',
+  gender: 'Male',
+  age: 1,
+  printAge: function () {},
+};
+var p = {
+  x: 1,
+};
+var x = Object.assign(assingObject, assingObjectDuplicate);
+var y = Object.assign(p, assingObject, assingObjectDuplicate);
+console.log(x);
+console.log(y);
 
 // 4 ways to convert array to object
 let arr = ['Apple', 'Orange', 'Banana'];
@@ -154,6 +206,10 @@ differenceMapperUsingIncludes = Array.from(
   (x, index) => x.name !== mapper[index]?.name,
 );
 console.log('differenceMapperUsingIncludes', differenceMapperUsingIncludes);
+console.log(
+  'differenceMapperUsingIncludes',
+  differenceMapperUsingIncludes.filter((x) => Boolean(x)),
+);
 differenceMapper = diffmapper.filter(
   (item, index, _arr) => item.name !== mapper[index]?.name,
 );
@@ -328,9 +384,9 @@ function callMicrotask() {
 callMicrotask();
 
 /* 
-   promise's will be placed into Microtask queue which has highest priority in terms of execution
-   and the javascript api's which will be placed into call back queue which has least priority compared to microtask queue
-   Both Microtask queue and call back queue async function will be place into call stack by Event Loop.
+  promise's will be placed into Microtask queue which has highest priority in terms of execution
+  and the javascript api's which will be placed into call back queue which has least priority compared to microtask queue
+  Both Microtask queue and call back queue async function will be place into call stack by Event Loop.
 */
 
 // setImmediate same as setTimeout.
@@ -433,3 +489,10 @@ const globalContext = () => {
 
 console.log(globalContext().firstName());
 console.log(globalContext().secondName());
+
+// #remove duplicates from an array.
+const duplicates = [1, 2, 3, 1, 1, 1, 9, 0, 7, 6, 8, 3, 4, 5, 7, 6];
+let fitertedItems0 = duplicates.filter((value, index, array) => (array.indexOf(value) === array.lastIndexOf(value)));
+let fitertedItems1 = duplicates.filter((value, index, array) => (index === array.lastIndexOf(value)));
+console.log(fitertedItems0);
+console.log(fitertedItems1);
