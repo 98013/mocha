@@ -496,3 +496,25 @@ let fitertedItems0 = duplicates.filter((value, index, array) => (array.indexOf(v
 let fitertedItems1 = duplicates.filter((value, index, array) => (index === array.lastIndexOf(value)));
 console.log(fitertedItems0);
 console.log(fitertedItems1);
+
+// #Missing Numbers in the Array
+const  missedArray = [1,3,4,5,6,7,8,9,10];
+let numbergenerator = Array.from('x'.repeat((numbers.length + 1)).split(''), (x,i) => i+1)
+let numberMissing = numbergenerator.filter((i,x,a) => missedArray.indexOf(i) === -1) ;
+console.log(numberMissing);
+
+i = 0;
+var numbersArray = [];
+// Generate Random numbers Math.floor(Math.random() * (maximum – minimum + 1)) + minimum
+while(i<=9){
+  numbersArray.push(Math.floor(Math.random() * (10 - 1 + 1)) + 1)
+  i++
+}
+
+console.log(numbersArray);
+let randomMissingNumbers = numbergenerator.filter((value,index,array) => numbersArray.indexOf(value) === -1);
+console.log(randomMissingNumbers);
+
+
+
+
