@@ -494,8 +494,8 @@ console.log(globalContext().secondName());
 const duplicates = [1, 2, 3, 1, 1, 1, 9, 0, 7, 6, 8, 3, 4, 5, 7, 6];
 let fitertedItems0 = duplicates.filter((value, index, array) => (array.indexOf(value) === array.lastIndexOf(value)));
 let fitertedItems1 = duplicates.filter((value, index, array) => (index === array.lastIndexOf(value)));
-console.log(fitertedItems0);
-console.log(fitertedItems1);
+console.log(fitertedItems0.sort());
+console.log(fitertedItems1.sort());
 
 // #Missing Numbers in the Array
 const  missedArray = [1,3,4,5,6,7,8,9,10];
@@ -506,8 +506,8 @@ console.log(numberMissing);
 i = 0;
 var numbersArray = [];
 // Generate Random numbers Math.floor(Math.random() * (maximum – minimum + 1)) + minimum
-while(i<=9){
-  numbersArray.push(Math.floor(Math.random() * (10 - 1 + 1)) + 1)
+while(i<10){
+  numbersArray.push(Math.floor(Math.random() * 101) + 1)
   i++
 }
 
