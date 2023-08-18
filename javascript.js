@@ -108,6 +108,11 @@ console.log(
     Array.from({ 0: 'Apple' }),
 );
 
+console.log(Array.from('NASEER'));
+console.log('NASEER'.split(''));
+
+console.log(Array.from({ 0: 'N', 1: 'A', 2: 'S', 3: 'E', 4: 'E', 5: 'R' }));
+
 // uses of spread operator
 //creating a copy of an orignial array
 const initiaArray = ['Apple', 'Orange', 'Banana'];
@@ -562,3 +567,24 @@ ct.forEach((element) => {
 
 console.log(11, Object.is(a11, ct), a11);
 console.log(12, [...[], ...ct]);
+
+// ways to convert an Array to Object.
+const a13 = Object.assign({}, ct);
+console.log(13, a13);
+
+const a14 = { ...ct };
+console.log(14, a14);
+
+console.log(
+    Object.fromEntries([
+        ['fname', 'naseer'],
+        ['age', '32'],
+        ['gender', 'male'],
+    ]),
+);
+
+// convert object to array.
+const mainObject = { a: 1, b: 2, c: 3 };
+const objToArray = Object.entries(mainObject);
+console.log(objToArray);
+console.log(Object.fromEntries(objToArray));
