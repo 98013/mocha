@@ -635,8 +635,13 @@ const map = new Map(entries);
 console.log(map);
 console.log(map.get('address'));
 
-for (let items in obj1) {
-    console.log(obj1.items);
+for (let keys in obj1) {
+    console.log(keys);
+    console.log(obj1[keys])
+}
+
+for (let values in obj1) {
+    console.log(values);
 }
 
 for (let items of array1) {
@@ -647,13 +652,23 @@ for (let items of map) {
     console.log(items);
 }
 
+for (let [key, value] of map) {
+    console.log(`${key} - ${{ value }}`);
+}
+
 const set = new Set();
 set.add(1, { name: 'naseer' })
 set.add(1, { name: 'naseer' })
 set.add(2, { name: 'Azhaan' })
 
-for (let items of set) {
-    console.log(items);
+for (let key of set) {
+    console.log(key);
+    console.log(set.has(key))
+}
+
+for (let key of set) {
+    console.log(`${key}`);
+    console.log(set.has(key))
 }
 
 for (var t = 0; t < 2; t++) {
@@ -687,3 +702,25 @@ function expensiveFunction() {
 let fun = expensiveFunction();
 console.log(fun(5));
 console.log(fun(10));
+
+
+// Prototype Inheritance.
+let inheritBase = {
+    name: 'naseer',
+    age: 33,
+    gender: 'Male',
+    state: 'Andhra Pradesh',
+    buttonClick: function () {
+        return 'Button Clicked';
+    }
+}
+
+let inheritChild = {
+    type: 'IT'
+}
+
+inheritChild.__proto__ = inheritBase;
+console.log(inheritChild.gender);
+console.log(inheritChild.state);
+console.log(inheritChild.buttonClick())
+
