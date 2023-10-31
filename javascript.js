@@ -1,3 +1,6 @@
+import Chance from 'chance';
+const chance = Chance();
+
 console.log(
     '%c********************************************************javascript**********************************************************************************',
     'color: yellow; font-weight: bold;',
@@ -64,7 +67,7 @@ var assingObjectDuplicate = {
     nickName: 'Another',
     gender: 'Male',
     age: 1,
-    printAge: function () {},
+    printAge: function () { },
 };
 var p = {
     x: 1,
@@ -189,13 +192,13 @@ console.log({
 });
 
 // map function
-mapper = [
+const mapper = [
     { name: 'Apple 1' },
     { name: 'Orange 2' },
     { name: 'PineApple 3' },
     { name: 'Banana 4' },
 ];
-diffmapper = [
+const diffmapper = [
     { name: 'Apple 1' },
     { name: 'Orange 2' },
     { name: 'PineApple 3' },
@@ -203,10 +206,10 @@ diffmapper = [
     { name: 'Mango 5' },
     { name: 'carrot 6' },
 ];
-newMapper = mapper.map((item) => item.name.split(' ')[0]);
+const newMapper = mapper.map((item) => item.name.split(' ')[0]);
 console.log(newMapper);
 // difference between two arrays
-differenceMapperUsingIncludes = Array.from(
+const differenceMapperUsingIncludes = Array.from(
     diffmapper,
     (x, index) => x.name !== mapper[index]?.name,
 );
@@ -215,14 +218,14 @@ console.log(
     'differenceMapperUsingIncludes',
     differenceMapperUsingIncludes.filter((x) => Boolean(x)),
 );
-differenceMapper = diffmapper.filter(
+const differenceMapper = diffmapper.filter(
     (item, index, _arr) => item.name !== mapper[index]?.name,
 );
 console.log(differenceMapper);
 
 //filter to arrays
-filterArray = ['Apple 1', 'Orange 2', 'PineApple 3', 'Banana 4'];
-diffFilterArray = [
+const filterArray = ['Apple 1', 'Orange 2', 'PineApple 3', 'Banana 4'];
+const diffFilterArray = [
     'Apple 1',
     'Orange 2',
     'PineApple 3',
@@ -450,21 +453,21 @@ function* localGenerator() {
 
 // IIFE(Immedietly Invoked Function - SELF INVOKING FUNCTION).
 const genClosure = (function () {
-    gen = localGenerator();
+    const gen = localGenerator();
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
-    return (innerFunction = () => {
+    return (() => {
         console.log(
             'Inner Function Exexution ' +
-                new Date().getHours() +
-                ':' +
-                new Date().getMinutes() +
-                ':' +
-                new Date().getSeconds(),
+            new Date().getHours() +
+            ':' +
+            new Date().getMinutes() +
+            ':' +
+            new Date().getSeconds(),
         );
     });
 })();
@@ -518,7 +521,7 @@ let numberMissing = numbergenerator.filter(
 );
 console.log(numberMissing);
 
-i = 0;
+let i = 0;
 var numbersArray = [];
 // Generate Random numbers Math.floor(Math.random() * (maximum – minimum + 1)) + minimum
 while (i < 10) {
@@ -588,3 +591,99 @@ const mainObject = { a: 1, b: 2, c: 3 };
 const objToArray = Object.entries(mainObject);
 console.log(objToArray);
 console.log(Object.fromEntries(objToArray));
+
+// URL Building QueryParams from Object.
+const o = { name: 'naseer', age: 32 };
+console.log(Object.entries(o));
+let emp = new Map(Object.entries(o));
+console.log(emp, emp.get('name'), emp.get('age'));
+const params = new URLSearchParams(Object.entries(o));
+console.log(params.toString());
+
+
+const THRESHOLD = 10;
+console.log(Array(THRESHOLD));
+const users = (Array.from(Array(THRESHOLD), () => { return { name: chance.first() } }));
+console.log({ ... { ...users } });
+
+
+// for-in is used to iteriate over the keys of object or array like objects
+// for-of is used to iteriate over values like strings, arrays, Maps and sets etc.
+
+const array1 = ['A', 'B', 'C', 'D'];
+const result = array1.map((item, index) => item);
+console.log(result);
+
+var obj1 = {
+    firstName: "Elon",
+    lastName: "Musk",
+    age: 25,
+    address: {
+        id: 1,
+        country: "UK"
+    }
+};
+
+const keys = Object.keys(obj1).map((keys, index) => keys);
+console.log(keys);
+const values = Object.values(obj1).map((values, index) => values);
+console.log(values);
+const entries = Object.entries(obj1).map((entries, index) => entries);
+console.log(entries);
+console.log(entries.toString());
+const map = new Map(entries);
+console.log(map);
+console.log(map.get('address'));
+
+for (let items in obj1) {
+    console.log(obj1.items);
+}
+
+for (let items of array1) {
+    console.log(items);
+}
+
+for (let items of map) {
+    console.log(items);
+}
+
+const set = new Set();
+set.add(1, { name: 'naseer' })
+set.add(1, { name: 'naseer' })
+set.add(2, { name: 'Azhaan' })
+
+for (let items of set) {
+    console.log(items);
+}
+
+for (var t = 0; t < 2; t++) {
+    setTimeout(() => {
+        console.log(t);
+    }, 1000)
+}
+
+for (let t = 0; t < 2; t++) {
+    setTimeout(() => {
+        console.log(t);
+    }, 1000)
+}
+
+for (var t = 0; t < 2; t++) {
+    (function (t) {
+        setTimeout(() => {
+            console.log(t);
+        }, 1000)
+    }(t))
+}
+
+// Here we call the function once or creat the Array once and use it again and again.
+// Here the slice  method does not mutate the original array.
+// Here the splice method mutates the original array what we are seeing in the output.
+function expensiveFunction() {
+    let newArray = new Array(50).fill(0).map((item, index) => index + 1);
+    return (index) => newArray.slice(0, index);
+}
+
+let fun = expensiveFunction();
+console.log(fun(5));
+console.log(fun(10));
