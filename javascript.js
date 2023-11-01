@@ -724,3 +724,87 @@ console.log(inheritChild.gender);
 console.log(inheritChild.state);
 console.log(inheritChild.buttonClick())
 
+/* Difference between Object and Map */
+/*
+1.Object - inherits Proto-typal inheritance, Map does not inherit anything
+2.Object used for-in and Map uses for-of
+3. for object key we can use string or symbols where Map allows to use various data-types as key 
+4.Object can be Cloned using spread Operator and Map can also can be cloned using spread operator and Array.from() method.
+5.Objects can be JSON serialized where as Maps cannot be JSON serialized we need to use Object.fromEntries() to convert into Object and can be serialized.
+*/
+
+// Objects.
+console.log(obj1.valueOf()); // Proto-typal inheritance
+console.log({ ...obj1 });  // cloned object
+for (let key in obj1) {
+    console.log(key); // for-in loop for Object 
+}
+const symbol = Symbol('my-symbol') // use only keys or symbols in Objects as keys.
+const objSym = {
+    symbol: 'naseer'
+}
+
+console.log(objSym.symbol);
+console.log(JSON.stringify(obj1)); // JSON serializeed
+
+// Maps
+// Maps cannot have Prototypal inheritance
+const iniMap = new Map();
+iniMap.set('obj1', 'Naseer Mohammed'); // Map can hold any data-type as key.
+console.log(iniMap);
+for (let key of iniMap) { // Maps use for-of loop.
+    console.log(key);
+}
+
+console.log(iniMap);
+const cd = new Map(iniMap); // create a new copy with does not affect the Original Map.
+console.log(cd);
+cd.set('obj2', 'obj2');
+console.log(cd);
+
+const c1 = new Map([...iniMap]);// create a new copy using spread operator.
+console.log(c1);
+const c2 = new Map(Array.from(iniMap)); // create a new copy using Array.from() Method.
+console.log(c2)
+
+// Creating a new Map
+let originalMap = new Map();
+originalMap.set('key1', 'value1');
+originalMap.set('key2', 'value2');
+
+// Cloning the original Map
+let clonedMap = new Map(originalMap);
+
+// Displaying the cloned Map
+console.log(clonedMap); // same as Original copy.
+
+clonedMap.set('patch', 'patch')
+console.log(originalMap);
+console.log(clonedMap);
+
+const O1 = new Map([...originalMap]) // Creating a new Copy using spread Operator.
+console.log(O1);
+const O2 = new Map(Array.from(originalMap)); // Creating a new copy using Array.from method
+console.log(O2);
+
+console.log(originalMap);
+O1.set('step3', 'step3');
+console.log(O1);
+O2.set('step4', 'step4');
+console.log(O2);
+
+console.log(JSON.stringify(iniMap)); // Map cannot be serialised.
+// Alternate
+console.log(iniMap);
+console.log(Object.fromEntries(iniMap));
+console.log(JSON.stringify(Object.fromEntries(iniMap)));
+
+// Array.from - Converts an Object to array [[], []] like structure.
+// Array.fromEntries - Converts an array like struture [[],[]] to object
+const objLap = { name: 'naseer', age: 33 };
+console.log(Object.entries(objLap));
+const lap = new Map(Object.entries(objLap));
+console.log(lap);
+console.log(Object.fromEntries(lap));
+console.log(Object.fromEntries(Object.entries(objLap)));
+console.log(JSON.stringify(Object.fromEntries(Object.entries(objLap)), null, 1));
