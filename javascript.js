@@ -593,7 +593,7 @@ console.log(objToArray);
 console.log(Object.fromEntries(objToArray));
 
 // URL Building QueryParams from Object.
-const o = { name: 'naseer', age: 32 };
+const o = { name: 'naseer', age: 32, currency: 'INR' };
 console.log(Object.entries(o));
 let emp = new Map(Object.entries(o));
 console.log(emp, emp.get('name'), emp.get('age'));
@@ -808,3 +808,114 @@ console.log(lap);
 console.log(Object.fromEntries(lap));
 console.log(Object.fromEntries(Object.entries(objLap)));
 console.log(JSON.stringify(Object.fromEntries(Object.entries(objLap)), null, 1));
+
+// New Array Method, does not mutate the original peoples Array
+// With add New in the people Array by creating a new Copy of the people Array.
+const copyNumbers_1 = [1, 2, 3, 4, 5];
+const copyNumbers_2 = [1, 2, 3, 4, 5];
+const copyNumbers_3 = [1, 2, 3, 4, 5];
+const copyAlphabets_4 = ['q', 'w', 'e', 'r', 't', 'y'];
+let copyNumbers1 = copyNumbers_1.copyWithin(0, 1);
+let copyNumbers2 = copyNumbers_2.copyWithin(0, 1, 1);
+let copyNumbers3 = copyNumbers_3.copyWithin(0, 1, 5);
+let copyAlphabet4 = copyAlphabets_4.copyWithin(0, 3, 4)
+console.log(copyNumbers1);
+console.log(copyNumbers2);
+console.log(copyNumbers3);
+console.log(copyAlphabet4)
+
+const people = ['Sally', 'Kyle', 'Jhon', 'Henry'];
+//const withPeople = people.with(2, 'New');
+//const sortedPeople = people.toSorted();
+//const reversedPeople = people.toReversed();
+//const splicedPeople = people.toSpliced(0, 2, 'New');
+
+// Object Creation Types.
+let myObject = new Object(); // Object Constructor.
+myObject.name = 'Vintage';
+myObject
+let myObject1 = Object.create(null); // Object.Create Method.
+myObject1.proto
+myObject1.name = 'Naseer Mohammed';
+myObject1
+
+const myObject2 = new function () { } // Function Constructor.
+myObject2.name = 'Arina';
+myObject2
+
+const myObject3 = {   // Object literal syntax.
+    name: 'Aakash',
+    state: 'Andhra Pradesh'
+}
+myObject3
+
+// class myObject4 {  // ES6 class Syntax.
+//     name: string;
+//     age: number
+// }
+
+
+const arrayAlphabets = ['A', 'A', 'C', 'D', 'E', 'A', 'F']
+const indexMapping = arrayAlphabets.map(item => arrayAlphabets.indexOf(item))
+console.log(indexMapping);
+const abc = arrayAlphabets.filter((item, index) => arrayAlphabets.indexOf(item) === index);
+console.log(abc);
+const lastindexMapping = arrayAlphabets.map(item => arrayAlphabets.lastIndexOf(item));
+console.log(lastindexMapping);
+const xyz = arrayAlphabets.filter((item, index) => arrayAlphabets.lastIndexOf(item) === index);
+console.log(xyz);
+const winzo = arrayAlphabets.filter((item, index) => arrayAlphabets.lastIndexOf(item) === arrayAlphabets.indexOf(item));
+console.log(winzo);
+
+console.log(this);
+
+function thisFunction() {
+    console.log(this);
+}
+
+const thisFunction1 = () => {
+    console.log(this);
+}
+
+thisFunction();
+thisFunction1();
+
+//Object Creation ways
+// 1. Object Constructor.
+const objCons = new Object();
+objCons.name = 'Naseer';
+objCons.age = 33
+objCons
+delete objCons.age
+objCons
+// 2. Function Constructor.
+const ObjFunnCons = new function () { }
+ObjFunnCons.name = 'Naseer'
+ObjFunnCons.age = 33
+ObjFunnCons;
+delete ObjFunnCons.age;
+ObjFunnCons;
+// 3. Object literal
+let ObjLiteral = {
+    name: 'Naseer',
+    age: 33
+}
+ObjLiteral
+delete ObjLiteral.age
+ObjLiteral
+
+// 4. Class 
+// in classes also we can delete the property 
+
+// 5. Object.create(); in Prototype object properties do not get deleted.
+const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' }
+const ObjectCreated = Object.create(objCreation, { inr: { value: 'Rupee' } });
+console.log(objCreation);
+console.log(ObjectCreated);
+console.log(ObjectCreated.__proto__)
+console.log(ObjectCreated.name);
+console.log(ObjectCreated.age);
+console.log(ObjectCreated.gender);
+console.log(ObjectCreated.inr);
+delete ObjectCreated.gender;
+console.log(ObjectCreated.gender);
