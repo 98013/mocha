@@ -867,7 +867,10 @@ console.log(xyz);
 const winzo = arrayAlphabets.filter((item, index) => arrayAlphabets.lastIndexOf(item) === arrayAlphabets.indexOf(item));
 console.log(winzo);
 
+// globalThis which is common in both window Object and Node.
 console.log(this);
+console.log(globalThis);
+console.log(globalContext);
 
 function thisFunction() {
     console.log(this);
@@ -919,3 +922,85 @@ console.log(ObjectCreated.gender);
 console.log(ObjectCreated.inr);
 delete ObjectCreated.gender;
 console.log(ObjectCreated.gender);
+
+// this keyword
+//Scopes Types
+// 1. Global Scope, 2. Local Scope(Function Scope), 3. Function Scope(Local Scope), 4. Block Scope, 5. Lexical Scope
+
+/* 
+Rules for this keyword
+1.is the function called with new Keyword, then this will be brand new Object
+2.is the function called with call, apply and bind, then this will be the passed Object.
+3.is the function called with Object, then this will be the Object.
+4.direct function call, then this will be window, or undefined or empty object {}.
+5. Arrow Scope.
+in arrow there is no this.
+in arrow functions this keywords automatically find the Lexical Scope.
+Lexically, start from current scope and move upwards until you find the desired value, if value not found return undefined
+*/
+
+const myArrowFunction = {
+    lang: 'en',
+    test: function () {
+        console.log(this);
+    }
+}
+
+myArrowFunction.test();
+
+function testing() {
+    console.log(this)
+    console.log(this.__proto__)
+}
+
+new testing();
+
+function thisFunc() {
+    var isValid = true
+    var one = 100
+    if (1) {
+        console.log(isValid);
+        console.log(one);
+        var two = 200;
+    }
+    console.log(one);
+    console.log(two);
+}
+
+thisFunc();
+
+const exeucutionContext = { name: 'Naseer Mohammed', age: 33, Gender: 'Male' }
+
+function thisFunc1() {
+    console.log(this)
+}
+
+const thisFunc2 = () => {
+    console.log(this);
+}
+
+function thisFunc3() {
+    function test() {
+        console.log(this);
+    }
+    test.call(exeucutionContext);
+}
+
+const thisFunc4 = () => {
+    const test = () => {
+        console.log(this);
+    }
+    test.call(exeucutionContext);
+}
+
+thisFunc1();
+thisFunc2();
+thisFunc3();
+thisFunc4();
+//thisFunc1.call(exeucutionContext, this)
+//thisFunc2.call(exeucutionContext, this)
+//thisFunc3.call(exeucutionContext, this)
+//thisFunc4.call(exeucutionContext, this)
+
+
+
