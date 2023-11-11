@@ -854,7 +854,6 @@ myObject3
 //     age: number
 // }
 
-
 const arrayAlphabets = ['A', 'A', 'C', 'D', 'E', 'A', 'F']
 const indexMapping = arrayAlphabets.map(item => arrayAlphabets.indexOf(item))
 console.log(indexMapping);
@@ -911,6 +910,7 @@ ObjLiteral
 // in classes also we can delete the property 
 
 // 5. Object.create(); in Prototype object properties do not get deleted.
+
 const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' }
 const ObjectCreated = Object.create(objCreation, { inr: { value: 'Rupee' } });
 console.log(objCreation);
@@ -921,9 +921,13 @@ console.log(ObjectCreated.age);
 console.log(ObjectCreated.gender);
 console.log(ObjectCreated.inr);
 delete ObjectCreated.gender;
+console.log(objCreation);
+console.log(ObjectCreated);
+console.log(ObjectCreated.__proto__);
 console.log(ObjectCreated.gender);
+console.log(ObjectCreated.inr);
 
-// this keyword
+// this keyword.
 //Scopes Types
 // 1. Global Scope, 2. Local Scope(Function Scope), 3. Function Scope(Local Scope), 4. Block Scope, 5. Lexical Scope
 
@@ -935,7 +939,7 @@ Rules for this keyword
 4.direct function call, then this will be window, or undefined or empty object {}.
 5. Arrow Scope.
 in arrow there is no this.
-in arrow functions this keywords automatically find the Lexical Scope.
+in arrow functions this keywords automatically find's the Lexical Scope.
 Lexically, start from current scope and move upwards until you find the desired value, if value not found return undefined
 */
 
@@ -1001,6 +1005,140 @@ thisFunc4();
 //thisFunc2.call(exeucutionContext, this)
 //thisFunc3.call(exeucutionContext, this)
 //thisFunc4.call(exeucutionContext, this)
+
+
+// IIFE - Immedietly Invoked Function Expression.
+var vi = (function (i, j, k) {
+    return `${i} - ${j} - ${k}`
+}('Hello... vi.', new Date().getHours(), new Date().getMinutes()));
+console.log(vi);
+
+var vj = (((i, j, k) => `${i} - ${j} - ${k})}`)('Hello... vj.', new Date().getHours(), new Date().getMinutes()));
+console.log(vj);
+
+var vg = +function (i) {
+    return i;
+}('IIFE-1')
+console.log(vg);
+
+var vt = !function (i) {
+    return i;
+}('IIFE-2');
+console.log(vt);
+
+function test() {
+    return 'Please execute the code.';
+}
+console.log(test());
+
+// Here Unary operators turns out the function into function expression.
+!function test() {
+    console.log('Please execute the code.');
+}();
+
+var ig = !function selfExecuting1(i, j) {
+    return 'please execute the code... ' + i + ' ' + j;
+}(new Date().getHours(), new Date().getMinutes());
+console.log(ig);
+
+var pg = +function selfExecuting2(i, j) {
+    return 'please execute the code... ' + i + ' ' + j;
+}(new Date().getHours(), new Date().getMinutes());
+console.log(pg);
+
+!function selfExecuting1(i, j) {
+    console.log('please execute the code... ' + i + ' ' + j);
+}(new Date().getHours(), new Date().getMinutes());
+
++function selfExecuting2(i, j) {
+    console.log('please execute the code... ' + i + ' ' + j);
+}(new Date().getHours(), new Date().getMinutes());
+
+var kt = +((i, j) => 'please execute the code... ' + i + ' ' + j)(new Date().getHours(), new Date().getMinutes());
+console.log(kt);
+
+var vt = !((i, j) => 'please execute the code... ' + i + ' ' + j)(new Date().getHours(), new Date().getMinutes());
+console.log(vt);
+
++function (i, j) { console.log('please execute the code... ' + i + ' ' + j) }(new Date().getHours(), new Date().getMinutes());
+
+!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(new Date().getHours(), new Date().getMinutes());
+
+!function (i, j) { console.log('please execute the code... ' + i + ' ' + j) }(new Date().getHours(), new Date().getMinutes());
+
+!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(new Date().getHours(), new Date().getMinutes());
+
+/* 
+Hoisting:
+phase - 1: parsing, Memory Allocation, Compilaction.
+phase - 2: Execution Context.
+*/
+
+var age = 9;
+var dept = 'temp';
+
+function show() {
+    console.log(age);
+}
+console.dir(show);
+
+/* difference between normal function and Arrow Function
+Normal Function  - Explictit return, Hoisting, this keyword depends upon left side of the calle, new can be used for instatiation
+Arrow Function - Explicit and Implicit return type's can be defined, this keyword follows Lexical scope, No Hoisting, new Keyword cannot be used for instansiation.
+*/
+
+// Closure 
+function manager() {
+    let count = 0;
+    function increment() {
+        let message = `score is ${++count}`;
+        return function print() {
+            return message;
+        }
+    }
+    return increment;
+}
+const incrementNew = manager();
+incrementNew();
+incrementNew();
+incrementNew();
+incrementNew();
+const PrintFn = incrementNew();
+console.log(PrintFn());
+
+// Stale Closure.
+function manager1() {
+    let count = 0;
+    function increment1() {
+        let message = `score is ${++count}`;
+        return function print1() {
+            return message;
+        }
+    }
+    return increment1;
+}
+const incrementFn1 = manager1();
+const printFn1 = incrementFn1();
+console.log(incrementFn1);
+console.log(printFn1);
+console.log(printFn1());
+console.log(incrementFn1());
+console.log(incrementFn1());
+console.log(incrementFn1());
+console.log(incrementFn1());
+console.log(incrementFn1());
+console.log(printFn1());
+
+/* 
+function currying can be used for partial execution.
+
+*/
+
+
+
+
+
+
 
 
 
