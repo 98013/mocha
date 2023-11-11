@@ -1129,6 +1129,44 @@ console.log(incrementFn1());
 console.log(incrementFn1());
 console.log(printFn1());
 
+// Stale Closure 
+function outer() {
+    let outerVar = 'I am from outer function';
+    function inner() {
+        console.log(outerVar);
+    }
+    return inner;
+}
+
+const closure = outer(); // outer function is executed, and inner function is returned
+closure(); // Even though outer function has finished, inner still has access to outerVar
+
+// alternate for stale closure.
+let closurers = (function () {
+    let outerVar = 'I am from outer function';
+    function inner() {
+        return outerVar;
+    }
+    return inner;
+})();
+console.log(closurers());
+
+const incrementer = () => {
+    let number = 0;
+    return () => {
+        ++number;
+        let message = `Incremented to ${number}`
+        return `${message}, Number: ${number}`;
+    }
+}
+
+const inc = incrementer();
+inc();
+inc();
+inc();
+logger = inc();
+console.log(logger);
+
 /* 
 function currying can be used for partial execution.
 
