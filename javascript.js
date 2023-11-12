@@ -890,13 +890,40 @@ objCons.age = 33
 objCons
 delete objCons.age
 objCons
+
 // 2. Function Constructor.
 const ObjFunnCons = new function () { }
 ObjFunnCons.name = 'Naseer'
 ObjFunnCons.age = 33
 ObjFunnCons;
-delete ObjFunnCons.age;
+//delete ObjFunnCons.age;
+//ObjFunnCons;
+ObjFunnCons.gender = 'Male'
+//console.log(ObjFunnCons);
+const ObjFunnCons1 = Object.create(ObjFunnCons);
+// Original Object.
 ObjFunnCons;
+// Proto.
+console.log(ObjFunnCons1.__proto__);
+// Proto After deletion.
+delete ObjFunnCons1.gender;
+console.log(ObjFunnCons1.__proto__);
+// Original after deletion.
+delete ObjFunnCons.gender;
+ObjFunnCons;
+
+function CreateStudents(name, marks) {
+    const obj = {};
+    Object.setPrototypeOf(CreateStudents, obj);
+    this.name = name;
+    this.marks = marks;
+    return this;
+}
+
+const stud1 = new CreateStudents('Naseer', 99);
+stud1
+console.log(stud1.__proto__);
+
 // 3. Object literal
 let ObjLiteral = {
     name: 'Naseer',
@@ -905,11 +932,12 @@ let ObjLiteral = {
 ObjLiteral
 delete ObjLiteral.age
 ObjLiteral
+console.log(ObjLiteral.__proto__);
 
 // 4. Class 
 // in classes also we can delete the property 
 
-// 5. Object.create(); in Prototype object properties do not get deleted.
+// 5. Object.create(); in Prototype object properties do not get deleted., it simply create the linkage between the objects.
 
 const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' }
 const ObjectCreated = Object.create(objCreation, { inr: { value: 'Rupee' } });
@@ -926,6 +954,49 @@ console.log(ObjectCreated);
 console.log(ObjectCreated.__proto__);
 console.log(ObjectCreated.gender);
 console.log(ObjectCreated.inr);
+
+
+const headObj = { gender: 'Male' }
+const headProxy = Object.create(headObj);
+headProxy.name = 'Naseer'
+console.log(headProxy.name);
+console.log(headProxy.__proto__);
+console.log(Object.getPrototypeOf(headProxy));
+console.log(headProxy.gender);
+// compare getPrototypeof child with parent.
+console.log(Object.getPrototypeOf(headProxy) === headObj);
+
+function getStudentDetails(name, marks) {
+    const obj = Object.create(utility);
+    obj.name = name;
+    obj.marks = marks;
+    return obj;
+}
+
+const utility = {
+    increment: function () {
+        this.marks++
+    },
+    decrement: function () {
+        this.marks--;
+    }
+}
+
+// student 1
+let student1 = getStudentDetails('Naseer Mohammed', 99);
+console.log(student1.__proto__);
+console.log(Object.getPrototypeOf(student1));
+student1;
+student1.increment();
+student1;
+
+// student 2
+let student2 = getStudentDetails('Naseer Mohammed', 99);
+console.log(student2.__proto__);
+console.log(Object.getPrototypeOf(student2));
+student2;
+student2.decrement();
+student2;
 
 // this keyword.
 //Scopes Types
