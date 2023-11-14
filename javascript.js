@@ -1240,14 +1240,37 @@ console.log(logger);
 
 /* 
 function currying can be used for partial execution.
-
+    function which return's a function is called function currying.
 */
 
+// Promise execution 
+// example using Constructor Function.
 
+const nm = function normalFunctionExecution() {
+    return 'normalFunctionExecution called';
+}
 
+function NormalPromise(callback) {
+    // this keyword return constructor function.
+    console.log(this);
+    console.log(callback());
+}
+new NormalPromise(nm);
 
+function Normalpromise1(resolved, rejected) {
+    console.log(this);
+    console.log(resolved());
+    console.log(rejected());
+    this.pro = resolved;
+    this.rej = rejected;
+    return this.rej;
+}
 
+let PromiseLocal = new Normalpromise1(function resolved() {
+    return 'Normal promise1 resolved;';
+}, function rejected() {
+    return 'Normal promise1 rejected;';
+});
 
-
-
+console.log(PromiseLocal());
 
