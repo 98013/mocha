@@ -1274,3 +1274,29 @@ let PromiseLocal = new Normalpromise1(function resolved() {
 
 console.log(PromiseLocal());
 
+const objCr = {};
+objCr[objCr['A'] = 'B'] = 'C';
+objCr;
+
+
+/**
+ * Object.definedProperty is used for single Object key values pair's as enumerble false.
+ * Object.defineProperties is used to make multiple Object key value pair's as enumerable false.
+ */
+
+const enumerableParent = {
+    name: 'Naseer Mohammed',
+    gender: 'Male',
+    age: 33,
+    state: 'Andhra Pradesh'
+}
+
+const enumerableParent1 = Object.defineProperties(enumerableParent, { age: { enumerable: false }, state: { enumerable: false } });
+
+console.log(Object.keys(enumerableParent1));
+console.log(Object.values(enumerableParent1));
+console.log(Object.entries(enumerableParent1));
+
+for (let [key, value] of Object.entries(enumerableParent1)) {
+    console.log(`key - ${key} - value - ${value}`);
+}
