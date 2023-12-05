@@ -340,6 +340,12 @@ console.log(
     }),
 );
 
+const calculation = {
+    x: 100,
+    y: 200,
+    z: 300
+}
+
 // Function Borrowing, replacing this keyword with null also give use the same output 60.
 function functionBorrowing(x, y, z) {
     return x + y + z;
@@ -349,6 +355,24 @@ console.log(functionBorrowing.call(this, 10, 20, 30)); // functionBorrowing.call
 console.log(functionBorrowing.apply(this, [10, 20, 30])); // functionBorrowing.apply(null,[10,20,30])
 var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
 console.log(bindingFunction());
+var x = 1, y = 2, z = 3;
+function functionBorrowing() {
+    return this.x + this.y + this.z;
+}
+
+//console.log(functionBorrowing.call(this, x, y, z));
+//console.log(functionBorrowing.apply());
+
+console.log(functionBorrowing.call(calculation));
+console.log(functionBorrowing.call(calculation, 10, 20, 30));
+console.log(functionBorrowing.apply(calculation, [10, 20, 30]));
+console.log(functionBorrowing.apply(calculation, [10, 20, 30]));
+
+var bindingFunction = functionBorrowing.bind(calculation, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
+console.log(bindingFunction());
+
+// using call, apply and bind in the context of calculation Object
+console.log(functionBorrowing.call(calculation));
 
 const elementMissing = [1, 2, 4, 5];
 function elementMissingPlaced(_arr, itemTobeAdded, index) {
