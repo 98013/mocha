@@ -347,8 +347,8 @@ const calculation = {
 }
 
 // Function Borrowing, replacing this keyword with null also give use the same output 60.
-function functionBorrowing(x, y, z) {
-    return x + y + z;
+function functionBorrowing() {
+    return this.x + this.y + this.z;
 }
 
 console.log(functionBorrowing.call(this, 10, 20, 30)); // functionBorrowing.call(null,10,20,30)
@@ -356,9 +356,7 @@ console.log(functionBorrowing.apply(this, [10, 20, 30])); // functionBorrowing.a
 var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
 console.log(bindingFunction());
 var x = 1, y = 2, z = 3;
-function functionBorrowing() {
-    return this.x + this.y + this.z;
-}
+
 
 //console.log(functionBorrowing.call(this, x, y, z));
 //console.log(functionBorrowing.apply());
@@ -403,7 +401,7 @@ c = 'azhaan';
 console.log(a, c);
 
 /*
-  event loop fetches asyn call from the callback queue and Microtask queue and places in the call stack.
+    event loop fetches asyn call from the callback queue and Microtask queue and places in the call stack.
 */
 
 function callMicrotask() {
@@ -417,9 +415,9 @@ function callMicrotask() {
 callMicrotask();
 
 /* 
-  promise's will be placed into Microtask queue which has highest priority in terms of execution
-  and the javascript api's which will be placed into call back queue which has least priority compared to microtask queue
-  Both Microtask queue and call back queue async function will be place into call stack by Event Loop.
+    promise's will be placed into Microtask queue which has highest priority in terms of execution
+    and the javascript api's which will be placed into call back queue which has least priority compared to microtask queue
+    Both Microtask queue and call back queue async function will be place into call stack by Event Loop.
 */
 
 // setImmediate same as setTimeout.
@@ -979,14 +977,28 @@ console.log(ObjectCreated.__proto__);
 console.log(ObjectCreated.gender);
 console.log(ObjectCreated.inr);
 
-
-const headObj = { gender: 'Male' }
-const headProxy = Object.create(headObj);
-headProxy.name = 'Naseer'
-console.log(headProxy.name);
-console.log(headProxy.__proto__);
+const headObj = { gender: 'Male', headFunction: function () { return 'Head Function Executed.' } };
+const headProxy = Object.create({ headObj, childFunction: function () { return 'Child Function Executed.' } });
+console.log(headObj);
+console.log(Object.getPrototypeOf(headObj));
+console.log(headObj.__proto__);
+console.log(headProxy);
 console.log(Object.getPrototypeOf(headProxy));
-console.log(headProxy.gender);
+console.log(headProxy.__proto__);
+
+headProxy.lastName = 'Mohammed';
+
+console.log(headObj);
+console.log(Object.getPrototypeOf(headObj));
+console.log(headObj.__proto__);
+
+console.log(headProxy);
+console.log(Object.getPrototypeOf(headProxy));
+console.log(headProxy.__proto__);
+console.log(headProxy.headObj.gender);
+console.log(headProxy.headObj.headFunction());
+console.log(headProxy.headObj);
+console.log(headProxy.childFunction());
 // compare getPrototypeof child with parent.
 console.log(Object.getPrototypeOf(headProxy) === headObj);
 
@@ -1008,6 +1020,7 @@ const utility = {
 
 // student 1
 let student1 = getStudentDetails('Naseer Mohammed', 99);
+console.log(student1);
 console.log(student1.__proto__);
 console.log(Object.getPrototypeOf(student1));
 student1;
@@ -1016,6 +1029,7 @@ student1;
 
 // student 2
 let student2 = getStudentDetails('Naseer Mohammed', 99);
+console.log(student2);
 console.log(student2.__proto__);
 console.log(Object.getPrototypeOf(student2));
 student2;
@@ -1101,7 +1115,6 @@ thisFunc4();
 //thisFunc3.call(exeucutionContext, this)
 //thisFunc4.call(exeucutionContext, this)
 
-
 // IIFE - Immedietly Invoked Function Expression.
 var vi = (function (i, j, k) {
     return `${i} - ${j} - ${k}`
@@ -1165,7 +1178,7 @@ console.log(vt);
 
 /* 
 Hoisting:
-phase - 1: parsing, Memory Allocation, Compilaction.
+phase - 1: parsing, Memory Allocation, Compilation.
 phase - 2: Execution Context.
 */
 
@@ -1178,7 +1191,7 @@ function show() {
 console.dir(show);
 
 /* difference between normal function and Arrow Function
-Normal Function  - Explictit return, Hoisting, this keyword depends upon left side of the calle, new can be used for instatiation
+Normal Function  - Explicit return, Hoisting, this keyword depends upon left side of the calle, new can be used for instatiation
 Arrow Function - Explicit and Implicit return type's can be defined, this keyword follows Lexical scope, No Hoisting, new Keyword cannot be used for instansiation.
 */
 
@@ -1259,6 +1272,7 @@ const inc = incrementer();
 inc();
 inc();
 inc();
+inc();
 logger = inc();
 console.log(logger);
 
@@ -1301,7 +1315,6 @@ console.log(PromiseLocal());
 const objCr = {};
 objCr[objCr['A'] = 'B'] = 'C';
 objCr;
-
 
 /**
  * Object.definedProperty is used for single Object key values pair's as enumerble false.
