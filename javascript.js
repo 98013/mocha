@@ -748,11 +748,13 @@ console.log(inheritChild.buttonClick())
 
 /* Difference between Object and Map */
 /*
+Note: Both use to store data in the form of key-value pairs.
 1.Object - inherits Proto-typal inheritance, Map does not inherit anything
 2.Object used for-in and Map uses for-of
-3. for object key we can use string or symbols where Map allows to use various data-types as key 
+3. for object key we can use integers, string and symbols where Map allows to use various data-types, even Objects as keys.
 4.Object can be Cloned using spread Operator and Map can also can be cloned using spread operator and Array.from() method.
 5.Objects can be JSON serialized where as Maps cannot be JSON serialized we need to use Object.fromEntries() to convert into Object and can be serialized.
+6.Object order of elements is not preserved, where in Maps order of elements is preserved.
 */
 
 // Objects.
@@ -925,12 +927,12 @@ ObjFunnCons.gender = 'Male'
 const ObjFunnCons1 = Object.create(ObjFunnCons);
 // Original Object.
 ObjFunnCons;
-// Proto.
+// Proto Before deletion.
 console.log(ObjFunnCons1.__proto__);
 // Proto After deletion.
 delete ObjFunnCons1.gender;
 console.log(ObjFunnCons1.__proto__);
-// Original after deletion.
+// Original Object after deletion.
 delete ObjFunnCons.gender;
 ObjFunnCons;
 
@@ -951,10 +953,32 @@ let ObjLiteral = {
     name: 'Naseer',
     age: 33
 }
-ObjLiteral
-delete ObjLiteral.age
-ObjLiteral
+ObjLiteral;
+console.log(Object.getPrototypeOf(ObjLiteral));
 console.log(ObjLiteral.__proto__);
+
+let ObjLiteralProxy = Object.create(ObjLiteral);
+console.log(ObjLiteralProxy);
+console.log(Object.getPrototypeOf(ObjLiteralProxy));
+console.log(ObjLiteralProxy.__proto__);
+delete ObjLiteralProxy.age;
+console.log(Object.getPrototypeOf(ObjLiteralProxy));
+console.log(ObjLiteralProxy.__proto__);
+
+// if we delete in the parent it will reflect in the prototype also.
+delete ObjLiteral.age;
+console.log(ObjLiteral);
+console.log(Object.getPrototypeOf(ObjLiteralProxy));
+console.log(ObjLiteralProxy.__proto__);
+
+const firstNameProxy = { 'firstName': 'Naseer' };
+const lastNameProxy = { 'lastName': 'Mohammed' }
+
+const namedProxy = Object.setPrototypeOf(firstNameProxy, lastNameProxy);
+console.log(namedProxy);
+console.log(Object.getPrototypeOf(namedProxy));
+console.log(namedProxy.__proto__);
+console.log(namedProxy.firstName);
 
 // 4. Class 
 // in classes also we can delete the property 
