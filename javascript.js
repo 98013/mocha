@@ -752,7 +752,7 @@ Note: Both use to store data in the form of key-value pairs.
 1.Object - inherits Proto-typal inheritance, Map does not inherit anything
 2.Object used for-in and Map uses for-of
 3. for object key we can use integers, string and symbols where Map allows to use various data-types, even Objects as keys.
-4.Object can be Cloned using spread Operator and Map can also can be cloned using spread operator and Array.from() method.
+4.Object can be Cloned using spread Operator and Map can also can be cloned using spread operator and also with Array.from() method.
 5.Objects can be JSON serialized where as Maps cannot be JSON serialized we need to use Object.fromEntries() to convert into Object and can be serialized.
 6.Object order of elements is not preserved, where in Maps order of elements is preserved.
 */
@@ -1350,15 +1350,20 @@ const enumerableParent = {
     gender: 'Male',
     age: 33,
     state: 'Andhra Pradesh'
-}
+};
 
-const enumerableParent1 = Object.defineProperties(enumerableParent, { age: { enumerable: false }, state: { enumerable: false } });
+console.log(Object.getOwnPropertyDescriptors(enumerableParent));
+const enumerableParentProperties1 = Object.defineProperty(enumerableParent, 'gender', { enumerable: false });
+console.log(Object.keys(enumerableParentProperties1));
+console.log(Object.values(enumerableParentProperties1));
+console.log(Object.entries(enumerableParentProperties1));
+console.log(Object.fromEntries(Object.entries(enumerableParentProperties1)));
+const enumerableParentProperties2 = Object.defineProperties(enumerableParent, { age: { enumerable: false }, state: { enumerable: false } });
+console.log(Object.keys(enumerableParentProperties2));
+console.log(Object.values(enumerableParentProperties2));
+console.log(Object.entries(enumerableParentProperties2));
+console.log(Object.fromEntries(Object.entries(enumerableParentProperties2)));
 
-console.log(Object.keys(enumerableParent1));
-console.log(Object.values(enumerableParent1));
-console.log(Object.entries(enumerableParent1));
-
-for (let [key, value] of Object.entries(enumerableParent1)) {
+for (let [key, value] of Object.entries(enumerableParentProperties2)) {
     console.log(`key - ${key} - value - ${value}`);
 }
-
