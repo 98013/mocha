@@ -1361,3 +1361,4 @@ console.log(Object.entries(enumerableParent1));
 for (let [key, value] of Object.entries(enumerableParent1)) {
     console.log(`key - ${key} - value - ${value}`);
 }
+
