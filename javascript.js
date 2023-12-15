@@ -980,10 +980,25 @@ console.log(Object.getPrototypeOf(namedProxy));
 console.log(namedProxy.__proto__);
 console.log(namedProxy.firstName);
 
-// 4. Class 
-// in classes also we can delete the property 
+const Animal = {
+    name: 'Lion'
+};
+const Bird = {};
+Object.setPrototypeOf(Bird, Animal);
+console.log(Object.getPrototypeOf(Bird));
+console.log(Bird);
+console.log(Bird.name);
 
-// 5. Object.create(); in Prototype object properties do not get deleted., it simply create the linkage between the objects.
+// 4. Class
+// in classes also we can delete the property
+
+class Beast {
+
+}
+
+/**
+// 5. Object.create(); in Prototype object properties do not get deleted., it simply create the linkage between the objects. Object.create(proto type object, new Object wanted to create)
+ */
 
 const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' }
 const ObjectCreated = Object.create(objCreation, { inr: { value: 'Rupee' } });
@@ -1025,6 +1040,20 @@ console.log(headProxy.headObj);
 console.log(headProxy.childFunction());
 // compare getPrototypeof child with parent.
 console.log(Object.getPrototypeOf(headProxy) === headObj);
+
+const innerProto = {
+    x: 'innerProto x',
+    y: 'innerProto y'
+};
+
+/** innerProto Object will be Proto here. */
+const InnerProtoParent = Object.create(innerProto, {
+    z: { value: 'innerProto z', writable: true, enumerable: true, configurable: true }
+});
+console.log(InnerProtoParent);
+console.log(InnerProtoParent.z);
+console.log(Object.getPrototypeOf(InnerProtoParent));
+console.log(InnerProtoParent.__proto__);
 
 function getStudentDetails(name, marks) {
     const obj = Object.create(utility);
