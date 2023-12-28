@@ -1396,3 +1396,17 @@ console.log(Object.fromEntries(Object.entries(enumerableParentProperties2)));
 for (let [key, value] of Object.entries(enumerableParentProperties2)) {
     console.log(`key - ${key} - value - ${value}`);
 }
+
+const arrFlat = [1, 4, 5, [4, 5, [6, [3]]]];
+console.log(arrFlat.flat(Infinity));
+const arrFlat1 = [];
+console.log(arrFlat.flatMap((x) => x * 2));
+
+const aa = {};
+const bb = { key: 'b' };
+const cc = { key: 'c' };
+aa[bb] = 123;
+console.log(aa);
+aa[cc] = 456;
+console.log(aa);
+console.log(aa[bb]);
