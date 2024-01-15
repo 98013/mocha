@@ -1453,6 +1453,25 @@ let ObjectStringifyWithReplacer1 = {
 console.log(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w']));
 console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w'])));
 
+console.log(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation, 1));
+
+function valuesUpdation(key, values) {
+    switch (key) {
+        case 'c': {
+            return `${values} Car`;
+        }
+        default: {
+            return values;
+        }
+    }
+}
+
+console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation1, 1)));
+function valuesUpdation1(key, values) {
+    var blocklist = ['b', 'g']
+    return blocklist.indexOf(key) === -1 ? values : undefined;
+}
+
 /**  == vs === in Javascript, Abstract vs Strict Equality == does type coercion and === does no type coercion */
 /** https://262.ecma-international.org/5.1/#sec-11.9.3 */
 
