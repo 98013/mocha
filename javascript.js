@@ -1410,3 +1410,76 @@ console.log(aa);
 aa[cc] = 456;
 console.log(aa);
 console.log(aa[bb]);
+
+/**
+The JSON.stringify() method in JavaScript can take a replacer function or an array as the second argument. If the replacer is an array, only the properties named in the array will be included in the resulting JSON string1.
+*/
+
+let ObjectStringifyWithReplacer = {
+    applicationname: "Coder Crab",
+    technology: {
+        frontend: "Angular/React",
+        backend: {
+            nodejs: { framework: "Express" },
+            java: { framework: "Spring" }
+        },
+        database: "Orcale",
+        server: "AWS"
+    }
+}
+
+console.log(JSON.stringify(ObjectStringifyWithReplacer, null, 1));
+console.log(JSON.stringify(ObjectStringifyWithReplacer, ['applicationname']));
+console.log(JSON.stringify(ObjectStringifyWithReplacer, ['database', 'server'], 1));
+console.log(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'database', 'server'], 1));
+console.log(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'frontend', 'backend', 'java', 'framework'], 1));
+console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'frontend', 'backend', 'java', 'framework'], 1)));
+
+let ObjectStringifyWithReplacer1 = {
+    a: "2",
+    b: 1,
+    c: "Nexus",
+    d: "Alligator",
+    e: 5,
+    f: 1431807036,
+    g: {
+        2: {
+            w: 17,
+            b: 5
+        }
+    }
+}
+
+console.log(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w']));
+console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w'])));
+
+/**  == vs === in Javascript, Abstract vs Strict Equality == does type coercion and === does no type coercion */
+/** https://262.ecma-international.org/5.1/#sec-11.9.3 */
+
+/** 1. if X and Y are of same type, then js use === */
+/** 2. if X is undefined and Y is null, returns true */
+/** 3. if X is null and Y is undefined, returns true */
+/** 4. if there is any non-primitive value Object, Array or function js will convert it to string */
+/** 5. if X is number and Y is string, convert Y to number */
+/** 6. if X is boolean and Y is string, convert X to number */
+
+console.log(1 == 1);
+console.log(undefined == null);
+console.log(null == undefined);
+console.log([] == "");
+console.log({} == "");
+console.log(function () { } == "");
+// convert array to string then Number('') returns zero. 
+console.log([] == 1);
+console.log([] == 0);
+// convert boolean to number.
+console.log(true == 1)
+console.log(false == 0)
+
+
+
+
+
+
+
+
