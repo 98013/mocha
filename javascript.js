@@ -1472,6 +1472,18 @@ function valuesUpdation1(key, values) {
     return blocklist.indexOf(key) === -1 ? values : undefined;
 }
 
+console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation2, 1)));
+function valuesUpdation2(key, values) {
+    var blocklist = ['c', 'd']
+    return blocklist.includes(key) === false ? values : undefined;
+}
+
+console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation3, 1)));
+function valuesUpdation3(key, values) {
+    var blocklist = ['c', 'd']
+    return !!blocklist.includes(key) === false ? values : undefined;
+}
+
 /**  == vs === in Javascript, Abstract vs Strict Equality == does type coercion and === does no type coercion */
 /** https://262.ecma-international.org/5.1/#sec-11.9.3 */
 
@@ -1495,10 +1507,41 @@ console.log([] == 0);
 console.log(true == 1)
 console.log(false == 0)
 
+/** how to dynamcially exclude properties from an Object */
+const complexObject = {
+    name: "John Doe",
+    age: 30,
+    address: {
+        street: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "94105",
+    },
+    hobbies: ["playing guitar", "reading", "hiking"],
+};
+
+const { hobbies, ...rest } = complexObject;
+console.log(hobbies);
+console.log(rest);
+
+function restProperties() {
+    const excludeProps = ['address', 'hobbies'];
+    for (let key of excludeProps) {
+        const { [key]: omitted, ...rest } = complexObject;
+        return [omitted, rest]
+    }
+}
+
+console.log(restProperties()[0]);
+console.log(restProperties()[1]);
 
 
+function restProperties1() {
+    const excludeProps = ['name', 'age', 'address', 'hobbies'];
+    excludeProps.forEach((key, index) => {
+        const { [key]: omitted, ...rest } = complexObject;
+    });
+    console.log(rest);
+};
 
-
-
-
-
+console.log(restProperties1());
