@@ -1536,12 +1536,55 @@ console.log(restProperties()[0]);
 console.log(restProperties()[1]);
 
 
-function restProperties1() {
-    const excludeProps = ['name', 'age', 'address', 'hobbies'];
-    excludeProps.forEach((key, index) => {
+/** map */
+function restProperties1(keytype = '') {
+    const returnValue = {};
+    const excludeProps = ['address'];
+    return excludeProps.map((key, index) => {
         const { [key]: omitted, ...rest } = complexObject;
+        switch (keytype) {
+            case 'omitted': {
+                return omitted;
+            }
+            default: {
+                return rest;
+            }
+        }
     });
-    console.log(rest);
 };
 
-console.log(restProperties1());
+/** forEach */
+function restProperties2(keytype = '') {
+    const obj = {};
+    const excludeProps = ['address'];
+    return Array.from(excludeProps).forEach((key, index) => {
+        const { [key]: omitted, ...rest } = complexObject;
+        !!keytype ? console.log(omitted) : console.log(rest);
+    });
+};
+
+console.log(...restProperties1(''));
+console.log(restProperties2('omitted'));
+
+/** reducer */
+
+
+/** ES6 Reflect API - used for meta-programming 
+ * if you are able to change behaviour of any language, then it is called as Meta Programming.
+ */
+
+const user = {
+    name: 'james',
+    password: 'password123'
+};
+
+Reflect.defineProperty(user, "admin", { value: 'Administrator', enumerable: true });
+console.log(user);
+
+
+
+
+
+
+
+
