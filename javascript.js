@@ -57,7 +57,7 @@ console.log(personBluePrint.gettingInfo());
 var assingObject = {
     name: 'x',
     age: 21,
-    gender: 'Male',
+    gender: 'M',
     printName: function () {
         console.log('My name is ${this.name}');
     },
@@ -65,17 +65,53 @@ var assingObject = {
 
 var assingObjectDuplicate = {
     nickName: 'Another',
-    gender: 'Male',
+    gender: 'F',
     age: 1,
     printAge: function () { },
 };
 var p = {
-    x: 1,
+    p: 1
 };
 var x = Object.assign(assingObject, assingObjectDuplicate);
 var y = Object.assign(p, assingObject, assingObjectDuplicate);
 console.log(x);
 console.log(y);
+console.log(assingObject);
+
+const person1 = { name: 'Dom', age: 29 };
+Object.assign(person1, { name: 'jeff', age: 30 });
+/** Acutally it is updating the Original Object */
+console.log(person1);
+
+const newPerson1 = Object.assign({ p: 1 }, person1, { name: 'jeff', age: 31 });
+/** Actually here it is not updating the Original Object. */
+console.log(person1);
+console.log(newPerson1);
+
+/**
+ * Object.assign is used for shallow copy and structured Clone is used for deep Cloing.
+ */
+
+const az = { a: 'A' };
+const bz = { b: 'B' };
+const cz = { c: 'C' };
+
+const allTerms = Object.assign({ season: 'winter' }, az, { season: 'Boron' });
+console.log(az);
+console.log(allTerms);
+const allTerms1 = Object.assign(az, bz, cz);
+console.log(allTerms1);
+console.log(az);
+console.log(bz);
+console.log(cz);
+
+const cloneObject = Object.assign({}, person1);
+console.log(cloneObject);
+cloneObject.name = 'Naseer';
+cloneObject.age = 500;
+console.log(person1);
+console.log(cloneObject);
+
 
 // 4 ways to convert array to object
 let arr = ['Apple', 'Orange', 'Banana'];
@@ -1581,10 +1617,45 @@ const user = {
 Reflect.defineProperty(user, "admin", { value: 'Administrator', enumerable: true });
 console.log(user);
 
+/** Proxy in JS. */
 
+const legacyFontSizes = {
+    extraLarge: {
+        replacementName: 'too huge',
+        replacementValue: 'too huge',
+        deprecated: 'too huge has been deprecated, use large instead.'
+    },
+    extraSmall: {
+        replacementName: 'minimal',
+        replacementValue: 'minimal',
+        deprecated: 'minimal has been deprecated, use tiny instead.'
+    }
+};
 
+const fontSizes = {
+    gigantic: 'gigantic',
+    tiny: 'tiny',
+    large: 'large',
+    medium: 'medium',
+    small: 'small'
+};
 
+const proxyhandler = ({
+    get: function (target, prop, receiver) {
+        if (target?.extraLarge || target?.extraSmall) {
+            return Reflect.get(target, prop, receiver);
+        }
+        Reflect.defineProperty(target, 'smaller', { value: 'smaller', enumerable: true });
+        return Reflect.get(target, prop, receiver);
+    },
+    set: function (target, prop, value, receiver) {
+        return Reflect.set(target, prop, value);
+    }
+});
 
-
-
+const newProxy = new Proxy(legacyFontSizes, proxyhandler);
+console.log(newProxy?.extraLarge?.deprecated);
+const newProxy1 = new Proxy(fontSizes, proxyhandler);
+newProxy1.tiny = 'very very tiny';
+console.log(newProxy1);
 
