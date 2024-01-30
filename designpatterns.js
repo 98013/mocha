@@ -80,6 +80,7 @@ console.log(Object.is(c1, c2, c3));
  * it is a behavioural design pattern that allows to switch between the stratergies at run time.
  */
 const ShippingDetailsInfo = {
+    name: 'naseer',
     ShippingDetails: function (state) {
         switch (state) {
             case 'ups': {
@@ -110,11 +111,28 @@ const ShippingDetailsInfo = {
     },
 };
 
-const stratergyPattern = Object.create(ShippingDetailsInfo, {
-    name: { value: 'Naseer Mohammed', enumerable: true },
-});
+const stratergyPattern = Object.create(ShippingDetailsInfo);
 console.log(stratergyPattern);
 console.log(stratergyPattern.ShippingDetails('ups'));
 console.log(stratergyPattern.ShippingDetails('upsa'));
 console.log(stratergyPattern.ShippingDetails('fedex'));
 console.log(stratergyPattern.ShippingDetails(''));
+
+/**
+ * Stratergy Pattern with Reflect.
+ */
+const strategies = {
+    strategy1: function () {
+        return 'Result of strategy1';
+    },
+    strategy2: function () {
+        return 'Result of strategy2';
+    },
+};
+
+function executeStrategy(strategyName) {
+    return Reflect.apply(strategies[strategyName], null, []);
+}
+
+console.log(executeStrategy('strategy1')); // "Result of strategy1"
+console.log(executeStrategy('strategy2')); // "Result of strategy2"
