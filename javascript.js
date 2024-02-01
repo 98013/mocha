@@ -67,10 +67,10 @@ var assingObjectDuplicate = {
     nickName: 'Another',
     gender: 'F',
     age: 1,
-    printAge: function () { },
+    printAge: function () {},
 };
 var p = {
-    p: 1
+    p: 1,
 };
 var x = Object.assign(assingObject, assingObjectDuplicate);
 var y = Object.assign(p, assingObject, assingObjectDuplicate);
@@ -111,7 +111,6 @@ cloneObject.name = 'Naseer';
 cloneObject.age = 500;
 console.log(person1);
 console.log(cloneObject);
-
 
 // 4 ways to convert array to object
 let arr = ['Apple', 'Orange', 'Banana'];
@@ -379,8 +378,8 @@ console.log(
 const calculation = {
     x: 100,
     y: 200,
-    z: 300
-}
+    z: 300,
+};
 
 // Function Borrowing, replacing this keyword with null also give use the same output 60.
 function functionBorrowing() {
@@ -391,8 +390,9 @@ console.log(functionBorrowing.call(this, 10, 20, 30)); // functionBorrowing.call
 console.log(functionBorrowing.apply(this, [10, 20, 30])); // functionBorrowing.apply(null,[10,20,30])
 var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
 console.log(bindingFunction());
-var x = 1, y = 2, z = 3;
-
+var x = 1,
+    y = 2,
+    z = 3;
 
 //console.log(functionBorrowing.call(this, x, y, z));
 //console.log(functionBorrowing.apply());
@@ -518,16 +518,16 @@ const genClosure = (function () {
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
-    return (() => {
+    return () => {
         console.log(
             'Inner Function Exexution ' +
-            new Date().getHours() +
-            ':' +
-            new Date().getMinutes() +
-            ':' +
-            new Date().getSeconds(),
+                new Date().getHours() +
+                ':' +
+                new Date().getMinutes() +
+                ':' +
+                new Date().getSeconds(),
         );
-    });
+    };
 })();
 
 console.log(genClosure());
@@ -649,21 +649,54 @@ const mainObject = { a: 1, b: 2, c: 3 };
 const objToArray = Object.entries(mainObject);
 console.log(objToArray);
 console.log(Object.fromEntries(objToArray));
+console.log(new URLSearchParams(objToArray).toString());
 
 // URL Building QueryParams from Object.
-const o = { name: 'naseer', age: 32, currency: 'INR' };
+/**
+ * only .toString() method of the URLSearchParams can convert array or arrays to URL.
+ */
+const o = { ['?key']: 0, name: 'naseer', age: 32, currency: 'INR' };
 console.log(Object.entries(o));
-let emp = new Map(Object.entries(o));
-console.log(emp, emp.get('name'), emp.get('age'));
+console.log(Object.fromEntries(Object.entries(o)));
+const emp = new Map(Object.entries(o));
+console.log(emp);
+console.log(emp.get('name'));
+console.log(emp.get('age'));
 const params = new URLSearchParams(Object.entries(o));
+console.log(params);
 console.log(params.toString());
 
+const encodedURL = params.toString();
+const decodedURL = decodeURIComponent(encodedURL);
+console.log(decodedURL);
+
+const params1 = [
+    ['a', 'A'],
+    ['b', 'B'],
+    ['c', 'C'],
+];
+
+const emp1 = new URLSearchParams(params1);
+console.log(emp1);
+console.log(emp1.toString());
+
+const urlParams = new URLSearchParams(params1);
+urlParams.append('d', 'D');
+urlParams.set('a', 'Apple');
+console.log(urlParams);
+console.log(urlParams.toString());
+console.log(urlParams.keys());
+console.log(urlParams.values());
+console.log(urlParams.entries());
+console.log(urlParams.get('a'));
+console.log(urlParams.get('d'));
 
 const THRESHOLD = 10;
 console.log(Array(THRESHOLD));
-const users = (Array.from(Array(THRESHOLD), () => { return { name: chance.first() } }));
-console.log({ ... { ...users } });
-
+const users = Array.from(Array(THRESHOLD), () => {
+    return { name: chance.first() };
+});
+console.log({ ...{ ...users } });
 
 // for-in is used to iteriate over the keys of object or array like objects
 // for-of is used to iteriate over values like strings, arrays, Maps and sets etc.
@@ -673,13 +706,13 @@ const result = array1.map((item, index) => item);
 console.log(result);
 
 var obj1 = {
-    firstName: "Elon",
-    lastName: "Musk",
+    firstName: 'Elon',
+    lastName: 'Musk',
     age: 25,
     address: {
         id: 1,
-        country: "UK"
-    }
+        country: 'UK',
+    },
 };
 
 const keys = Object.keys(obj1).map((keys, index) => keys);
@@ -695,7 +728,7 @@ console.log(map.get('address'));
 
 for (let keys in obj1) {
     console.log(keys);
-    console.log(obj1[keys])
+    console.log(obj1[keys]);
 }
 
 for (let values in obj1) {
@@ -715,38 +748,38 @@ for (let [key, value] of map) {
 }
 
 const set = new Set();
-set.add(1, { name: 'naseer' })
-set.add(1, { name: 'naseer' })
-set.add(2, { name: 'Azhaan' })
+set.add(1, { name: 'naseer' });
+set.add(1, { name: 'naseer' });
+set.add(2, { name: 'Azhaan' });
 
 for (let key of set) {
     console.log(key);
-    console.log(set.has(key))
+    console.log(set.has(key));
 }
 
 for (let key of set) {
     console.log(`${key}`);
-    console.log(set.has(key))
+    console.log(set.has(key));
 }
 
 for (var t = 0; t < 2; t++) {
     setTimeout(() => {
         console.log(t);
-    }, 1000)
+    }, 1000);
 }
 
 for (let t = 0; t < 2; t++) {
     setTimeout(() => {
         console.log(t);
-    }, 1000)
+    }, 1000);
 }
 
 for (var t = 0; t < 2; t++) {
     (function (t) {
         setTimeout(() => {
             console.log(t);
-        }, 1000)
-    }(t))
+        }, 1000);
+    })(t);
 }
 
 // Here we call the function once or creat the Array once and use it again and again.
@@ -761,7 +794,6 @@ let fun = expensiveFunction();
 console.log(fun(5));
 console.log(fun(10));
 
-
 // Prototype Inheritance.
 let inheritBase = {
     name: 'naseer',
@@ -770,17 +802,17 @@ let inheritBase = {
     state: 'Andhra Pradesh',
     buttonClick: function () {
         return 'Button Clicked';
-    }
-}
+    },
+};
 
 let inheritChild = {
-    type: 'IT'
-}
+    type: 'IT',
+};
 
 inheritChild.__proto__ = inheritBase;
 console.log(inheritChild.gender);
 console.log(inheritChild.state);
-console.log(inheritChild.buttonClick())
+console.log(inheritChild.buttonClick());
 
 /* Difference between Object and Map */
 /*
@@ -795,14 +827,14 @@ Note: Both use to store data in the form of key-value pairs.
 
 // Objects.
 console.log(obj1.valueOf()); // Proto-typal inheritance
-console.log({ ...obj1 });  // cloned object
+console.log({ ...obj1 }); // cloned object
 for (let key in obj1) {
-    console.log(key); // for-in loop for Object 
+    console.log(key); // for-in loop for Object
 }
-const symbol = Symbol('my-symbol') // use only keys or symbols in Objects as keys.
+const symbol = Symbol('my-symbol'); // use only keys or symbols in Objects as keys.
 const objSym = {
-    symbol: 'naseer'
-}
+    symbol: 'naseer',
+};
 
 console.log(objSym.symbol);
 console.log(JSON.stringify(obj1)); // JSON serializeed
@@ -812,7 +844,8 @@ console.log(JSON.stringify(obj1)); // JSON serializeed
 const iniMap = new Map();
 iniMap.set('obj1', 'Naseer Mohammed'); // Map can hold any data-type as key.
 console.log(iniMap);
-for (let key of iniMap) { // Maps use for-of loop.
+for (let key of iniMap) {
+    // Maps use for-of loop.
     console.log(key);
 }
 
@@ -822,10 +855,10 @@ console.log(cd);
 cd.set('obj2', 'obj2');
 console.log(cd);
 
-const c1 = new Map([...iniMap]);// create a new copy using spread operator.
+const c1 = new Map([...iniMap]); // create a new copy using spread operator.
 console.log(c1);
 const c2 = new Map(Array.from(iniMap)); // create a new copy using Array.from() Method.
-console.log(c2)
+console.log(c2);
 
 // Creating a new Map
 let originalMap = new Map();
@@ -838,11 +871,11 @@ let clonedMap = new Map(originalMap);
 // Displaying the cloned Map
 console.log(clonedMap); // same as Original copy.
 
-clonedMap.set('patch', 'patch')
+clonedMap.set('patch', 'patch');
 console.log(originalMap);
 console.log(clonedMap);
 
-const O1 = new Map([...originalMap]) // Creating a new Copy using spread Operator.
+const O1 = new Map([...originalMap]); // Creating a new Copy using spread Operator.
 console.log(O1);
 const O2 = new Map(Array.from(originalMap)); // Creating a new copy using Array.from method
 console.log(O2);
@@ -867,7 +900,9 @@ const lap = new Map(Object.entries(objLap));
 console.log(lap);
 console.log(Object.fromEntries(lap));
 console.log(Object.fromEntries(Object.entries(objLap)));
-console.log(JSON.stringify(Object.fromEntries(Object.entries(objLap)), null, 1));
+console.log(
+    JSON.stringify(Object.fromEntries(Object.entries(objLap)), null, 1),
+);
 
 // New Array Method, does not mutate the original peoples Array
 // With add New in the people Array by creating a new Copy of the people Array.
@@ -878,11 +913,11 @@ const copyAlphabets_4 = ['q', 'w', 'e', 'r', 't', 'y'];
 let copyNumbers1 = copyNumbers_1.copyWithin(0, 1);
 let copyNumbers2 = copyNumbers_2.copyWithin(0, 1, 1);
 let copyNumbers3 = copyNumbers_3.copyWithin(0, 1, 5);
-let copyAlphabet4 = copyAlphabets_4.copyWithin(0, 3, 4)
+let copyAlphabet4 = copyAlphabets_4.copyWithin(0, 3, 4);
 console.log(copyNumbers1);
 console.log(copyNumbers2);
 console.log(copyNumbers3);
-console.log(copyAlphabet4)
+console.log(copyAlphabet4);
 
 const people = ['Sally', 'Kyle', 'Jhon', 'Henry'];
 //const withPeople = people.with(2, 'New');
@@ -893,37 +928,47 @@ const people = ['Sally', 'Kyle', 'Jhon', 'Henry'];
 // Object Creation Types.
 let myObject = new Object(); // Object Constructor.
 myObject.name = 'Vintage';
-myObject
+myObject;
 let myObject1 = Object.create(null); // Object.Create Method.
-myObject1.proto
+myObject1.proto;
 myObject1.name = 'Naseer Mohammed';
-myObject1
+myObject1;
 
-const myObject2 = new function () { } // Function Constructor.
+const myObject2 = new (function () {})(); // Function Constructor.
 myObject2.name = 'Arina';
-myObject2
+myObject2;
 
-const myObject3 = {   // Object literal syntax.
+const myObject3 = {
+    // Object literal syntax.
     name: 'Aakash',
-    state: 'Andhra Pradesh'
-}
-myObject3
+    state: 'Andhra Pradesh',
+};
+myObject3;
 
 // class myObject4 {  // ES6 class Syntax.
 //     name: string;
 //     age: number
 // }
 
-const arrayAlphabets = ['A', 'A', 'C', 'D', 'E', 'A', 'F']
-const indexMapping = arrayAlphabets.map(item => arrayAlphabets.indexOf(item))
+const arrayAlphabets = ['A', 'A', 'C', 'D', 'E', 'A', 'F'];
+const indexMapping = arrayAlphabets.map((item) => arrayAlphabets.indexOf(item));
 console.log(indexMapping);
-const abc = arrayAlphabets.filter((item, index) => arrayAlphabets.indexOf(item) === index);
+const abc = arrayAlphabets.filter(
+    (item, index) => arrayAlphabets.indexOf(item) === index,
+);
 console.log(abc);
-const lastindexMapping = arrayAlphabets.map(item => arrayAlphabets.lastIndexOf(item));
+const lastindexMapping = arrayAlphabets.map((item) =>
+    arrayAlphabets.lastIndexOf(item),
+);
 console.log(lastindexMapping);
-const xyz = arrayAlphabets.filter((item, index) => arrayAlphabets.lastIndexOf(item) === index);
+const xyz = arrayAlphabets.filter(
+    (item, index) => arrayAlphabets.lastIndexOf(item) === index,
+);
 console.log(xyz);
-const winzo = arrayAlphabets.filter((item, index) => arrayAlphabets.lastIndexOf(item) === arrayAlphabets.indexOf(item));
+const winzo = arrayAlphabets.filter(
+    (item, index) =>
+        arrayAlphabets.lastIndexOf(item) === arrayAlphabets.indexOf(item),
+);
 console.log(winzo);
 
 // globalThis which is common in both window Object and Node.
@@ -937,7 +982,7 @@ function thisFunction() {
 
 const thisFunction1 = () => {
     console.log(this);
-}
+};
 
 thisFunction();
 thisFunction1();
@@ -946,19 +991,19 @@ thisFunction1();
 // 1. Object Constructor.
 const objCons = new Object();
 objCons.name = 'Naseer';
-objCons.age = 33
-objCons
-delete objCons.age
-objCons
+objCons.age = 33;
+objCons;
+delete objCons.age;
+objCons;
 
 // 2. Function Constructor.
-const ObjFunnCons = new function () { }
-ObjFunnCons.name = 'Naseer'
-ObjFunnCons.age = 33
+const ObjFunnCons = new (function () {})();
+ObjFunnCons.name = 'Naseer';
+ObjFunnCons.age = 33;
 ObjFunnCons;
 //delete ObjFunnCons.age;
 //ObjFunnCons;
-ObjFunnCons.gender = 'Male'
+ObjFunnCons.gender = 'Male';
 //console.log(ObjFunnCons);
 const ObjFunnCons1 = Object.create(ObjFunnCons);
 // Original Object.
@@ -981,14 +1026,14 @@ function CreateStudents(name, marks) {
 }
 
 const stud1 = new CreateStudents('Naseer', 99);
-stud1
+stud1;
 console.log(stud1.__proto__);
 
 // 3. Object literal
 let ObjLiteral = {
     name: 'Naseer',
-    age: 33
-}
+    age: 33,
+};
 ObjLiteral;
 console.log(Object.getPrototypeOf(ObjLiteral));
 console.log(ObjLiteral.__proto__);
@@ -1007,8 +1052,8 @@ console.log(ObjLiteral);
 console.log(Object.getPrototypeOf(ObjLiteralProxy));
 console.log(ObjLiteralProxy.__proto__);
 
-const firstNameProxy = { 'firstName': 'Naseer' };
-const lastNameProxy = { 'lastName': 'Mohammed' }
+const firstNameProxy = { firstName: 'Naseer' };
+const lastNameProxy = { lastName: 'Mohammed' };
 
 const namedProxy = Object.setPrototypeOf(firstNameProxy, lastNameProxy);
 console.log(namedProxy);
@@ -1017,7 +1062,7 @@ console.log(namedProxy.__proto__);
 console.log(namedProxy.firstName);
 
 const Animal = {
-    name: 'Lion'
+    name: 'Lion',
 };
 const Bird = {};
 Object.setPrototypeOf(Bird, Animal);
@@ -1028,19 +1073,17 @@ console.log(Bird.name);
 // 4. Class
 // in classes also we can delete the property
 
-class Beast {
-
-}
+class Beast {}
 
 /**
 // 5. Object.create(); in Prototype object properties do not get deleted., it simply create the linkage between the objects. Object.create(proto type object, new Object wanted to create)
  */
 
-const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' }
+const objCreation = { name: 'Object Creation', age: 33, gender: 'Male' };
 const ObjectCreated = Object.create(objCreation, { inr: { value: 'Rupee' } });
 console.log(objCreation);
 console.log(ObjectCreated);
-console.log(ObjectCreated.__proto__)
+console.log(ObjectCreated.__proto__);
 console.log(ObjectCreated.name);
 console.log(ObjectCreated.age);
 console.log(ObjectCreated.gender);
@@ -1052,8 +1095,18 @@ console.log(ObjectCreated.__proto__);
 console.log(ObjectCreated.gender);
 console.log(ObjectCreated.inr);
 
-const headObj = { gender: 'Male', headFunction: function () { return 'Head Function Executed.' } };
-const headProxy = Object.create({ headObj, childFunction: function () { return 'Child Function Executed.' } });
+const headObj = {
+    gender: 'Male',
+    headFunction: function () {
+        return 'Head Function Executed.';
+    },
+};
+const headProxy = Object.create({
+    headObj,
+    childFunction: function () {
+        return 'Child Function Executed.';
+    },
+});
 console.log(headObj);
 console.log(Object.getPrototypeOf(headObj));
 console.log(headObj.__proto__);
@@ -1079,12 +1132,17 @@ console.log(Object.getPrototypeOf(headProxy) === headObj);
 
 const innerProto = {
     x: 'innerProto x',
-    y: 'innerProto y'
+    y: 'innerProto y',
 };
 
 /** innerProto Object will be Proto here. */
 const InnerProtoParent = Object.create(innerProto, {
-    z: { value: 'innerProto z', writable: true, enumerable: true, configurable: true }
+    z: {
+        value: 'innerProto z',
+        writable: true,
+        enumerable: true,
+        configurable: true,
+    },
 });
 console.log(InnerProtoParent);
 console.log(InnerProtoParent.z);
@@ -1100,12 +1158,12 @@ function getStudentDetails(name, marks) {
 
 const utility = {
     increment: function () {
-        this.marks++
+        this.marks++;
     },
     decrement: function () {
         this.marks--;
-    }
-}
+    },
+};
 
 // student 1
 let student1 = getStudentDetails('Naseer Mohammed', 99);
@@ -1145,21 +1203,21 @@ const myArrowFunction = {
     lang: 'en',
     test: function () {
         console.log(this);
-    }
-}
+    },
+};
 
 myArrowFunction.test();
 
 function testing() {
-    console.log(this)
-    console.log(this.__proto__)
+    console.log(this);
+    console.log(this.__proto__);
 }
 
 new testing();
 
 function thisFunc() {
-    var isValid = true
-    var one = 100
+    var isValid = true;
+    var one = 100;
     if (1) {
         console.log(isValid);
         console.log(one);
@@ -1171,15 +1229,15 @@ function thisFunc() {
 
 thisFunc();
 
-const exeucutionContext = { name: 'Naseer Mohammed', age: 33, Gender: 'Male' }
+const exeucutionContext = { name: 'Naseer Mohammed', age: 33, Gender: 'Male' };
 
 function thisFunc1() {
-    console.log(this)
+    console.log(this);
 }
 
 const thisFunc2 = () => {
     console.log(this);
-}
+};
 
 function thisFunc3() {
     function test() {
@@ -1191,9 +1249,9 @@ function thisFunc3() {
 const thisFunc4 = () => {
     const test = () => {
         console.log(this);
-    }
+    };
     test.call(exeucutionContext);
-}
+};
 
 thisFunc1();
 thisFunc2();
@@ -1206,21 +1264,25 @@ thisFunc4();
 
 // IIFE - Immedietly Invoked Function Expression.
 var vi = (function (i, j, k) {
-    return `${i} - ${j} - ${k}`
-}('Hello... vi.', new Date().getHours(), new Date().getMinutes()));
+    return `${i} - ${j} - ${k}`;
+})('Hello... vi.', new Date().getHours(), new Date().getMinutes());
 console.log(vi);
 
-var vj = (((i, j, k) => `${i} - ${j} - ${k})}`)('Hello... vj.', new Date().getHours(), new Date().getMinutes()));
+var vj = ((i, j, k) => `${i} - ${j} - ${k})}`)(
+    'Hello... vj.',
+    new Date().getHours(),
+    new Date().getMinutes(),
+);
 console.log(vj);
 
-var vg = +function (i) {
+var vg = +(function (i) {
     return i;
-}('IIFE-1')
+})('IIFE-1');
 console.log(vg);
 
-var vt = !function (i) {
+var vt = !(function (i) {
     return i;
-}('IIFE-2');
+})('IIFE-2');
 console.log(vt);
 
 function test() {
@@ -1229,41 +1291,57 @@ function test() {
 console.log(test());
 
 // Here Unary operators turns out the function into function expression.
-!function test() {
+!(function test() {
     console.log('Please execute the code.');
-}();
+})();
 
-var ig = !function selfExecuting1(i, j) {
+var ig = !(function selfExecuting1(i, j) {
     return 'please execute the code... ' + i + ' ' + j;
-}(new Date().getHours(), new Date().getMinutes());
+})(new Date().getHours(), new Date().getMinutes());
 console.log(ig);
 
-var pg = +function selfExecuting2(i, j) {
+var pg = +(function selfExecuting2(i, j) {
     return 'please execute the code... ' + i + ' ' + j;
-}(new Date().getHours(), new Date().getMinutes());
+})(new Date().getHours(), new Date().getMinutes());
 console.log(pg);
 
-!function selfExecuting1(i, j) {
+!(function selfExecuting1(i, j) {
     console.log('please execute the code... ' + i + ' ' + j);
-}(new Date().getHours(), new Date().getMinutes());
+})(new Date().getHours(), new Date().getMinutes());
 
-+function selfExecuting2(i, j) {
++(function selfExecuting2(i, j) {
     console.log('please execute the code... ' + i + ' ' + j);
-}(new Date().getHours(), new Date().getMinutes());
+})(new Date().getHours(), new Date().getMinutes());
 
-var kt = +((i, j) => 'please execute the code... ' + i + ' ' + j)(new Date().getHours(), new Date().getMinutes());
+var kt = +((i, j) => 'please execute the code... ' + i + ' ' + j)(
+    new Date().getHours(),
+    new Date().getMinutes(),
+);
 console.log(kt);
 
-var vt = !((i, j) => 'please execute the code... ' + i + ' ' + j)(new Date().getHours(), new Date().getMinutes());
+var vt = !((i, j) => 'please execute the code... ' + i + ' ' + j)(
+    new Date().getHours(),
+    new Date().getMinutes(),
+);
 console.log(vt);
 
-+function (i, j) { console.log('please execute the code... ' + i + ' ' + j) }(new Date().getHours(), new Date().getMinutes());
++(function (i, j) {
+    console.log('please execute the code... ' + i + ' ' + j);
+})(new Date().getHours(), new Date().getMinutes());
 
-!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(new Date().getHours(), new Date().getMinutes());
+!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(
+    new Date().getHours(),
+    new Date().getMinutes(),
+);
 
-!function (i, j) { console.log('please execute the code... ' + i + ' ' + j) }(new Date().getHours(), new Date().getMinutes());
+!(function (i, j) {
+    console.log('please execute the code... ' + i + ' ' + j);
+})(new Date().getHours(), new Date().getMinutes());
 
-!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(new Date().getHours(), new Date().getMinutes());
+!((i, j) => console.log('please execute the code... ' + i + ' ' + j))(
+    new Date().getHours(),
+    new Date().getMinutes(),
+);
 
 /* 
 Hoisting:
@@ -1284,14 +1362,14 @@ Normal Function  - Explicit return, Hoisting, this keyword depends upon left sid
 Arrow Function - Explicit and Implicit return type's can be defined, this keyword follows Lexical scope, No Hoisting, new Keyword cannot be used for instansiation.
 */
 
-// Closure 
+// Closure
 function manager() {
     let count = 0;
     function increment() {
         let message = `score is ${++count}`;
         return function print() {
             return message;
-        }
+        };
     }
     return increment;
 }
@@ -1310,7 +1388,7 @@ function manager1() {
         let message = `score is ${++count}`;
         return function print1() {
             return message;
-        }
+        };
     }
     return increment1;
 }
@@ -1326,7 +1404,7 @@ console.log(incrementFn1());
 console.log(incrementFn1());
 console.log(printFn1());
 
-// Stale Closure 
+// Stale Closure
 function outer() {
     let outerVar = 'I am from outer function';
     function inner() {
@@ -1352,10 +1430,10 @@ const incrementer = () => {
     let number = 0;
     return () => {
         ++number;
-        let message = `Incremented to ${number}`
+        let message = `Incremented to ${number}`;
         return `${message}, Number: ${number}`;
-    }
-}
+    };
+};
 
 const inc = incrementer();
 inc();
@@ -1370,12 +1448,12 @@ function currying can be used for partial execution.
     function which return's a function is called function currying.
 */
 
-// Promise execution 
+// Promise execution
 // example using Constructor Function.
 
 const nm = function normalFunctionExecution() {
     return 'normalFunctionExecution called';
-}
+};
 
 function NormalPromise(callback) {
     // this keyword return constructor function.
@@ -1393,16 +1471,19 @@ function Normalpromise1(resolved, rejected) {
     return this.rej;
 }
 
-let PromiseLocal = new Normalpromise1(function resolved() {
-    return 'Normal promise1 resolved;';
-}, function rejected() {
-    return 'Normal promise1 rejected;';
-});
+let PromiseLocal = new Normalpromise1(
+    function resolved() {
+        return 'Normal promise1 resolved;';
+    },
+    function rejected() {
+        return 'Normal promise1 rejected;';
+    },
+);
 
 console.log(PromiseLocal());
 
 const objCr = {};
-objCr[objCr['A'] = 'B'] = 'C';
+objCr[(objCr['A'] = 'B')] = 'C';
 objCr;
 
 /**
@@ -1414,16 +1495,23 @@ const enumerableParent = {
     name: 'Naseer Mohammed',
     gender: 'Male',
     age: 33,
-    state: 'Andhra Pradesh'
+    state: 'Andhra Pradesh',
 };
 
 console.log(Object.getOwnPropertyDescriptors(enumerableParent));
-const enumerableParentProperties1 = Object.defineProperty(enumerableParent, 'gender', { enumerable: false });
+const enumerableParentProperties1 = Object.defineProperty(
+    enumerableParent,
+    'gender',
+    { enumerable: false },
+);
 console.log(Object.keys(enumerableParentProperties1));
 console.log(Object.values(enumerableParentProperties1));
 console.log(Object.entries(enumerableParentProperties1));
 console.log(Object.fromEntries(Object.entries(enumerableParentProperties1)));
-const enumerableParentProperties2 = Object.defineProperties(enumerableParent, { age: { enumerable: false }, state: { enumerable: false } });
+const enumerableParentProperties2 = Object.defineProperties(enumerableParent, {
+    age: { enumerable: false },
+    state: { enumerable: false },
+});
 console.log(Object.keys(enumerableParentProperties2));
 console.log(Object.values(enumerableParentProperties2));
 console.log(Object.entries(enumerableParentProperties2));
@@ -1452,42 +1540,88 @@ The JSON.stringify() method in JavaScript can take a replacer function or an arr
 */
 
 let ObjectStringifyWithReplacer = {
-    applicationname: "Coder Crab",
+    applicationname: 'Coder Crab',
     technology: {
-        frontend: "Angular/React",
+        frontend: 'Angular/React',
         backend: {
-            nodejs: { framework: "Express" },
-            java: { framework: "Spring" }
+            nodejs: { framework: 'Express' },
+            java: { framework: 'Spring' },
         },
-        database: "Orcale",
-        server: "AWS"
-    }
-}
+        database: 'Orcale',
+        server: 'AWS',
+    },
+};
 
 console.log(JSON.stringify(ObjectStringifyWithReplacer, null, 1));
 console.log(JSON.stringify(ObjectStringifyWithReplacer, ['applicationname']));
-console.log(JSON.stringify(ObjectStringifyWithReplacer, ['database', 'server'], 1));
-console.log(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'database', 'server'], 1));
-console.log(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'frontend', 'backend', 'java', 'framework'], 1));
-console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer, ['technology', 'frontend', 'backend', 'java', 'framework'], 1)));
+console.log(
+    JSON.stringify(ObjectStringifyWithReplacer, ['database', 'server'], 1),
+);
+console.log(
+    JSON.stringify(
+        ObjectStringifyWithReplacer,
+        ['technology', 'database', 'server'],
+        1,
+    ),
+);
+console.log(
+    JSON.stringify(
+        ObjectStringifyWithReplacer,
+        ['technology', 'frontend', 'backend', 'java', 'framework'],
+        1,
+    ),
+);
+console.log(
+    JSON.parse(
+        JSON.stringify(
+            ObjectStringifyWithReplacer,
+            ['technology', 'frontend', 'backend', 'java', 'framework'],
+            1,
+        ),
+    ),
+);
 
 let ObjectStringifyWithReplacer1 = {
-    a: "2",
+    a: '2',
     b: 1,
-    c: "Nexus",
-    d: "Alligator",
+    c: 'Nexus',
+    d: 'Alligator',
     e: 5,
     f: 1431807036,
     g: {
         2: {
             w: 17,
-            b: 5
-        }
-    }
-}
+            b: 5,
+        },
+    },
+};
 
-console.log(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w']));
-console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, ['a', 'b', 'c', 'd', 'e', 'g', '2', 'w'])));
+console.log(
+    JSON.stringify(ObjectStringifyWithReplacer1, [
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'g',
+        '2',
+        'w',
+    ]),
+);
+console.log(
+    JSON.parse(
+        JSON.stringify(ObjectStringifyWithReplacer1, [
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'g',
+            '2',
+            'w',
+        ]),
+    ),
+);
 
 console.log(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation, 1));
 
@@ -1502,21 +1636,33 @@ function valuesUpdation(key, values) {
     }
 }
 
-console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation1, 1)));
+console.log(
+    JSON.parse(
+        JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation1, 1),
+    ),
+);
 function valuesUpdation1(key, values) {
-    var blocklist = ['b', 'g']
+    var blocklist = ['b', 'g'];
     return blocklist.indexOf(key) === -1 ? values : undefined;
 }
 
-console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation2, 1)));
+console.log(
+    JSON.parse(
+        JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation2, 1),
+    ),
+);
 function valuesUpdation2(key, values) {
-    var blocklist = ['c', 'd']
+    var blocklist = ['c', 'd'];
     return blocklist.includes(key) === false ? values : undefined;
 }
 
-console.log(JSON.parse(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation3, 1)));
+console.log(
+    JSON.parse(
+        JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation3, 1),
+    ),
+);
 function valuesUpdation3(key, values) {
-    var blocklist = ['c', 'd']
+    var blocklist = ['c', 'd'];
     return !!blocklist.includes(key) === false ? values : undefined;
 }
 
@@ -1533,27 +1679,27 @@ function valuesUpdation3(key, values) {
 console.log(1 == 1);
 console.log(undefined == null);
 console.log(null == undefined);
-console.log([] == "");
-console.log({} == "");
-console.log(function () { } == "");
-// convert array to string then Number('') returns zero. 
+console.log([] == '');
+console.log({} == '');
+console.log(function () {} == '');
+// convert array to string then Number('') returns zero.
 console.log([] == 1);
 console.log([] == 0);
 // convert boolean to number.
-console.log(true == 1)
-console.log(false == 0)
+console.log(true == 1);
+console.log(false == 0);
 
 /** how to dynamcially exclude properties from an Object */
 const complexObject = {
-    name: "John Doe",
+    name: 'John Doe',
     age: 30,
     address: {
-        street: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "94105",
+        street: '123 Main Street',
+        city: 'San Francisco',
+        state: 'CA',
+        zip: '94105',
     },
-    hobbies: ["playing guitar", "reading", "hiking"],
+    hobbies: ['playing guitar', 'reading', 'hiking'],
 };
 
 const { hobbies, ...rest } = complexObject;
@@ -1564,13 +1710,12 @@ function restProperties() {
     const excludeProps = ['address', 'hobbies'];
     for (let key of excludeProps) {
         const { [key]: omitted, ...rest } = complexObject;
-        return [omitted, rest]
+        return [omitted, rest];
     }
 }
 
 console.log(restProperties()[0]);
 console.log(restProperties()[1]);
-
 
 /** map */
 function restProperties1(keytype = '') {
@@ -1587,7 +1732,7 @@ function restProperties1(keytype = '') {
             }
         }
     });
-};
+}
 
 /** forEach */
 function restProperties2(keytype = '') {
@@ -1597,24 +1742,26 @@ function restProperties2(keytype = '') {
         const { [key]: omitted, ...rest } = complexObject;
         !!keytype ? console.log(omitted) : console.log(rest);
     });
-};
+}
 
 console.log(...restProperties1(''));
 console.log(restProperties2('omitted'));
 
 /** reducer */
 
-
-/** ES6 Reflect API - used for meta-programming 
+/** ES6 Reflect API - used for meta-programming
  * if you are able to change behaviour of any language, then it is called as Meta Programming.
  */
 
 const user = {
     name: 'james',
-    password: 'password123'
+    password: 'password123',
 };
 
-Reflect.defineProperty(user, "admin", { value: 'Administrator', enumerable: true });
+Reflect.defineProperty(user, 'admin', {
+    value: 'Administrator',
+    enumerable: true,
+});
 console.log(user);
 
 /** Proxy in JS. */
@@ -1623,13 +1770,13 @@ const legacyFontSizes = {
     extraLarge: {
         replacementName: 'too huge',
         replacementValue: 'too huge',
-        deprecated: 'too huge has been deprecated, use large instead.'
+        deprecated: 'too huge has been deprecated, use large instead.',
     },
     extraSmall: {
         replacementName: 'minimal',
         replacementValue: 'minimal',
-        deprecated: 'minimal has been deprecated, use tiny instead.'
-    }
+        deprecated: 'minimal has been deprecated, use tiny instead.',
+    },
 };
 
 const fontSizes = {
@@ -1637,25 +1784,27 @@ const fontSizes = {
     tiny: 'tiny',
     large: 'large',
     medium: 'medium',
-    small: 'small'
+    small: 'small',
 };
 
-const proxyhandler = ({
+const proxyhandler = {
     get: function (target, prop, receiver) {
         if (target?.extraLarge || target?.extraSmall) {
             return Reflect.get(target, prop, receiver);
         }
-        Reflect.defineProperty(target, 'smaller', { value: 'smaller', enumerable: true });
+        Reflect.defineProperty(target, 'smaller', {
+            value: 'smaller',
+            enumerable: true,
+        });
         return Reflect.get(target, prop, receiver);
     },
     set: function (target, prop, value, receiver) {
         return Reflect.set(target, prop, value);
-    }
-});
+    },
+};
 
 const newProxy = new Proxy(legacyFontSizes, proxyhandler);
 console.log(newProxy?.extraLarge?.deprecated);
 const newProxy1 = new Proxy(fontSizes, proxyhandler);
 newProxy1.tiny = 'very very tiny';
 console.log(newProxy1);
-
