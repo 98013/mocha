@@ -211,7 +211,8 @@ console.log(subject.firedrill());
 /**
  * Proxy Pattern Structural Design Pattern.
  *  It provides a surrogate or placeholder for another object, allowing you to control access to it.
- *  This pattern is particularly useful in situations where you need to add an extra layer of control, lazy loading, or remote access to Objects
+ *  This pattern is particularly useful in situations where you need to add an extra layer of control,
+ *  lazy loading, or remote access to Objects
  */
 
 function CryptoCurrencyAPI() {
@@ -255,3 +256,50 @@ console.log(objectDailer.pushKeys('Bitcoin'));
 console.log(objectDailer.pushKeys('Bitcoin'));
 console.log(objectDailer.pushKeys('Bitcoin'));
 console.log(objectDailer.pushKeys('Litecoin'));
+
+/**
+ *  Mediator Pattern - Behavioural Design Pattern
+ *  It’s particularly useful when you have a complex system with multiple objects that need to interact
+ *  and you want to avoid the tight coupling that can arise from direct object-to-object communication.
+ */
+
+function AirTraffiController(planeName) {
+    this.planename = planeName;
+    this.ChatRoomInterface = null;
+}
+
+AirTraffiController.prototype = {
+    takeOffSignal: function () {
+        this.ChatRoomInterface = ChatRoomInterface;
+        this.ChatRoomInterface.takeOffSignals(this);
+    },
+    landingSignal: function () {
+        this.ChatRoomInterface = ChatRoomInterface;
+        this.ChatRoomInterface.landingSignals(this);
+    },
+};
+
+const ChatRoomInterface = {
+    takeOffSignals: function (to) {
+        console.log(`TakeOff Signal to, ${to.planename}.`);
+    },
+    landingSignals: function (to) {
+        console.log(`Landing Signal to, ${to.planename}.`);
+    },
+};
+
+function Plane(name) {
+    this.name = name;
+}
+
+const plane1 = new Plane('Plane 1');
+const plane2 = new Plane('Plane 2');
+const plane3 = new Plane('Plane 3');
+const airTraffiController1 = new AirTraffiController(plane2.name);
+airTraffiController1.landingSignal();
+
+const airTraffiController2 = new AirTraffiController(plane3.name);
+airTraffiController2.takeOffSignal();
+
+const airTraffiController3 = new AirTraffiController(plane1.name);
+airTraffiController3.landingSignal();
