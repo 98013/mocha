@@ -794,6 +794,30 @@ let fun = expensiveFunction();
 console.log(fun(5));
 console.log(fun(10));
 
+/**
+* The prototype property is involved when new objects are created, and __proto__ is used when properties and methods
+* are looked up in the prototype chain.
+*/
+
+/**
+* Question: Can i say prototype is used for set and __proto__ is used to get right?
+* Answer: Yes, in a way, you can say that.
+
+* In JavaScript, the prototype property is used to “set” the prototype of objects created with a constructor 
+* function. When you create a new object using a constructor function (e.g., new MyConstructor()), the prototype of
+* the constructor function is used to set the __proto__ of the new object.
+
+* On the other hand, __proto__ is used to “get” the prototype of an object. When you try to access a property or 
+* method on an object, and if that property or method does not exist on the object itself, JavaScript uses the 
+* __proto__ property to look up the prototype chain until it finds the property/method or reaches null (which means 
+* the property/method does not exist).
+
+* So, in the context of setting up and accessing the prototype chain for inheritance in JavaScript, you could say 
+* prototype is used for setting and __proto__ is used for getting. However, remember that these are simplifications 
+* and the actual JavaScript prototype system has more nuances. For example, __proto__ is not standard and its usage 
+* is discouraged in favor of Object.getPrototypeOf(). Also, the prototype property is only meaningful for constructor * functions. Regular objects do not have a prototype property; they only have __proto__.
+*/
+
 // Prototype Inheritance.
 let inheritBase = {
     name: 'naseer',
@@ -810,9 +834,12 @@ let inheritChild = {
 };
 
 inheritChild.__proto__ = inheritBase;
+console.log(inheritChild);
 console.log(inheritChild.gender);
 console.log(inheritChild.state);
 console.log(inheritChild.buttonClick());
+console.log(inheritChild.__proto__);
+console.log(Object.getPrototypeOf(inheritChild));
 
 /* Difference between Object and Map */
 /*

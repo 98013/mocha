@@ -2,6 +2,7 @@
  * Chain Of Responsibility Method Design Pattern
  * Command Method Design Pattern
  * Interpreter Method Design Patterns
+ * Iterator Method Design Pattern -
  * Mediator Method Design Pattern -
  * Memento Method Design Patterns
  * Observer Method Design Pattern -
@@ -9,7 +10,6 @@
  * Strategy Method Design Pattern -
  * Template Method Design Pattern
  * Visitor Method Design Pattern -
- * Iterator Method Design Pattern -
  */
 
 /**

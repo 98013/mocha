@@ -24,7 +24,7 @@ console.log(new Array(10));
 console.log(Array.from(new Array(10)));
 console.log(new Array(10).fill(0));
 console.log(Array.from(new Array(10).fill(1)));
-console.log(new Array(10).fill(0).map((item, index) => index));
+console.log(new Array(10).fill(0).map((item, index) => index + 1));
 console.log(Array.from(new Array(10)).map((item, index) => index));
 
 const factory = () => {
@@ -167,3 +167,11 @@ const c1 = singletonPattern;
 const c2 = singletonPattern;
 const c3 = singletonPattern;
 console.log(Object.is(c1, c2, c3));
+
+/**
+ * Prototype Design Pattern - Creational Design Pattern.
+ * git clone is the best example of prototype design pattern, where you are cloning the existing Object rather than
+ * creating a new Object from the scratch.
+ */
+
+
