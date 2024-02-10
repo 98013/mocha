@@ -795,9 +795,9 @@ console.log(fun(5));
 console.log(fun(10));
 
 /**
-* The prototype property is involved when new objects are created, and __proto__ is used when properties and methods
-* are looked up in the prototype chain.
-*/
+ * The prototype property is involved when new objects are created, and __proto__ is used when properties and methods
+ * are looked up in the prototype chain.
+ */
 
 /**
 * Question: Can i say prototype is used for set and __proto__ is used to get right?
@@ -816,6 +816,11 @@ console.log(fun(10));
 * prototype is used for setting and __proto__ is used for getting. However, remember that these are simplifications 
 * and the actual JavaScript prototype system has more nuances. For example, __proto__ is not standard and its usage 
 * is discouraged in favor of Object.getPrototypeOf(). Also, the prototype property is only meaningful for constructor * functions. Regular objects do not have a prototype property; they only have __proto__.
+
+* So, object.__proto__.name and object.name can be the same if the name property is not found on the object itself but 
+* on its prototype. However, they refer to different things: one is a property of the object, and the other is a 
+* property of the object’s prototype2
+
 */
 
 // Prototype Inheritance.
@@ -839,7 +844,8 @@ console.log(inheritChild.gender);
 console.log(inheritChild.state);
 console.log(inheritChild.buttonClick());
 console.log(inheritChild.__proto__);
-console.log(Object.getPrototypeOf(inheritChild));
+console.log(inheritChild.__proto__.name);
+console.log(Object.getPrototypeOf(inheritChild).name);
 
 /* Difference between Object and Map */
 /*

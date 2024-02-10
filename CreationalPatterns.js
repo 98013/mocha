@@ -2,8 +2,8 @@
  * Factory Method Design Patterns -
  * Abstract Factory Method Design Patterns -
  * Singleton Method Design Pattern -
- * Prototype Method Design Patterns
- * Builder Method Design Patterns
+ * Prototype Method Design Patterns -
+ * Builder Method Design Patterns -
  */
 
 /**
@@ -67,6 +67,7 @@ class FaceBook extends Icomment {
     constructor(comment) {
         super(comment);
     }
+    // this method differs from other classes.
     format() {
         return this.comment + ' ' + new Date().getUTCMilliseconds().toString();
     }
@@ -172,6 +173,130 @@ console.log(Object.is(c1, c2, c3));
  * Prototype Design Pattern - Creational Design Pattern.
  * git clone is the best example of prototype design pattern, where you are cloning the existing Object rather than
  * creating a new Object from the scratch.
+ * Steps:
+ * Clone
+ * prototype(set of rules / clone)
+ * clone(Car).
  */
 
+// constructor function.
+function Car(wheels, engines) {
+    this.wheels = wheels;
+    this.engines = engines;
 
+    this.start = function () {
+        console.log('Car has Started.');
+    };
+
+    this.break = function () {
+        console.log('Car has stopped.');
+    };
+}
+
+function CarPrototype(proto) {
+    this.proto = proto;
+    this.clone = function () {
+        const car = new Car(this.proto.wheels, this.proto.engines);
+        return car;
+    };
+}
+
+// Client.
+function run() {
+    const proto = new Car(4, 4);
+    let car = new CarPrototype(proto);
+    car1 = car.clone();
+    car2 = car.clone();
+    car3 = car.clone();
+    console.log(car1);
+    console.log(car2);
+    console.log(car3);
+    console.log(Object.is(car1, car2, car3));
+}
+
+run();
+
+// was just checking how to create a new Object
+const inheritBase = {
+    name: 'naseer',
+    age: 33,
+    gender: 'Male',
+    state: 'Andhra Pradesh',
+    buttonClick: function () {
+        return 'Button Clicked';
+    },
+};
+
+const objNewObjectCreation = Object.assign({}, inheritBase);
+console.log(objNewObjectCreation);
+console.log(Object.is(inheritBase, objNewObjectCreation));
+
+const objNewObject = Object.create(
+    {},
+    {
+        inheritBase: {
+            value: inheritBase,
+            writable: true,
+            enumerable: true,
+        },
+    },
+);
+
+console.log(objNewObject.inheritBase);
+console.log(objNewObject.__proto__);
+
+const newObject = { ...inheritBase };
+console.log(Object.is(inheritBase, newObject));
+
+const obj1 = Object.create(inheritBase);
+const obj2 = Object.create(inheritBase);
+const obj3 = Object.create(inheritBase);
+console.log(obj1);
+console.log(obj2);
+console.log(obj3);
+console.log(Object.is(obj1, obj2));
+
+/**
+ * Builder Method Design Patterns - Creational Design Pattern.
+ * Used to create complex Objects.
+ */
+
+function Builder(name, height, weight, gender) {
+    this.name = name;
+    this.height = height;
+    this.weight = weight;
+    this.gender = gender;
+}
+
+/**
+ * Here arguments 5.5 and 65 are understood but in future it will be diffcult to understand why we are using them if
+ * we have imported in some other places. To resolve that we have been using Buidler Design Pattern.
+ */
+
+let builderObj = new Builder('N', 5.5, 65, 'Male');
+console.log(builderObj);
+
+function BuilderProto(name, gender) {
+    this.name = name;
+    this.gender = gender;
+
+    this.setHeight = function (height) {
+        this.height = height;
+        return this;
+    };
+
+    this.setWeight = function (weight) {
+        this.weight = weight;
+        return this;
+    };
+
+    this.build = function () {
+        return new Builder(this.name, this.height, this.weight, this.gender);
+    };
+}
+
+const obj = new BuilderProto('Naseer', 'Male')
+    .setHeight(5.5)
+    .setWeight(65)
+    .build();
+console.log(obj);
