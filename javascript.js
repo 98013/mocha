@@ -1726,6 +1726,7 @@ console.log(false == 0);
 const complexObject = {
     name: 'John Doe',
     age: 30,
+    television: 'Samsung',
     address: {
         street: '123 Main Street',
         city: 'San Francisco',
@@ -1767,18 +1768,21 @@ function restProperties1(keytype = '') {
     });
 }
 
-/** forEach */
-function restProperties2(keytype = '') {
+console.log(...restProperties1(''));
+console.log(...restProperties1('omitted'));
+
+/** map */
+function restProperties2(keytype = false) {
     const obj = {};
     const excludeProps = ['address'];
-    return Array.from(excludeProps).forEach((key, index) => {
+    return Array.from(excludeProps).map((key, index) => {
         const { [key]: omitted, ...rest } = complexObject;
-        !!keytype ? console.log(omitted) : console.log(rest);
+        return keytype ? omitted : rest;
     });
 }
 
-console.log(...restProperties1(''));
-console.log(restProperties2('omitted'));
+console.log(restProperties2(true));
+console.log(restProperties2());
 
 /** reducer */
 
@@ -1841,3 +1845,20 @@ console.log(newProxy?.extraLarge?.deprecated);
 const newProxy1 = new Proxy(fontSizes, proxyhandler);
 newProxy1.tiny = 'very very tiny';
 console.log(newProxy1);
+
+// Recursion.
+function Recursion() {
+    const arr = [1, 2, 3, 4, 5];
+    let i = 0;
+    let result = 0;
+    return function recursive() {
+        result += arr[i++];
+        if (arr[i] !== undefined) {
+            recursive();
+        }
+        return result;
+    };
+}
+
+const recs = Recursion();
+console.log(recs());

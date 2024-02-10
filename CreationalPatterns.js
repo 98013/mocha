@@ -185,11 +185,11 @@ function Car(wheels, engines) {
     this.engines = engines;
 
     this.start = function () {
-        console.log('Car has Started.');
+        return 'Car has Started.';
     };
 
     this.break = function () {
-        console.log('Car has stopped.');
+        return 'Car has stopped.';
     };
 }
 
@@ -211,6 +211,8 @@ function run() {
     console.log(car1);
     console.log(car2);
     console.log(car3);
+    console.log(car3.start());
+    console.log(car3.break());
     console.log(Object.is(car1, car2, car3));
 }
 
