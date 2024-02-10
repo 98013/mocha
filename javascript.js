@@ -1853,7 +1853,7 @@ function Recursion(arr) {
     return function recursive() {
         result += arr[i++];
         if (arr[i] !== undefined) {
-            recursive();
+            return recursive();
         }
         return result;
     };
