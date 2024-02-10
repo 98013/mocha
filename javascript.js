@@ -1847,8 +1847,7 @@ newProxy1.tiny = 'very very tiny';
 console.log(newProxy1);
 
 // Recursion.
-function Recursion() {
-    const arr = [1, 2, 3, 4, 5];
+function Recursion(arr) {
     let i = 0;
     let result = 0;
     return function recursive() {
@@ -1860,5 +1859,5 @@ function Recursion() {
     };
 }
 
-const recs = Recursion();
+const recs = Recursion([1, 2, 3, 4, 5, 6]);
 console.log(recs());
