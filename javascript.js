@@ -1861,3 +1861,19 @@ function Recursion(arr) {
 
 const recs = Recursion([1, 2, 3, 4, 5, 6]);
 console.log(recs());
+
+// Reverse a array.
+function ReverseArray(arr) {
+    let i = 0;
+    let reversedArray = [];
+    return function Recursion() {
+        if (arr.at(--i) !== undefined) {
+            reversedArray.push(arr.at(i));
+            return Recursion();
+        }
+        return reversedArray;
+    };
+}
+
+const rev = ReverseArray([1, 2, 3, 4, 5, 6]);
+console.log(rev());
