@@ -1,5 +1,7 @@
 import Chance from 'chance';
 const chance = Chance();
+import { toTemporalInstant, Intl, Temporal } from '@js-temporal/polyfill';
+import temporal from 'temporal';
 
 console.log(
     '%c********************************************************javascript**********************************************************************************',
@@ -1852,7 +1854,7 @@ function Recursion(arr) {
     let result = 0;
     return function recursive() {
         result += arr[i++];
-        if (arr[i] !== undefined) {
+        if (arr.at(i) !== undefined) {
             return recursive();
         }
         return result;
@@ -1877,3 +1879,140 @@ function ReverseArray(arr) {
 
 const rev = ReverseArray([1, 2, 3, 4, 5, 6]);
 console.log(rev());
+
+/**
+ * Mutation Observer - MutationObserver interface provides the ability to watch for changes being made to the DOM tree.
+ */
+const { JSDOM } = require('jsdom');
+const dom = new JSDOM(
+    `<div class="parent d-flex">
+        <p class="p-2 flex-fill" contenteditable="true">First Element</p>
+        <p class="p-2 flex-fill" contenteditable="true">Second Element</p>
+        <p class="p-2 flex-fill" contenteditable="true">Third Element</p>
+    </div>`,
+);
+
+const { window } = dom;
+const { document } = window;
+console.log(dom.window.document.querySelector('p').textContent); // "Hello world"
+
+const mutationobserver = new window.MutationObserver((mutation, observe) => {
+    mutation.forEach((mutation) => {
+        switch (mutation.type) {
+            case 'childList': {
+                console.log(
+                    `A child node has been added or removed, ${mutation.type} - ${mutation.target}`,
+                );
+                break;
+            }
+            case 'attributes': {
+                console.log(
+                    `An attribute was modified, ${mutation.type} - ${mutation.target}`,
+                );
+                break;
+            }
+            case 'characterData': {
+                console.log(
+                    `An characterData was modified, ${mutation.type} - ${mutation.target}`,
+                );
+                break;
+            }
+            default: {
+                console.log(
+                    `Unknown mutation type:, ${mutation.type} - ${mutation.target}`,
+                );
+            }
+        }
+    });
+});
+
+const config = { attributes: true, childList: true, subtree: true };
+mutationobserver.observe(document, config);
+
+// Now, any changes to the document will be logged
+document.querySelector('.parent').remove();
+
+/**
+ * 8 New Features of Javascript in 2024.
+ * Array Copy Methods - toSorted, toReversed, toSpliced, with.
+ * Array.groupBy()
+ * Promise.withResolvers()
+ * Temporal API Date.
+ * json import
+ * import attributes
+ * Decorators
+ * set Methods.
+ */
+const feature = [1, 3, 2];
+let feature1 = feature.toSorted();
+console.log(feature1);
+let feature2 = feature.toReversed();
+console.log(feature2);
+let feature3 = feature.toSpliced(0, 1, 'ABC');
+console.log(feature3);
+let feature4 = feature.with(2, 'A');
+console.log(feature4);
+console.log(feature);
+
+let array = [
+    { type: 'fruit', name: 'apple' },
+    { type: 'fruit', name: 'banana' },
+    { type: 'vegetable', name: 'carrot' },
+];
+//let grouped = Object.groupBy((item) => item.type);
+//console.log(grouped);
+
+/**
+ * Promise.withResolvers.
+ */
+
+//const { promise, resolve, reject } = Promise.withResolvers();
+
+/**
+ * Temporal API - New way to write Dates.
+ */
+
+/**
+ * Import in Javascript
+ */
+
+//import users from 'users.json' with {type:"json"}
+
+/**
+ * Decorators
+ */
+
+// @defineElement('my-class')
+// class C extends HTMLElement {
+//     @reactive accessor clicked = false;
+// }
+
+//const common = new Set([1,2,3,1]);
+
+/**
+ * Set methods.
+ * A.difference(B);
+ * A.intersection(B)
+ * A.symmetricDifference(B)
+ * A.union(B)
+ * A.isDisjointFrom(B)
+ * A.isSubsetOf(B)
+ */
+
+/**
+ * Temporal pollyfills Implementation.
+ */
+//console.log(Intl.DateTimeFormat.DateTimeFormat());
+//console.log(toTemporalInstant());
+
+temporal.on('idle', () => console.log('Temporal is Idle...'));
+temporal.delay(500, () => console.log('500ms later...'));
+temporal.loop(500, () => {
+    console.log('Loop Every 500ms...');
+    console.log(this.stop);
+    console.log(this.called);
+    console.log(Temporal.Now.timeZoneId());
+    console.log(
+        Temporal.Now.plainDateISO().add({ days: 1, months: 1, years: 1 }).toString(),
+    );
+});
