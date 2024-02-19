@@ -9,6 +9,18 @@
  */
 
 /**
+ * Adapter Method Deisgn Pattern - Structrual Design Pattern.
+ * Used when two Object are incompatibalbe and wanted to talk to each other, wanted to build bridge between them  * what we call as adapter.
+ * Target Interface: The common interface that the client code expects. This is the interface you want your
+ * existing (old) and new components to conform to.
+ * Adaptee: The existing component with an incompatible interface.
+ * Adapter: The class that adapts the Adaptee’s interface to match the Target Interface.
+ */
+
+
+
+
+/**
  * Proxy Pattern Structural Design Pattern.
  *  It provides a surrogate or placeholder for another object, allowing you to control access to it.
  *  This pattern is particularly useful in situations where you need to add an extra layer of control,
