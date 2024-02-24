@@ -1,5 +1,5 @@
 /**
- * Adapter Method Design Patterns
+ * Adapter Method Design Patterns -
  * Bridge Method Design Patterns
  * Composite Method Design Patterns
  * Decorator Method Design Patterns
@@ -10,15 +10,43 @@
 
 /**
  * Adapter Method Deisgn Pattern - Structrual Design Pattern.
- * Used when two Object are incompatibalbe and wanted to talk to each other, wanted to build bridge between them  * what we call as adapter.
- * Target Interface: The common interface that the client code expects. This is the interface you want your
- * existing (old) and new components to conform to.
+ * Used when two Object are incompatibalbe and wanted to talk to each other, wanted to build bridge between them what we call as adapter.
+ * Target Interface: The common interface that the client code expects. This is the interface you want
+ * your existing (old) and new components to conform to.
  * Adaptee: The existing component with an incompatible interface.
  * Adapter: The class that adapts the Adaptee’s interface to match the Target Interface.
+ * Analogy - You have to connect 2 interfaces which are not compatatible with each other, in order to do * so we write a Adapter/Wrapper so that both those interfaces can understand each other, also this
+ * pattern * is as know as client focused pattern.
+ * Rweference - https://www.youtube.com/watch?v=eR22JuwTa54
  */
 
+import { IAdapter } from './designInterface.ts';
 
+class Adapte {
+    specialRequest(): void {
+        console.log('Special Request');
+    }
+}
 
+class Adapter implements IAdapter {
+    private adapte: Adapte;
+    constructor(adapte: Adapte) {
+        this.adapte = adapte;
+    }
+    request() {
+        this.adapte.specialRequest();
+    }
+}
+
+class Client {
+    constructor(target: IAdapter) {
+        target.request();
+    }
+}
+
+let adapte = new Adapte();
+let adapter = new Adapter(adapte);
+console.log(new Client(adapter));
 
 /**
  * Proxy Pattern Structural Design Pattern.

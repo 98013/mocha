@@ -2005,14 +2005,40 @@ let array = [
 //console.log(Intl.DateTimeFormat.DateTimeFormat());
 //console.log(toTemporalInstant());
 
-temporal.on('idle', () => console.log('Temporal is Idle...'));
-temporal.delay(500, () => console.log('500ms later...'));
-temporal.loop(500, () => {
-    console.log('Loop Every 500ms...');
-    console.log(this.stop);
-    console.log(this.called);
-    console.log(Temporal.Now.timeZoneId());
-    console.log(
-        Temporal.Now.plainDateISO().add({ days: 1, months: 1, years: 1 }).toString(),
-    );
-});
+// temporal.on('idle', () => console.log('Temporal is Idle...'));
+// temporal.delay(500, () => console.log('500ms later...'));
+// temporal.loop(500, () => {
+//     console.log('Loop Every 500ms...');
+//     console.log(this.called);
+//     console.log(Temporal.Now.timeZoneId());
+//     console.log(
+//         Temporal.Now.plainDateISO()
+//             .add({ days: 1, months: 1, years: 1 })
+//             .toString(),
+//     );
+//     console.log(this.stop);
+// });
+
+/**
+ * Set Operations
+ */
+const Uniona = new Set([1, 2, 3]);
+const Unionb = new Set([2, 3, 4]);
+
+console.log(Uniona);
+console.log(Array.from(Uniona));
+
+// Union a U b
+const unionResult = new Set([...Uniona, ...Unionb]);
+console.log(unionResult);
+
+// Intersection a & b
+const intersection = new Set(Array.from(Uniona).filter((x) => Unionb.has(x)));
+console.log(intersection);
+
+// Difference a - b
+const difference = new Set(Array.from(Uniona).filter((x) => !Unionb.has(x)));
+console.log(difference);
+
+const differenceReverse = new Set(Array.from(Unionb).filter((x) => !Uniona.has(x)));
+console.log(differenceReverse);
