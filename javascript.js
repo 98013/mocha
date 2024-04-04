@@ -2040,5 +2040,105 @@ console.log(intersection);
 const difference = new Set(Array.from(Uniona).filter((x) => !Unionb.has(x)));
 console.log(difference);
 
-const differenceReverse = new Set(Array.from(Unionb).filter((x) => !Uniona.has(x)));
+const differenceReverse = new Set(
+    Array.from(Unionb).filter((x) => !Uniona.has(x)),
+);
 console.log(differenceReverse);
+
+/**
+ * Rules for javascript 'this' keyword binding.
+ * implicit Binding
+ * explicit Binding
+ * New Binding
+ * Default Binding
+ * Lexical Binding
+ */
+
+/**
+ * Implicit Binding - Look at the Object to the left of the dot when invoking the function to determin the
+ * value of the 'this' keyword.
+ */
+
+const ImplicitCase = {
+    name: 'Vishwas',
+    sayMyName: function () {
+        console.log(`My Name is ${this.name}`);
+    },
+};
+
+ImplicitCase.sayMyName();
+
+/**
+ * Explicit Binding - Look at the Object passed to call, apply or bind to determine the value of the
+ * 'this' keyword
+ */
+
+const ExplicitBinding = { name: 'Vishwas' };
+
+function eSayMyName() {
+    console.log(`My Name is ${this.name}`);
+}
+
+eSayMyName.call(ExplicitBinding);
+eSayMyName.apply(ExplicitBinding);
+const eSayMyNameExplicitBinding = eSayMyName.bind(ExplicitBinding);
+eSayMyNameExplicitBinding();
+
+/**
+ * New Binding - 'this' keyword within a function invoked with new always references a newly created
+ * empty Object
+ */
+
+function Person(name) {
+    // this = {}; javascript internally creates a new Empty Object, that this keyword refers to.
+    console.log(this);
+    this.name = name;
+}
+
+const p1 = new Person('Vishwas');
+const p2 = new Person('Batman');
+console.log(p1);
+console.log(p2);
+
+/**
+ * default Binding - 'this' keyword refers to the global scope by default,
+ */
+
+globalThis.name = 'Naseer Mohammed';
+
+function defaultBinding() {
+    console.log(`My Name is ${this?.name}`);
+}
+
+defaultBinding();
+
+/**
+ * Lexical Binding - In a arrow function, 'this' keyword is determined by the surrounding context where the
+ * function is defined, not where it is called.
+ */
+
+const lexicalPerson = {
+    firstName: 'Vishwas',
+    lastName: 'Batman',
+    sayMyName: function () {
+        console.log(`${this.firstName} - ${this.lastName}`);
+    },
+};
+
+lexicalPerson.sayMyName();
+
+const lexicalPerson1 = {
+    firstName: 'Vishwas',
+    lastName: 'Batman',
+    sayMyName() {
+        // Normal function refers to global scope that is window,
+        // Arrow function refers to lexical scope
+        //const fullName = function () {
+        const fullName = () => {
+            return `${this.firstName} - ${this.lastName}`;
+        };
+        console.log(`Full name is ${fullName()}`);
+    },
+};
+
+lexicalPerson1.sayMyName();
