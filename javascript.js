@@ -2047,11 +2047,12 @@ console.log(differenceReverse);
 
 /**
  * Rules for javascript 'this' keyword binding.
- * implicit Binding
- * explicit Binding
- * New Binding
- * Default Binding
- * Lexical Binding
+ * implicit Binding - see left of dot
+ * explicit Binding - call, apply, bind
+ * New Binding - it creates a this Object for every Object created.
+ * Default Binding - if all the above fails, it references the global scope
+ * Lexical Binding - Normal function refers global context, where arrow function refers the lexical scope or
+ * parent scope
  */
 
 /**
