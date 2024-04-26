@@ -2143,3 +2143,18 @@ const lexicalPerson1 = {
 };
 
 lexicalPerson1.sayMyName();
+
+/**
+ * Prototype creation types.
+ */
+
+/**
+ * let obj = {} creates a prototype: True. This creates an object with Object.prototype as its prototype
+ * Object.create() creates a prototype: True. This creates a new object with the specified prototype
+    object.If no parameters are provided, it creates an object with null as its prototype.
+ * Object.create(null) does not create a prototype: True. This creates a new object with null as
+    its prototype, meaning it does not inherit from Object.prototype.
+ * new Object() creates a prototype: True. This creates a new object with Object.prototype as its prototype.
+ * new Object(null) does not create a prototype: True. This creates a new object with null as its prototype,
+    meaning it does not inherit from Object.prototype.
+ */
