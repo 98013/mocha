@@ -2158,3 +2158,55 @@ lexicalPerson1.sayMyName();
  * new Object(null) does not create a prototype: True. This creates a new object with null as its prototype,
     meaning it does not inherit from Object.prototype.
  */
+
+const arrResultDataOf = [
+    { class: 'second', fare: 'b', number: 1 },
+    { class: 'second', fare: 'b', number: 1 },
+    { class: 'first', fare: 'a', number: 1 },
+    { class: 'first', fare: 'a', number: 1 },
+    { class: 'second', fare: 'a', number: 1 },
+    { class: 'first', fare: 't', number: 1 },
+    { class: 'first', fare: 'z', number: 1 },
+];
+
+const arrResultDataOf1 = [
+    { class: 'second', fare: 'b', number: 1 },
+    { class: 'second', fare: 'b', number: 1 },
+    { class: 'first', fare: 'a', number: 1 },
+    { class: 'first', fare: 'z', number: 1 },
+    { class: 'second', fare: 'z', number: 1 },
+    { class: 'first', fare: 'c', number: 1 },
+];
+
+// Remove duplicates from an array.
+const seen = new Set();
+const resultSetOf = arrResultDataOf.filter((obj) => {
+    const key = obj.class + '|' + obj.fare + '|' + obj.number;
+    if (!seen.has(key)) {
+        seen.add(key);
+        console.log(key);
+        return true;
+    }
+});
+
+console.log(resultSetOf);
+
+// Union.
+const UnionResult = [...arrResultDataOf, ...arrResultDataOf1];
+console.log(UnionResult);
+
+//Intersection.
+const seen1 = new Set();
+const intersectionResult = [...arrResultDataOf, ...arrResultDataOf1].filter(
+    (obj) => {
+        const key = obj.class + '|' + obj.fare + '|' + obj.number;
+        if (!seen1.has(key)) {
+            seen1.add(key);
+            console.log(key);
+            return true;
+        }
+    },
+);
+console.log(intersectionResult);
+
+// Difference.
