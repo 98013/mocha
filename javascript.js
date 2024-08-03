@@ -2210,3 +2210,18 @@ const intersectionResult = [...arrResultDataOf, ...arrResultDataOf1].filter(
 console.log(intersectionResult);
 
 // Difference.
+
+/* invoking the function with the new keyword *
+  when we call a function with the new keyword it creates a new Object and this keyword refers to 'this' keyword and at the same time when we return a object the preference would given to the return keyword.
+  i.e in new keyword creates a object and assign to this keyword and return it, if you are returning anything it will return that's the difference to be observed.
+*/
+
+function showCall() {
+    //behind the scenes object will be assigned to this keyword, this = {} and it will be implicit return and if any explicit return preferece would be given to explicit return.
+    this.name =
+        'a new Object will be created and assigned to this keyword else preference would be given to return keyword';
+    //return { name: 'Naseer Mohammed' };
+}
+
+const showResult = new showCall();
+console.log(showResult);
