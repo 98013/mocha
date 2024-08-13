@@ -2288,8 +2288,7 @@ console.log(d5);
 const d6 = { ...data, ['info']: { date: '04-07-2024', text: 'Hello World' } };
 console.log(d6);
 
-Delete topResults
-const d7 = {...data};
+//Delete topResults
+const d7 = { ...data };
 delete d7['topResults'];
 console.log(d7);
-
