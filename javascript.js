@@ -2212,8 +2212,8 @@ console.log(intersectionResult);
 // Difference.
 
 /* invoking the function with the new keyword *
-  when we call a function with the new keyword it creates a new Object and this keyword refers to 'this' keyword and at the same time when we return a object the preference would given to the return keyword.
-  i.e in new keyword creates a object and assign to this keyword and return it, if you are returning anything it will return that's the difference to be observed.
+when we call a function with the new keyword it creates a new Object and this keyword refers to 'this' keyword and at the same time when we return a object the preference would given to the return keyword.
+i.e in new keyword creates a object and assign to this keyword and return it, if you are returning anything it will return that's the difference to be observed.
 */
 
 function showCall() {
@@ -2225,3 +2225,71 @@ function showCall() {
 
 const showResult = new showCall();
 console.log(showResult);
+
+/*
+we will modify the data object as a copy presented below.
+*/
+
+const data = {
+    user: {
+        isLoggedIn: true,
+        username: 'js1223',
+        avatar: 'puppy',
+        favourite: ['python', 'javascript', 'java'],
+    },
+    topResults: {
+        amount: 3,
+        scores: [120, 100, 99],
+    },
+};
+
+// Chanage isLoggedIn.
+const d = { ...data, ['user']: { ...data['user'], isLoggedIn: false } };
+console.log(d);
+
+// Change isLoggedIn & Avatar.
+const d1 = {
+    ...data,
+    ['user']: { ...data['user'], isLoggedIn: false, avatar: 'Kitty' },
+};
+console.log(d1);
+
+// Change username & topResults amount.
+const d3 = {
+    ...data,
+    ['user']: { ...data['user'], username: 'helloworld99' },
+    ['topResults']: { ...data['topResults'], amount: 4 },
+};
+console.log(d3);
+
+// Add score to scores.
+const d4 = {
+    ...data,
+    ['user']: { ...data['user'] },
+    ['topResults']: {
+        ...data['topResults'],
+        amount: 4,
+        scores: [...data['topResults']['scores'], 77],
+    },
+};
+console.log(d4);
+
+// Delete scores and remove python from favourites.
+const d5 = {
+    ...data,
+    ['user']: [...data['user'].favourite].filter(
+        (element) => element !== 'python',
+    ),
+    ['topResults']: { ...data['topResults'], scores: [] },
+};
+console.log(d5);
+
+// Add Info Object.
+const d6 = { ...data, ['info']: { date: '04-07-2024', text: 'Hello World' } };
+console.log(d6);
+
+Delete topResults
+const d7 = {...data};
+delete d7['topResults'];
+console.log(d7);
+
