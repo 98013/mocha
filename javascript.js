@@ -2292,3 +2292,6 @@ console.log(d6);
 const d7 = { ...data };
 delete d7['topResults'];
 console.log(d7);
+
+/* Safe Assignment Operator ?= */
+
