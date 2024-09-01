@@ -2293,5 +2293,58 @@ const d7 = { ...data };
 delete d7['topResults'];
 console.log(d7);
 
-/* Safe Assignment Operator ?= */
+let message = 'Failed to upload {} {} {} files';
+let inputString = ['File A', 'File B', 'File C'];
 
+const resultedString = inputString.reduce(
+    (acc, val, index) =>
+        acc.replace('{}', index !== (inputString.length -1) ? val : ',' + val),
+    message
+);
+console.log(resultedString);
+
+/* Safe Assignment Operator ?= used in fetch API calls */
+
+/* ES13 Features */
+
+// Elimianting the use of constructor boiler plate code
+
+// Simplified Class Field declaration.
+class Car {
+    color = 'blue'; // Directly defining the properties.
+    age = 2; // another property.
+
+    // still constructor is optional here.
+    constructor() {}
+}
+
+const car = new Car();
+console.log(car.color);
+console.log(car.age);
+
+class PersonClass {
+    #firstName = 'Joseph';
+    #lastName = 'Stevens';
+    // Optional consturcutor.
+    construtor() {}
+    get Name() {
+        return `${this.#firstName} ${this.#lastName}`;
+    }
+
+    set value(params) {
+        console.log(params);
+        this.a = params.firstName;
+        this.b = params.lastName;
+        return `${this.a} ${this.b}`;
+    }
+
+    get value() {
+        return `${this.a} - ${this.b}`;
+    }
+}
+
+const personclass = new PersonClass();
+console.log(personclass.Name);
+personclass.value = { firstName: 'Naseer', lastName: 'Mohammed' };
+console.log(personclass.value);
+//console.log(personclass.#firstName);  //Syntax Error
