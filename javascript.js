@@ -2416,18 +2416,21 @@ ES13 introduces WeakRef and FinalizationRegistry, providing native support for w
 
 let refobj = { name: 'jhon' };
 const weakRef = new WeakRef(refobj);
-console.log(weakRef.deref()?.name);
-obj = null; // obj is eligible for garbage collection
-
-setTimeout(() => {
-    console.log(weakRef.deref()?.name); // undefined (if garbage collected)
-}, 1000);
 
 const registry = new FinalizationRegistry((heldValue) => {
     console.log(`Cleanup: ${heldValue}`);
 });
 
+// Register before nullifying refobj
 registry.register(refobj, 'Object finalized');
+
+console.log(weakRef.deref()?.name);  // Output: 'jhon'
+
+refobj = null; // Now refobj is eligible for garbage collection
+
+setTimeout(() => {
+    console.log(weakRef.deref()?.name); // Output: undefined (if garbage collected)
+}, 1000);
 
 /**
  * With ES13, you can now directly check if an object has a private field using the # syntax, making it easier and more reliable.
