@@ -171,6 +171,9 @@ console.log(
     slicedArray,
     initiaArray === slicedArray,
 );
+
+console.log(Object.is(initiaArray, slicedArray));
+
 // #Array.from() used to create a shallow copy of an Array. which might be a string or having length property.
 const shallowCopyArray = Array.from(initiaArray);
 console.log(
@@ -334,6 +337,7 @@ console.log([...myString]); //['E','l','e','p','h','a','n','t']
 console.log(Array.from(myString));
 console.log(Object.assign({}, myString)); //{"0": "E","1": "l","2": "e","3": "p","4": "h","5": "a","6": "n","7": "t"}
 console.log(myString.slice()); // create a shallow copy both  refers to same memory locations.
+console.log(Object.is(myString, myString.slice()));
 console.log([...myString]); // creates a deep copy where both refers to different memory locations
 
 const numbersToBeSliced = [0, 1, 2, 3, 4, 5];
@@ -348,6 +352,23 @@ const splicedArray = numberToBeSpliced.splice(1, 3, 'A', 'B', 'C'); // insert el
 console.log(
     `Actual Array [100,200,300,400,500] Post splice of Original Array [${numberToBeSpliced}] Splice of (1,3) [${splicedArray}]`,
 );
+
+// slice does not mutate the original array.
+const sliceArr = ['a', 'b', 'c'];
+const slicedarray = sliceArr.slice(0, 1);
+console.log(sliceArr);
+console.log(slicedarray);
+
+// splice mutates the original array & insert elements if required.
+const spliceArr = ['a', 'b', 'c'];
+const splicearr = spliceArr.splice(0, 1, 'x', 'y');
+console.log(spliceArr);
+console.log(splicearr);
+
+// Array.slice method creates a new array.
+const newsliceArr = sliceArr.slice();
+console.log(newsliceArr);
+console.log(Object.is(newsliceArr, sliceArr));
 
 //Array.from converts an iteriable string or iteriable object to Array.
 //Array.fromEntries converts array of key value variables [[key, value]] or Map into object.
@@ -2298,8 +2319,11 @@ let inputString = ['File A', 'File B', 'File C'];
 
 const resultedString = inputString.reduce(
     (acc, val, index) =>
-        acc.replace('{}', index !== (inputString.length -1) ? val : ',' + val),
-    message
+        acc.replace(
+            '/{}/g',
+            index !== inputString.length - 1 ? val : ',' + val,
+        ),
+    message,
 );
 console.log(resultedString);
 
@@ -2322,6 +2346,7 @@ const car = new Car();
 console.log(car.color);
 console.log(car.age);
 
+// Private Instance Methods and Accessors
 class PersonClass {
     #firstName = 'Joseph';
     #lastName = 'Stevens';
@@ -2348,3 +2373,154 @@ console.log(personclass.Name);
 personclass.value = { firstName: 'Naseer', lastName: 'Mohammed' };
 console.log(personclass.value);
 //console.log(personclass.#firstName);  //Syntax Error
+
+// Toplevel await
+
+const topLevelAwait = await fetch(
+    'https://jsonplaceholder.typicode.com/posts/1',
+);
+
+console.log(await topLevelAwait.json());
+
+// Static Class Fields and methods
+/*
+Before Es13 static fields and methods were typically defined outside of the class body, leading to less cohesive coee, ES13 allows you to define the static feilds and 
+methods directly within the class body improving readability and organization.
+*/
+
+class MathUtilities {
+    static PI = 3.14159;
+
+    static calculateCircumference(radius) {
+        return 2 * MathUtilities.PI * radius;
+    }
+}
+
+console.log(MathUtilities.PI);
+console.log(MathUtilities.calculateCircumference(5));
+
+/* Logical assingment operator in ES13 */
+
+let aa1 = 1;
+let bb1 = 0;
+
+aa1 &&= 2; // a = a && 2; // a = 2
+bb1 ||= 3; // b= b || 3; // b = 3
+let cc1 = null;
+cc1 ??= 4; // c = c ?? 4; // c = 4
+console.log(aa1, bb1, cc1);
+
+/**
+ES13 introduces WeakRef and FinalizationRegistry, providing native support for weak references and cleanup tasks after garbage collection.
+ */
+
+let refobj = { name: 'jhon' };
+const weakRef = new WeakRef(refobj);
+console.log(weakRef.deref()?.name);
+obj = null; // obj is eligible for garbage collection
+
+setTimeout(() => {
+    console.log(weakRef.deref()?.name); // undefined (if garbage collected)
+}, 1000);
+
+const registry = new FinalizationRegistry((heldValue) => {
+    console.log(`Cleanup: ${heldValue}`);
+});
+
+registry.register(refobj, 'Object finalized');
+
+/**
+ * With ES13, you can now directly check if an object has a private field using the # syntax, making it easier and more reliable.
+ */
+
+// Checking for private fields using workarounds (Before ES13)
+class Car1 {
+    constructor() {
+        this.engineStarted = false; // Public field
+    }
+
+    startEngine() {
+        this.engineStarted = true;
+    }
+
+    static isCar(obj) {
+        return obj instanceof Car; // Not reliable for truly private fields
+    }
+}
+
+const myCar1 = new Car1();
+console.log(Car1.isCar(myCar1)); // true
+
+// Ergonomic brand checks for private fields (ES13)
+class Car9 {
+    #engineStarted = false;
+
+    startEngine() {
+        this.#engineStarted = true;
+    }
+
+    static isCar(obj) {
+        return #engineStarted in obj;
+    }
+}
+
+const myCar9 = new Car9();
+console.log(Car9.isCar(myCar9)); // true
+
+/**
+ * The at() method allows you to access array elements using both positive and negative indices more intuitively.
+ */
+
+// Accessing array elements with `at()` (ES13)
+const arrAt = [1, 2, 3, 4, 5];
+console.log(arrAt.at(-1)); // 5 (last element)
+console.log(arrAt.at(0)); // 1 (first element)
+
+/**
+ * To check if an object had its own property (not inherited), developers typically used Object.prototype.hasOwnProperty.call() or obj.hasOwnProperty().
+ */
+
+const objhasOwn = { a: 1 };
+console.log(Object.prototype.hasOwnProperty.call(objhasOwn, 'a')); // true
+console.log(objhasOwn.hasOwnProperty('a')); // true
+
+/**
+ * The new Object.hasOwn() method simplifies this check, providing a more concise and readable syntax.
+ */
+
+// Checking own properties with `Object.hasOwn()` (ES13)
+console.log(Object.hasOwn(objhasOwn, 'a')); // true
+
+/**
+ * Object.fromEntries()
+ * Before ES13:
+ * Transforming key-value pairs (e.g., from Map or arrays) into an object required looping and manual construction.
+ */
+
+// Creating an object from entries (Before ES13)
+const entries11 = [
+    ['name', 'John'],
+    ['age', 30],
+];
+const obj19 = {};
+entries11.forEach(([key, value]) => {
+    obj19[key] = value;
+});
+console.log(obj19); // { name: 'John', age: 30 }
+
+// ES13 Feature:
+// Object.fromEntries() simplifies the creation of objects from key-value pairs.
+
+// Creating an object with `Object.fromEntries()` (ES13)
+const objEntries = Object.fromEntries(entries11);
+console.log(objEntries); // { name: 'John', age: 30 }
+
+/**
+ * Global This in Modules
+ */
+
+// Global `this` (Before ES13)
+console.log(this); // undefined in modules, global object in scripts
+
+// Global `this` in modules (ES13)
+console.log(this); // undefined
