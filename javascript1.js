@@ -39,3 +39,17 @@ console.log(getTextLength('text'));
 console.log(getTextLength('email'));
 console.log(getTextLength('textarea'));
 console.log(getTextLength('options'));
+
+const personalDetails = {
+    name: 'Naseer Mohammed',
+    age: 30,
+    gender: 'Female',
+};
+
+const fn = (key, value) => {
+    console.log(key);
+    console.log(value);
+};
+
+console.log(JSON.stringify(personalDetails));
+JSON.stringify(personalDetails, fn);
