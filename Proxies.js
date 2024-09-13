@@ -7,6 +7,11 @@
  */
 
 /**
+ * JavaScript’s Proxy object can be used to create reactive data structures by intercepting operations on objects.
+ * You can create a simple publish-subscribe (PubSub) system to handle reactivity.
+ */
+
+/**
  * Use Case: Ensure that property value meets certain criteria being set.
  * eg:Validating that a user's age is a number and within a specific range.
  */
@@ -31,6 +36,24 @@ const handler = {
         return target[property];
     },
 };
+
+/**
+ * older method can also be used to create reactive properties.
+ */
+
+const personDefine = {};
+Object.defineProperty(personDefine, 'name', {
+    set(value) {
+        console.log(`Name changes to ${value}`);
+        nameValue = value;
+    },
+    get() {
+        return nameValue;
+    },
+});
+
+personDefine.name = 'Naseer Mohammed';
+console.log(personDefine.name);
 
 const proxy = new Proxy(user, handler);
 console.log(proxy);
@@ -217,3 +240,52 @@ console.log(
 console.log(
     Object.defineProperty(proxyReflection, 'a', { configurable: false }),
 );
+
+/**
+ * After understanding what is reactivity, which is used to create reactive data structures by intercepting operation on objects.
+ * we can create simple publish-subscriber (PubSub) system to handle reativity.
+ */
+
+const reactiveHandler = {
+    set: function (target, property, value) {
+        if (property === 'name' && typeof property === 'string')
+            target[property] = value;
+        return true;
+    },
+    get: function (target, property) {
+        return target[property];
+    },
+};
+
+const proxyReactive = new Proxy({}, reactiveHandler);
+proxyReactive.name = 'Naseer';
+console.log(proxyReactive.name);
+
+const PubSub = {
+    events: {},
+    subscribe(event, callback) {
+        //if (!this.events[event]) this.events[event] = [];
+        if (this.events[event] == null || undefined) this.events[event] = [];
+        console.log(this.events);
+        console.log(this.events[event]);
+        console.log(event);
+        console.log(callback);
+        this.events[event].push(callback);
+        console.log(this.events);
+        console.log(this.events[event]);
+    },
+    publisher(event, data) {
+        if (this.events[event]) {
+            console.log(this.events);
+            console.log(data);
+            this.events[event].forEach((...callback) => {
+                console.log(callback(data));
+            });
+        }
+    },
+};
+
+PubSub.subscribe('update', function () {
+    console.log(data);
+});
+PubSub.publisher('update', 'Data updated!');
