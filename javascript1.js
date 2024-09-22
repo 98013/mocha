@@ -53,3 +53,5 @@ const fn = (key, value) => {
 
 console.log(JSON.stringify(personalDetails));
 JSON.stringify(personalDetails, fn);
+
+
