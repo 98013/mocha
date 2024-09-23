@@ -1,14 +1,13 @@
 const Controller = new AbortController();
 const { signal } = Controller;
-//console.log(signal);
 
-const getOnlineDetails = async (i) => {
+const getOnlineDetails = (i) => {
     const { promise, resolve, reject } = Promise.withResolvers();
-    //console.log(promise, resolve, reject);
-    fetch(`https://jsonplaceholder.typicode.com/users/${i}`, { signal })
+    fetch(`https://jsonplaceholder.typicode.com/comments/${i}`, { signal })
         .then((response) => {
-            const jsonResult = response.json();
-            const result = jsonResult;
+            return response.json();
+        })
+        .then((result) => {
             resolve(result);
         })
         .catch((error) => {
@@ -17,19 +16,17 @@ const getOnlineDetails = async (i) => {
     return promise;
 };
 
-i = 0;
-
-setInterval(() => {
-    while (i < 5) {
-        getOnlineDetails(i++).then((result) =>
-            console.log(JSON.stringify(result)),
-        );
+let i = 1;
+const intervalId = setInterval(() => {
+    if (i <= 10) {
+        getOnlineDetails(i++)
+            .then((result) => console.log(JSON.stringify(result)))
+            .catch((error) => {
+                console.log('Error or Aborted', error.message);
+            });
+    } else {
+        clearInterval(intervalId);
+        Controller.abort();
+        console.log('Controller Aborted');
     }
-}, 1000);
-
-setTimeout(() => {
-    Controller.abort();
-    console.log('Controller Aborted');
-}, 10000);
-
-//export default await getOnlineDetails; is this code correct to abort the promise
+}, 100);

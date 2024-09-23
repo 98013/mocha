@@ -21,21 +21,17 @@ let i = 1; // Start from 1 because the users start from ID 1
 
 // Repeatedly fetch data every second until 5 iterations
 const intervalId = setInterval(() => {
-    if (i <= 100) {
+    if (i <= 10) {
         getOnlineDetails(i++)
             .then((result) => {
                 console.log(JSON.stringify(result));
             })
             .catch((error) => {
-                console.log('Error or Aborted', error);
+                console.log('Error or Aborted', error.message);
             });
     } else {
         clearInterval(intervalId); // Clear the interval when done
+        Controller.abort(); // Abort any ongoing fetch requests
+        console.log('Controller Aborted');
     }
 }, 100);
-
-// Abort fetch requests after 10 seconds
-setTimeout(() => {
-    Controller.abort(); // Abort any ongoing fetch requests
-    console.log('Controller Aborted');
-}, 10000);
