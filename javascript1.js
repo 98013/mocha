@@ -1,8 +1,8 @@
 console.log(typeof y);
 var z = 1;
 console.log(typeof y);
-y = z = typeof y;
-console.log(y);
+//y = z = typeof y;
+//console.log(y);
 
 function first() {
     console.log('One Executed');
@@ -49,9 +49,42 @@ const personalDetails = {
 const fn = (key, value) => {
     console.log(key);
     console.log(value);
+    switch (key) {
+        case 'name': {
+            return 'Abraham Lincoln';
+        }
+        case 'age': {
+            return 99;
+        }
+        case 'gender': {
+            return 'others';
+        }
+        default: {
+            return value;
+        }
+    }
 };
 
-console.log(JSON.stringify(personalDetails));
-JSON.stringify(personalDetails, fn);
+personalDetails.occupation = 'Daily Wage Earner';
+console.log(JSON.parse(JSON.stringify(personalDetails, fn)));
+console.log(JSON.parse(JSON.stringify(personalDetails)));
+console.log(
+    Object.is(personalDetails, JSON.parse(JSON.stringify(personalDetails))),
+);
 
+/**
+ * Difference between Iterables,Iterators, Generators.
+ * Iterables: Objects that can be iterated over using for...of.
+ * Iterators: Objects with next() method that returns the next item in the sequence
+ * Generators: Functions that can be paused and resumed, producing a sequence of values using yeild.
+ */
 
+const iterator = {
+    next: () => {
+        return {
+            value: 0,
+            done: false,
+        };
+    },
+};
+console.log(iterator.next());
