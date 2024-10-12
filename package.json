@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "quokka": {
-        "maxConsoleMessages": 1000
+        "maxConsoleMessages": 50000
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
