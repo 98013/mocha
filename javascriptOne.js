@@ -95,7 +95,7 @@ console.log(
 
 /**
   * Question:
-  * mean to say an array has [symbol.iterator] so we call it as iterable and if an object has [symbol.iterator] and next() method we call it as an iterator is     that correct
+  * mean to say an array has [symbol.iterator] so we call it as iterable and if an object has [symbol.iterator] and next() method we call it as an iterator is that correct
 
   * Answer:
   * Yes, that’s correct! Here’s a concise summary:
@@ -247,3 +247,55 @@ myObject[Symbol.iterator] = function () {
 for (const value of myObject) {
     console.log(value);
 }
+
+/**
+ * if an object has [Symbol.iterator] is called iterable is that correct.
+ * Yes, that's correct! In JavaScript, an object is considered iterable if it has a method keyed by the special symbol Symbol.iterator. This method should return an iterator, which is  * an object that conforms to the iterator protocol.
+ *
+ * Here's a brief breakdown:
+ * Iterable: An object that has a Symbol.iterator method. This method doesn't take any arguments and returns an iterator.
+ * Iterator: An object that has a next() method. The next() method returns an object with two properties:
+ * done: A boolean indicating whether the iteration is complete.
+ * value: The current value in the sequence.
+ */
+
+/**
+ * it means iterator has both [Symbol.iterator] and next() then only it is called as iterator
+ * Not exactly. An object does not need to have both Symbol.iterator and next() to be an iterator.
+
+* Clarification:
+* An iterator only needs to have the next() method, not necessarily the Symbol.iterator method.
+* However, to be both iterable and an iterator, the object would have both methods:
+
+* Iterator: Only requires the next() method.
+* Iterable: Requires the Symbol.iterator method.
+* If an object is both iterable and an iterator:
+* The object implements both the Symbol.iterator method and the next() method. In this case, the Symbol.iterator method simply returns the object itself.
+
+* Key Points:
+* Iterator: Must have next(). It can be used directly for manual iteration, like this:
+
+javascript
+Copy code
+let iterator = myObject;
+console.log(iterator.next()); // { value: 1, done: false }
+console.log(iterator.next()); // { value: 2, done: false }
+Iterable: Must have Symbol.iterator. It can be used in loops like for...of.
+
+* If an object is both iterable and an iterator, the Symbol.iterator method should return the object itself.
+* So, an iterator doesn't need to have Symbol.iterator—but if it does, it can be both iterable and an iterator, making it usable in contexts that expect either.
+ */
+
+const iterableObject = {
+    // an Object which has a method keyed using [Symbol.iterator] method is called iterable. this method does not take any argument and returns an iterator.
+    [Symbol.iterator]() {
+        return this;
+    },
+    next() {
+        return { value: 0, done: false };
+    },
+};
+
+console.log(iterableObject);
+console.log(iterableObject.next());
+
