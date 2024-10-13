@@ -439,3 +439,122 @@ When Assigned to a Variable:
 The generator acts as an iterator. You can manually call next() to control the iteration process, retrieving values one by one.
 Your understanding of how generators function as both iterables and iterators, depending on how they are used, is absolutely correct!
  */
+
+const objectIterators = {
+    current: 1,
+    last: 5,
+    [Symbol.iterator]: function* () {
+        while (this.current <= this.last) {
+            yield { value: this.current++, done: false };
+        }
+        yield { value: 'done', done: true };
+    },
+};
+
+for (let value of objectIterators) {
+    console.log(value);
+}
+
+for (let value in objectIterators) {
+    console.log(value);
+}
+
+const myObectIterator = {
+    current: 1,
+    last: 5,
+    [Symbol.iterator]() {
+        let current = this.current;
+        let last = this.last;
+        return {
+            next: () => {
+                while (current <= last) {
+                    return { value: current++, done: false };
+                }
+                return { value: 'undefined', done: true };
+            },
+        };
+    },
+};
+
+for (let values of myObectIterator) {
+    console.log(values);
+}
+
+for (let values in myObectIterator) {
+    console.log(values);
+}
+
+const iterator99 = myObectIterator[Symbol.iterator]();
+console.log(iterator99.next());
+console.log(iterator99.next());
+console.log(iterator99.next());
+console.log(iterator99.next());
+console.log(iterator99.next());
+console.log(iterator99.next());
+
+const myObectIterator1 = {
+    current: 1,
+    last: 5,
+    [Symbol.iterator]() {
+        return this;
+    },
+    next() {
+        while (this.current <= this.last) {
+            return { value: this.current++, done: false };
+        }
+        return { value: undefined, done: true };
+    },
+};
+
+for (let values of myObectIterator1) {
+    console.log(values);
+}
+
+myObectIterator1.current = 1;
+const iterator990 = myObectIterator1[Symbol.iterator]();
+do {
+    console.log(iterator990.next());
+} while (!iterator990.next().done);
+
+const generalObject = [
+    {
+        name: 'Naseer',
+        age: 35,
+    },
+    {
+        name: 'Azhaan',
+        age: 3,
+    },
+    {
+        name: 'Zameer',
+        age: 37,
+    },
+    {
+        name: 'Sameer',
+        age: 33,
+    },
+    {
+        name: 'Armaan',
+        age: 1,
+    },
+];
+
+for (let values of generalObject) {
+    console.log(values);
+}
+
+const loopObject = generalObject[Symbol.iterator]();
+console.log(loopObject.next());
+console.log(loopObject.next());
+console.log(loopObject.next());
+console.log(loopObject.next());
+console.log(loopObject.next());
+console.log(loopObject.next());
+
+for (let key in generalObject) {
+    console.log(key);
+}
+
+for (let key of generalObject) {
+    console.log(key);
+}
