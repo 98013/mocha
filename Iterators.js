@@ -558,3 +558,168 @@ for (let key in generalObject) {
 for (let key of generalObject) {
     console.log(key);
 }
+
+/**
+ * Generator function which return generator function which has next method is called as iterator, generators are also iterators.
+ * .next() method advances through generator function body and pauses at yield, and stops at return.
+ */
+
+/**
+ * Generator are not only iterators they are also iterables where we can use in for of loops, ...Spread Operators and Arry.from() method
+ * Generators are iterators.
+ * lazy evalution & infinite sequences
+ */
+
+function* genFunction() {
+    console.log('runnning...');
+    yield 'Hello World';
+    console.log('running again');
+    return 'stopped';
+}
+
+const getObject = genFunction();
+console.log(getObject.next());
+console.log(getObject.next());
+
+/**
+ * Infinity & Beyond.
+ */
+
+function* infinityAndBeyond() {
+    let i = 1;
+    while (true) {
+        yield i++;
+    }
+}
+
+const infinity = infinityAndBeyond();
+console.log(infinity.next());
+
+const itr = (function* () {
+    while (true) {
+        console.log(Math.random());
+        yield Math.random();
+    }
+})().next();
+
+const genex = (function* () {
+    while (true) {
+        yield Math.random();
+    }
+})().next();
+
+console.log(genex);
+/**
+ * Recursive iteration with yield*
+ * async iteration with @@asyncIterator which can be used in for await loop
+ * Geneatators not only produce data but also consume data.
+ * Yield is a two way street, pass in a vaule with .next(input)
+ */
+
+function* listner() {
+    console.log('listening...');
+    while (true) {
+        let msg = yield;
+        console.log('heard', msg);
+    }
+}
+
+let l = listner();
+l.next('are you there');
+l.next('how about now?');
+l.next('blah blah');
+
+/**
+ * Generators also remembers the state they are state machines
+ *
+ */
+
+function* bankAccount() {
+    let balance = 0;
+    while (balance >= 0) {
+        console.log(balance);
+        balance += yield balance;
+    }
+    return 'bankrupt!';
+}
+let acct = bankAccount();
+console.log(acct.next());
+console.log(acct.next(50));
+console.log(acct.next(-10));
+console.log(acct.next(-60));
+console.log(acct.next());
+
+/**
+ * generators can function as co-routines
+ * pass control back and forth to co-operate
+ * Generator can outsmart javascript
+ * Mutual recursion blows the call stack
+ * Practial uses cases
+ * custom iterable
+ * lazy/infinite sequence
+ * state machines
+ * data processing
+ * data streams
+ * control flow & async
+ * co-routine & multitasking
+ * actor models
+ * system programming
+ * functional programming
+ */
+
+const normalIterators = {
+    current: 1,
+    last: 5,
+    *[Symbol.iterator]() {
+        while (this.current <= this.last) {
+            yield { value: this.current++, done: false };
+        }
+        yield { value: 'done', done: true };
+    },
+};
+
+for (let normal of normalIterators) {
+    console.log(normal);
+}
+
+const asynItr = {
+    start: 0,
+    last: 5,
+    async *[Symbol.asyncIterator]() {
+        while (this.start <= this.last) {
+            yield { value: this.start++, done: false };
+        }
+        yield { value: 'done', done: true };
+    },
+};
+
+(async () => {
+    for await (let asynOps of asynItr) {
+        console.log(asynOps);
+    }
+})();
+
+const asynItr1 = {
+    start: 0,
+    last: 5,
+    [Symbol.asyncIterator]() {
+        return this;
+    },
+    async next() {
+        if (this.start <= this.last) {
+            return { value: this.start++, done: false };
+        }
+        return { value: 'done', done: true };
+    },
+};
+
+(async () => {
+    for await (let asyn of asynItr1) {
+        console.log(asyn);
+    }
+})();
+
+const itrs = asynItr1[Symbol.asyncIterator]();
+itrs.next().then((result) => {
+    console.log(result);
+});
