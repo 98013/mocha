@@ -30,11 +30,10 @@ callThisFunction1();
 function callThisFunction2() {
     innerFunction = () => {
         console.log('Function call with Arrow function -', this);
-    }
+    };
     innerFunction();
 }
 callThisFunction2();
-
 
 // Constructor Function always starts with Capital Letter, Constructor function - Empty Object, i.e. Object within it.
 function Constructorcall() {
@@ -48,21 +47,27 @@ let n = new Constructorcall();
 let ObjectFunction = {
     name: 'Object Function',
     getName: function () {
-        console.log('Object Function call with Normal Function - Object itself', this);
-    }
-}
+        console.log(
+            'Object Function call with Normal Function - Object itself',
+            this,
+        );
+    },
+};
 ObjectFunction.getName();
 
 // Object Function with Arrow Function refers Lexical Scope.
 let ObjectFunction1 = {
     name: 'Object Function',
     getName: () => {
-        console.log('Object Function call with Arrow Function - Lexical Scope', this);
-    }
-}
+        console.log(
+            'Object Function call with Arrow Function - Lexical Scope',
+            this,
+        );
+    },
+};
 ObjectFunction1.getName();
 
-"use strict"
+('use strict');
 function StrictFunction() {
     console.log('Function call with Strict -', this);
 }
@@ -70,18 +75,18 @@ StrictFunction();
 
 const person = {
     name: 'Naseer',
-    gender: 'Male'
-}
+    gender: 'Male',
+};
 
 function callFunction() {
-    console.log(arguments)
-    console.log('call ', this)
+    console.log(arguments);
+    console.log('call ', this);
 }
 callFunction.call(person, 'win', 'war');
 
 function applyFunction() {
     console.log(arguments);
-    console.log('Apply', this)
+    console.log('Apply', this);
 }
 applyFunction.apply(person, ['win', 'war']);
 
@@ -91,3 +96,28 @@ function bindFunction() {
 }
 const binderFunction = bindFunction.bind(person, ['win', 'war']);
 binderFunction();
+
+function globalFunction() {
+    console.log(this); // In a browser, this logs the window object
+}
+
+const obj = {
+    method() {
+        console.log(this); // Logs the object obj
+    },
+};
+
+function ConstructorFunction() {
+    this.value = 42;
+    console.log(this); // Logs the new instance created
+}
+
+const instance = new ConstructorFunction();
+
+const arrowFunction = () => {
+    console.log(this); // Inherits this from its surrounding context
+};
+
+globalFunction();
+obj.method();
+arrowFunction();
