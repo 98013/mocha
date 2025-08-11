@@ -7,13 +7,16 @@ console.log(
     '%c********************************************************javascript**********************************************************************************',
     'color: yellow; font-weight: bold;',
 );
+// # Object.create / Object.setPrototypeOf and class/extends/super all rely on JavaScript’s prototype chain to enable inheritance—the latter 
+// just provides a cleaner and more idiomatic interface for it.
 // # Object.Create() is used to create a new object using exsiting object as Prototype.
 // # Object.create used to create a new Object.
 var createObject = {
     name: 'Naseer Mohammed',
     age: 21,
     gender: 'Male',
-    printName: function () {
+    printName: function ()
+    {
         console.log(`My name is ${this.name}`);
     },
 };
@@ -23,7 +26,8 @@ const duplicatecreateObject = Object.create(createObject);
 let duplicatecreateObject1 = Object.create(createObject, {
     email: { value: 'mdnaseer70@gmail.com' },
     getName: {
-        value: function () {
+        value: function ()
+        {
             return this.email;
         },
     },
@@ -40,7 +44,8 @@ const person = {
     name: 'Naseer',
     gender: 'male',
     age: 32,
-    gettingInfo: function () {
+    gettingInfo: function ()
+    {
         return console.log(
             `Name ${this.name} - age ${this.age} - gender ${this.gender}`,
         );
@@ -60,7 +65,8 @@ var assingObject = {
     name: 'x',
     age: 21,
     gender: 'M',
-    printName: function () {
+    printName: function ()
+    {
         console.log('My name is ${this.name}');
     },
 };
@@ -69,7 +75,7 @@ var assingObjectDuplicate = {
     nickName: 'Another',
     gender: 'F',
     age: 1,
-    printAge: function () {},
+    printAge: function () { },
 };
 var p = {
     p: 1,
@@ -137,7 +143,8 @@ console.log('Object keys', Object.keys(tempObj));
 console.log('Object values', Object.values(tempObj));
 console.log('keys and values-1', Object.entries(tempObj));
 console.log('keys and values-2', { ...Object.entries(tempObj) });
-for (let [key, value] of Object.entries(tempObj)) {
+for (let [key, value] of Object.entries(tempObj))
+{
     console.log(`${key}:${value}`, (tempArray[key] = value));
 }
 console.log('converting Object to Array', tempArray);
@@ -188,7 +195,8 @@ console.log('concatenating two arrays', [...initiaArray, ...tempInitialArray]);
 console.log('concatenating two arrays and removing duplicates ', [
     ...new Set([...initiaArray, ...tempInitialArray]),
 ]);
-function cleanCode(a, b, c) {
+function cleanCode(a, b, c)
+{
     console.log('spreading it to pass as arguments', `${a}, ${b}, ${c}`);
 }
 cleanCode(...initiaArray);
@@ -291,12 +299,14 @@ const cleanArray = [];
 const cleanArray1 = [];
 const reduceRemoveDuplicates = [1, 1, 2, 6, 7, 8, 9, 9, 70, 70, 1, 1, 1, 9];
 console.time();
-reduceRemoveDuplicates.reduce((_preValue, currentValues) => {
+reduceRemoveDuplicates.reduce((_preValue, currentValues) =>
+{
     !cleanArray.includes(currentValues) && cleanArray.push(currentValues);
 }, []);
 console.timeEnd();
 console.time();
-reduceRemoveDuplicates.reduce((preValue, currentValues) => {
+reduceRemoveDuplicates.reduce((preValue, currentValues) =>
+{
     preValue < currentValues ||
         (!cleanArray1.includes(currentValues) &&
             cleanArray1.push(currentValues));
@@ -381,19 +391,22 @@ const NumberInSeries = Array.from({ length: 10 }, (_, value) => value * 1 + 1);
 console.log(NumberInSeries); //[1,2,3,4,5,6,7,8,9,10]
 
 console.log(
-    Array.apply(null, Array(5)).map(function (_x, i) {
+    Array.apply(null, Array(5)).map(function (_x, i)
+    {
         return i * 1 + 1;
     }),
 );
 console.log(
-    Array.from(Array(5)).map((_x, i) => {
+    Array.from(Array(5)).map((_x, i) =>
+    {
         return i * 1 + 1;
     }),
 );
 console.log(Array.from('abcd')); //['a','b','c','d']
 console.log('x'.repeat(5)); // 'xxxxx'
 console.log(
-    Array.from('x'.repeat(5)).map(function (_x, i) {
+    Array.from('x'.repeat(5)).map(function (_x, i)
+    {
         return i * 1 + 1;
     }),
 );
@@ -405,7 +418,8 @@ const calculation = {
 };
 
 // Function Borrowing, replacing this keyword with null also give use the same output 60.
-function functionBorrowing() {
+function functionBorrowing()
+{
     return this.x + this.y + this.z;
 }
 
@@ -432,7 +446,8 @@ console.log(bindingFunction());
 console.log(functionBorrowing.call(calculation));
 
 const elementMissing = [1, 2, 4, 5];
-function elementMissingPlaced(_arr, itemTobeAdded, index) {
+function elementMissingPlaced(_arr, itemTobeAdded, index)
+{
     return [
         ...elementMissing.slice(0, index),
         itemTobeAdded,
@@ -463,9 +478,11 @@ console.log(a, c);
     event loop fetches asyn call from the callback queue and Microtask queue and places in the call stack.
 */
 
-function callMicrotask() {
+function callMicrotask()
+{
     console.log('Task 1');
-    queueMicrotask(() => {
+    queueMicrotask(() =>
+    {
         console.log('Mimics Microtask Queue');
     });
     console.log('Task 2');
@@ -480,32 +497,38 @@ callMicrotask();
 */
 
 // setImmediate same as setTimeout.
-setImmediate(() => {
+setImmediate(() =>
+{
     console.log('setImmediate call');
 });
 
 console.log('Execution Starts Here.'); // # will part of Main Thread.
-setTimeout(() => {
+setTimeout(() =>
+{
     // #will be part of  Callback Queue Priority(2).
     console.log('Callback queue executed after Microtask Queue.');
 }, 0);
-new Promise((resolve) => {
+new Promise((resolve) =>
+{
     // # will be part of Micro Task Queue. Highest Priority(1).
     resolve('Promise: Microtask executed because of highest priority.');
     for (i = 0; i <= 1000000000; i++);
-}).then((data) => {
+}).then((data) =>
+{
     console.log(data);
 });
 console.log('Execution Ends Here.'); // # will be part of Main Thread.
 
 //for await...of it maintains the order of the loop. promise.all will won't maintain the order.
-async function main() {
+async function main()
+{
     for await (const user of [
         { name: 'naseer' },
         { name: 'mohammed' },
         { name: 'Azhaan' },
         { name: 'Aydin' },
-    ]) {
+    ])
+    {
         console.log(user.name);
     }
 }
@@ -520,7 +543,8 @@ Object.defineProperty(hideObjectProperties, 'secret', {
     value: 'Secret Service',
 });
 console.log(hideObjectProperties);
-for (const props in hideObjectProperties) {
+for (const props in hideObjectProperties)
+{
     console.log('loop over objects', props);
 }
 console.log(hideObjectProperties);
@@ -528,12 +552,14 @@ console.log(hideObjectProperties);
 // #Generators in Javasript - USE CASE #used for Infinte Loop.
 // #We can exit Generator Prematurely using gen.return(value) value in Argument is to return value and exit.
 // #we can throw Error using gen.throw(new throw('local error'))
-function* localGenerator() {
+function* localGenerator()
+{
     yield* ['A', 'B', 'C', 'D', 'E'];
 }
 
 // IIFE(Immedietly Invoked Function - SELF INVOKING FUNCTION).
-const genClosure = (function () {
+const genClosure = (function ()
+{
     const gen = localGenerator();
     console.log(gen.next().value);
     console.log(gen.next().value);
@@ -541,14 +567,15 @@ const genClosure = (function () {
     console.log(gen.next().value);
     console.log(gen.next().value);
     console.log(gen.next().value);
-    return () => {
+    return () =>
+    {
         console.log(
             'Inner Function Exexution ' +
-                new Date().getHours() +
-                ':' +
-                new Date().getMinutes() +
-                ':' +
-                new Date().getSeconds(),
+            new Date().getHours() +
+            ':' +
+            new Date().getMinutes() +
+            ':' +
+            new Date().getSeconds(),
         );
     };
 })();
@@ -556,21 +583,25 @@ const genClosure = (function () {
 console.log(genClosure());
 
 // #Example 2.
-function* IteriatorFunction() {
+function* IteriatorFunction()
+{
     yield* 'x'
         .repeat(10)
         .split('')
         .map((_value, index) => index * 1 + 1000);
 }
 
-(async function () {
+(async function ()
+{
     const IteriatorFunctionLogger = IteriatorFunction();
-    for await (const _logs of IteriatorFunctionLogger) {
+    for await (const _logs of IteriatorFunctionLogger)
+    {
         console.log('IteriatorFunctionLogger', IteriatorFunctionLogger.next());
     }
 })();
 
-const globalContext = () => {
+const globalContext = () =>
+{
     return {
         firstName: () => ({ case: 'First Name' }),
         secondName: () => ({ case: 'second Name' }),
@@ -605,7 +636,8 @@ console.log(numberMissing);
 let i = 0;
 var numbersArray = [];
 // Generate Random numbers Math.floor(Math.random() * (maximum – minimum + 1)) + minimum
-while (i < 10) {
+while (i < 10)
+{
     numbersArray.push(Math.floor(Math.random() * 101) + 1);
     i++;
 }
@@ -628,7 +660,8 @@ const a4 = mainArray.map((array) => array);
 console.log(4, Object.is(a4, mainArray), a4);
 const a5 = mainArray.filter((array) => array);
 console.log(5, Object.is(a5, mainArray), a5);
-const a6 = mainArray.reduce((acc, value) => {
+const a6 = mainArray.reduce((acc, value) =>
+{
     acc.push(value);
     return acc;
 }, []);
@@ -645,7 +678,8 @@ const a10 = JSON.parse(JSON.stringify(ct));
 console.log(10, Object.is(a10, ct), a10);
 
 const a11 = [];
-ct.forEach((element) => {
+ct.forEach((element) =>
+{
     return a11.push(element);
 });
 
@@ -716,7 +750,8 @@ console.log(urlParams.get('d'));
 
 const THRESHOLD = 10;
 console.log(Array(THRESHOLD));
-const users = Array.from(Array(THRESHOLD), () => {
+const users = Array.from(Array(THRESHOLD), () =>
+{
     return { name: chance.first() };
 });
 console.log({ ...{ ...users } });
@@ -749,24 +784,29 @@ const map = new Map(entries);
 console.log(map);
 console.log(map.get('address'));
 
-for (let keys in obj1) {
+for (let keys in obj1)
+{
     console.log(keys);
     console.log(obj1[keys]);
 }
 
-for (let values in obj1) {
+for (let values in obj1)
+{
     console.log(values);
 }
 
-for (let items of array1) {
+for (let items of array1)
+{
     console.log(items);
 }
 
-for (let items of map) {
+for (let items of map)
+{
     console.log(items);
 }
 
-for (let [key, value] of map) {
+for (let [key, value] of map)
+{
     console.log(`${key} - ${{ value }}`);
 }
 
@@ -775,31 +815,40 @@ set.add(1, { name: 'naseer' });
 set.add(1, { name: 'naseer' });
 set.add(2, { name: 'Azhaan' });
 
-for (let key of set) {
+for (let key of set)
+{
     console.log(key);
     console.log(set.has(key));
 }
 
-for (let key of set) {
+for (let key of set)
+{
     console.log(`${key}`);
     console.log(set.has(key));
 }
 
-for (var t = 0; t < 2; t++) {
-    setTimeout(() => {
+for (var t = 0; t < 2; t++)
+{
+    setTimeout(() =>
+    {
         console.log(t);
     }, 1000);
 }
 
-for (let t = 0; t < 2; t++) {
-    setTimeout(() => {
+for (let t = 0; t < 2; t++)
+{
+    setTimeout(() =>
+    {
         console.log(t);
     }, 1000);
 }
 
-for (var t = 0; t < 2; t++) {
-    (function (t) {
-        setTimeout(() => {
+for (var t = 0; t < 2; t++)
+{
+    (function (t)
+    {
+        setTimeout(() =>
+        {
             console.log(t);
         }, 1000);
     })(t);
@@ -808,7 +857,8 @@ for (var t = 0; t < 2; t++) {
 // Here we call the function once or creat the Array once and use it again and again.
 // Here the slice  method does not mutate the original array.
 // Here the splice method mutates the original array what we are seeing in the output.
-function expensiveFunction() {
+function expensiveFunction()
+{
     let newArray = new Array(50).fill(0).map((item, index) => index + 1);
     return (index) => newArray.slice(0, index);
 }
@@ -852,7 +902,8 @@ let inheritBase = {
     age: 33,
     gender: 'Male',
     state: 'Andhra Pradesh',
-    buttonClick: function () {
+    buttonClick: function ()
+    {
         return 'Button Clicked';
     },
 };
@@ -884,7 +935,8 @@ Note: Both use to store data in the form of key-value pairs.
 // Objects.
 console.log(obj1.valueOf()); // Proto-typal inheritance
 console.log({ ...obj1 }); // cloned object
-for (let key in obj1) {
+for (let key in obj1)
+{
     console.log(key); // for-in loop for Object
 }
 const symbol = Symbol('my-symbol'); // use only keys or symbols in Objects as keys.
@@ -900,7 +952,8 @@ console.log(JSON.stringify(obj1)); // JSON serializeed
 const iniMap = new Map();
 iniMap.set('obj1', 'Naseer Mohammed'); // Map can hold any data-type as key.
 console.log(iniMap);
-for (let key of iniMap) {
+for (let key of iniMap)
+{
     // Maps use for-of loop.
     console.log(key);
 }
@@ -990,7 +1043,7 @@ myObject1.proto;
 myObject1.name = 'Naseer Mohammed';
 myObject1;
 
-const myObject2 = new (function () {})(); // Function Constructor.
+const myObject2 = new (function () { })(); // Function Constructor.
 myObject2.name = 'Arina';
 myObject2;
 
@@ -1032,11 +1085,13 @@ console.log(this);
 console.log(globalThis);
 console.log(globalContext);
 
-function thisFunction() {
+function thisFunction()
+{
     console.log(this);
 }
 
-const thisFunction1 = () => {
+const thisFunction1 = () =>
+{
     console.log(this);
 };
 
@@ -1053,7 +1108,7 @@ delete objCons.age;
 objCons;
 
 // 2. Function Constructor.
-const ObjFunnCons = new (function () {})();
+const ObjFunnCons = new (function () { })();
 ObjFunnCons.name = 'Naseer';
 ObjFunnCons.age = 33;
 ObjFunnCons;
@@ -1073,7 +1128,8 @@ console.log(ObjFunnCons1.__proto__);
 delete ObjFunnCons.gender;
 ObjFunnCons;
 
-function CreateStudents(name, marks) {
+function CreateStudents(name, marks)
+{
     const obj = {};
     Object.setPrototypeOf(CreateStudents, obj);
     this.name = name;
@@ -1129,7 +1185,7 @@ console.log(Bird.name);
 // 4. Class
 // in classes also we can delete the property
 
-class Beast {}
+class Beast { }
 
 /**
 // 5. Object.create(); in Prototype object properties do not get deleted., it simply create the linkage between the objects. Object.create(proto type object, new Object wanted to create)
@@ -1153,13 +1209,15 @@ console.log(ObjectCreated.inr);
 
 const headObj = {
     gender: 'Male',
-    headFunction: function () {
+    headFunction: function ()
+    {
         return 'Head Function Executed.';
     },
 };
 const headProxy = Object.create({
     headObj,
-    childFunction: function () {
+    childFunction: function ()
+    {
         return 'Child Function Executed.';
     },
 });
@@ -1205,7 +1263,8 @@ console.log(InnerProtoParent.z);
 console.log(Object.getPrototypeOf(InnerProtoParent));
 console.log(InnerProtoParent.__proto__);
 
-function getStudentDetails(name, marks) {
+function getStudentDetails(name, marks)
+{
     const obj = Object.create(utility);
     obj.name = name;
     obj.marks = marks;
@@ -1213,10 +1272,12 @@ function getStudentDetails(name, marks) {
 }
 
 const utility = {
-    increment: function () {
+    increment: function ()
+    {
         this.marks++;
     },
-    decrement: function () {
+    decrement: function ()
+    {
         this.marks--;
     },
 };
@@ -1257,24 +1318,28 @@ Lexically, start from current scope and move upwards until you find the desired 
 
 const myArrowFunction = {
     lang: 'en',
-    test: function () {
+    test: function ()
+    {
         console.log(this);
     },
 };
 
 myArrowFunction.test();
 
-function testing() {
+function testing()
+{
     console.log(this);
     console.log(this.__proto__);
 }
 
 new testing();
 
-function thisFunc() {
+function thisFunc()
+{
     var isValid = true;
     var one = 100;
-    if (1) {
+    if (1)
+    {
         console.log(isValid);
         console.log(one);
         var two = 200;
@@ -1287,23 +1352,29 @@ thisFunc();
 
 const exeucutionContext = { name: 'Naseer Mohammed', age: 33, Gender: 'Male' };
 
-function thisFunc1() {
+function thisFunc1()
+{
     console.log(this);
 }
 
-const thisFunc2 = () => {
+const thisFunc2 = () =>
+{
     console.log(this);
 };
 
-function thisFunc3() {
-    function test() {
+function thisFunc3()
+{
+    function test()
+    {
         console.log(this);
     }
     test.call(exeucutionContext);
 }
 
-const thisFunc4 = () => {
-    const test = () => {
+const thisFunc4 = () =>
+{
+    const test = () =>
+    {
         console.log(this);
     };
     test.call(exeucutionContext);
@@ -1319,7 +1390,8 @@ thisFunc4();
 //thisFunc4.call(exeucutionContext, this)
 
 // IIFE - Immedietly Invoked Function Expression.
-var vi = (function (i, j, k) {
+var vi = (function (i, j, k)
+{
     return `${i} - ${j} - ${k}`;
 })('Hello... vi.', new Date().getHours(), new Date().getMinutes());
 console.log(vi);
@@ -1331,41 +1403,49 @@ var vj = ((i, j, k) => `${i} - ${j} - ${k})}`)(
 );
 console.log(vj);
 
-var vg = +(function (i) {
+var vg = +(function (i)
+{
     return i;
 })('IIFE-1');
 console.log(vg);
 
-var vt = !(function (i) {
+var vt = !(function (i)
+{
     return i;
 })('IIFE-2');
 console.log(vt);
 
-function test() {
+function test()
+{
     return 'Please execute the code.';
 }
 console.log(test());
 
 // Here Unary operators turns out the function into function expression.
-!(function test() {
+!(function test()
+{
     console.log('Please execute the code.');
 })();
 
-var ig = !(function selfExecuting1(i, j) {
+var ig = !(function selfExecuting1(i, j)
+{
     return 'please execute the code... ' + i + ' ' + j;
 })(new Date().getHours(), new Date().getMinutes());
 console.log(ig);
 
-var pg = +(function selfExecuting2(i, j) {
+var pg = +(function selfExecuting2(i, j)
+{
     return 'please execute the code... ' + i + ' ' + j;
 })(new Date().getHours(), new Date().getMinutes());
 console.log(pg);
 
-!(function selfExecuting1(i, j) {
+!(function selfExecuting1(i, j)
+{
     console.log('please execute the code... ' + i + ' ' + j);
 })(new Date().getHours(), new Date().getMinutes());
 
-+(function selfExecuting2(i, j) {
++(function selfExecuting2(i, j)
+{
     console.log('please execute the code... ' + i + ' ' + j);
 })(new Date().getHours(), new Date().getMinutes());
 
@@ -1381,7 +1461,8 @@ var vt = !((i, j) => 'please execute the code... ' + i + ' ' + j)(
 );
 console.log(vt);
 
-+(function (i, j) {
++(function (i, j)
+{
     console.log('please execute the code... ' + i + ' ' + j);
 })(new Date().getHours(), new Date().getMinutes());
 
@@ -1390,7 +1471,8 @@ console.log(vt);
     new Date().getMinutes(),
 );
 
-!(function (i, j) {
+!(function (i, j)
+{
     console.log('please execute the code... ' + i + ' ' + j);
 })(new Date().getHours(), new Date().getMinutes());
 
@@ -1408,7 +1490,8 @@ phase - 2: Execution Context.
 var age = 9;
 var dept = 'temp';
 
-function show() {
+function show()
+{
     console.log(age);
 }
 console.dir(show);
@@ -1419,11 +1502,14 @@ Arrow Function - Explicit and Implicit return type's can be defined, this keywor
 */
 
 // Closure
-function manager() {
+function manager()
+{
     let count = 0;
-    function increment() {
+    function increment()
+    {
         let message = `score is ${++count}`;
-        return function print() {
+        return function print()
+        {
             return message;
         };
     }
@@ -1438,11 +1524,14 @@ const PrintFn = incrementNew();
 console.log(PrintFn());
 
 // Stale Closure.
-function manager1() {
+function manager1()
+{
     let count = 0;
-    function increment1() {
+    function increment1()
+    {
         let message = `score is ${++count}`;
-        return function print1() {
+        return function print1()
+        {
             return message;
         };
     }
@@ -1461,9 +1550,11 @@ console.log(incrementFn1());
 console.log(printFn1());
 
 // Stale Closure
-function outer() {
+function outer()
+{
     let outerVar = 'I am from outer function';
-    function inner() {
+    function inner()
+    {
         console.log(outerVar);
     }
     return inner;
@@ -1473,18 +1564,22 @@ const closure = outer(); // outer function is executed, and inner function is re
 closure(); // Even though outer function has finished, inner still has access to outerVar
 
 // alternate for stale closure.
-let closurers = (function () {
+let closurers = (function ()
+{
     let outerVar = 'I am from outer function';
-    function inner() {
+    function inner()
+    {
         return outerVar;
     }
     return inner;
 })();
 console.log(closurers());
 
-const incrementer = () => {
+const incrementer = () =>
+{
     let number = 0;
-    return () => {
+    return () =>
+    {
         ++number;
         let message = `Incremented to ${number}`;
         return `${message}, Number: ${number}`;
@@ -1507,18 +1602,21 @@ function currying can be used for partial execution.
 // Promise execution
 // example using Constructor Function.
 
-const nm = function normalFunctionExecution() {
+const nm = function normalFunctionExecution()
+{
     return 'normalFunctionExecution called';
 };
 
-function NormalPromise(callback) {
+function NormalPromise(callback)
+{
     // this keyword return constructor function.
     console.log(this);
     console.log(callback());
 }
 new NormalPromise(nm);
 
-function Normalpromise1(resolved, rejected) {
+function Normalpromise1(resolved, rejected)
+{
     console.log(this);
     console.log(resolved());
     console.log(rejected());
@@ -1528,10 +1626,12 @@ function Normalpromise1(resolved, rejected) {
 }
 
 let PromiseLocal = new Normalpromise1(
-    function resolved() {
+    function resolved()
+    {
         return 'Normal promise1 resolved;';
     },
-    function rejected() {
+    function rejected()
+    {
         return 'Normal promise1 rejected;';
     },
 );
@@ -1573,7 +1673,8 @@ console.log(Object.values(enumerableParentProperties2));
 console.log(Object.entries(enumerableParentProperties2));
 console.log(Object.fromEntries(Object.entries(enumerableParentProperties2)));
 
-for (let [key, value] of Object.entries(enumerableParentProperties2)) {
+for (let [key, value] of Object.entries(enumerableParentProperties2))
+{
     console.log(`key - ${key} - value - ${value}`);
 }
 
@@ -1681,8 +1782,10 @@ console.log(
 
 console.log(JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation, 1));
 
-function valuesUpdation(key, values) {
-    switch (key) {
+function valuesUpdation(key, values)
+{
+    switch (key)
+    {
         case 'c': {
             return `${values} Car`;
         }
@@ -1697,7 +1800,8 @@ console.log(
         JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation1, 1),
     ),
 );
-function valuesUpdation1(key, values) {
+function valuesUpdation1(key, values)
+{
     var blocklist = ['b', 'g'];
     return blocklist.indexOf(key) === -1 ? values : undefined;
 }
@@ -1707,7 +1811,8 @@ console.log(
         JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation2, 1),
     ),
 );
-function valuesUpdation2(key, values) {
+function valuesUpdation2(key, values)
+{
     var blocklist = ['c', 'd'];
     return blocklist.includes(key) === false ? values : undefined;
 }
@@ -1717,7 +1822,8 @@ console.log(
         JSON.stringify(ObjectStringifyWithReplacer1, valuesUpdation3, 1),
     ),
 );
-function valuesUpdation3(key, values) {
+function valuesUpdation3(key, values)
+{
     var blocklist = ['c', 'd'];
     return !!blocklist.includes(key) === false ? values : undefined;
 }
@@ -1737,7 +1843,7 @@ console.log(undefined == null);
 console.log(null == undefined);
 console.log([] == '');
 console.log({} == '');
-console.log(function () {} == '');
+console.log(function () { } == '');
 // convert array to string then Number('') returns zero.
 console.log([] == 1);
 console.log([] == 0);
@@ -1763,9 +1869,11 @@ const { hobbies, ...rest } = complexObject;
 console.log(hobbies);
 console.log(rest);
 
-function restProperties() {
+function restProperties()
+{
     const excludeProps = ['address', 'hobbies'];
-    for (let key of excludeProps) {
+    for (let key of excludeProps)
+    {
         const { [key]: omitted, ...rest } = complexObject;
         return [omitted, rest];
     }
@@ -1775,12 +1883,15 @@ console.log(restProperties()[0]);
 console.log(restProperties()[1]);
 
 /** map */
-function restProperties1(keytype = '') {
+function restProperties1(keytype = '')
+{
     const returnValue = {};
     const excludeProps = ['address'];
-    return excludeProps.map((key, index) => {
+    return excludeProps.map((key, index) =>
+    {
         const { [key]: omitted, ...rest } = complexObject;
-        switch (keytype) {
+        switch (keytype)
+        {
             case 'omitted': {
                 return omitted;
             }
@@ -1795,10 +1906,12 @@ console.log(...restProperties1(''));
 console.log(...restProperties1('omitted'));
 
 /** map */
-function restProperties2(keytype = false) {
+function restProperties2(keytype = false)
+{
     const obj = {};
     const excludeProps = ['address'];
-    return Array.from(excludeProps).map((key, index) => {
+    return Array.from(excludeProps).map((key, index) =>
+    {
         const { [key]: omitted, ...rest } = complexObject;
         return keytype ? omitted : rest;
     });
@@ -1848,8 +1961,10 @@ const fontSizes = {
 };
 
 const proxyhandler = {
-    get: function (target, prop, receiver) {
-        if (target?.extraLarge || target?.extraSmall) {
+    get: function (target, prop, receiver)
+    {
+        if (target?.extraLarge || target?.extraSmall)
+        {
             return Reflect.get(target, prop, receiver);
         }
         Reflect.defineProperty(target, 'smaller', {
@@ -1858,7 +1973,8 @@ const proxyhandler = {
         });
         return Reflect.get(target, prop, receiver);
     },
-    set: function (target, prop, value, receiver) {
+    set: function (target, prop, value, receiver)
+    {
         return Reflect.set(target, prop, value);
     },
 };
@@ -1870,12 +1986,15 @@ newProxy1.tiny = 'very very tiny';
 console.log(newProxy1);
 
 // Recursion.
-function Recursion(arr) {
+function Recursion(arr)
+{
     let i = 0;
     let result = 0;
-    return function recursive() {
+    return function recursive()
+    {
         result += arr[i++];
-        if (arr.at(i) !== undefined) {
+        if (arr.at(i) !== undefined)
+        {
             return recursive();
         }
         return result;
@@ -1886,11 +2005,14 @@ const recs = Recursion([1, 2, 3, 4, 5, 6]);
 console.log(recs());
 
 // Reverse a array.
-function ReverseArray(arr) {
+function ReverseArray(arr)
+{
     let i = 0;
     let reversedArray = [];
-    return function Recursion() {
-        if (arr.at(--i) !== undefined) {
+    return function Recursion()
+    {
+        if (arr.at(--i) !== undefined)
+        {
             reversedArray.push(arr.at(i));
             return Recursion();
         }
@@ -1917,9 +2039,12 @@ const { window } = dom;
 const { document } = window;
 console.log(dom.window.document.querySelector('p').textContent); // "Hello world"
 
-const mutationobserver = new window.MutationObserver((mutation, observe) => {
-    mutation.forEach((mutation) => {
-        switch (mutation.type) {
+const mutationobserver = new window.MutationObserver((mutation, observe) =>
+{
+    mutation.forEach((mutation) =>
+    {
+        switch (mutation.type)
+        {
             case 'childList': {
                 console.log(
                     `A child node has been added or removed, ${mutation.type} - ${mutation.target}`,
@@ -2083,7 +2208,8 @@ console.log(differenceReverse);
 
 const ImplicitCase = {
     name: 'Vishwas',
-    sayMyName: function () {
+    sayMyName: function ()
+    {
         console.log(`My Name is ${this.name}`);
     },
 };
@@ -2097,7 +2223,8 @@ ImplicitCase.sayMyName();
 
 const ExplicitBinding = { name: 'Vishwas' };
 
-function eSayMyName() {
+function eSayMyName()
+{
     console.log(`My Name is ${this.name}`);
 }
 
@@ -2111,7 +2238,8 @@ eSayMyNameExplicitBinding();
  * empty Object
  */
 
-function Person(name) {
+function Person(name)
+{
     // this = {}; javascript internally creates a new Empty Object, that this keyword refers to.
     console.log(this);
     this.name = name;
@@ -2128,7 +2256,8 @@ console.log(p2);
 
 globalThis.name = 'Naseer Mohammed';
 
-function defaultBinding() {
+function defaultBinding()
+{
     console.log(`My Name is ${this?.name}`);
 }
 
@@ -2142,7 +2271,8 @@ defaultBinding();
 const lexicalPerson = {
     firstName: 'Vishwas',
     lastName: 'Batman',
-    sayMyName: function () {
+    sayMyName: function ()
+    {
         console.log(`${this.firstName} - ${this.lastName}`);
     },
 };
@@ -2152,11 +2282,13 @@ lexicalPerson.sayMyName();
 const lexicalPerson1 = {
     firstName: 'Vishwas',
     lastName: 'Batman',
-    sayMyName() {
+    sayMyName()
+    {
         // Normal function refers to global scope that is window,
         // Arrow function refers to lexical scope
         //const fullName = function () {
-        const fullName = () => {
+        const fullName = () =>
+        {
             return `${this.firstName} - ${this.lastName}`;
         };
         console.log(`Full name is ${fullName()}`);
@@ -2201,9 +2333,11 @@ const arrResultDataOf1 = [
 
 // Remove duplicates from an array.
 const seen = new Set();
-const resultSetOf = arrResultDataOf.filter((obj) => {
+const resultSetOf = arrResultDataOf.filter((obj) =>
+{
     const key = obj.class + '|' + obj.fare + '|' + obj.number;
-    if (!seen.has(key)) {
+    if (!seen.has(key))
+    {
         seen.add(key);
         console.log(key);
         return true;
@@ -2219,9 +2353,11 @@ console.log(UnionResult);
 //Intersection.
 const seen1 = new Set();
 const intersectionResult = [...arrResultDataOf, ...arrResultDataOf1].filter(
-    (obj) => {
+    (obj) =>
+    {
         const key = obj.class + '|' + obj.fare + '|' + obj.number;
-        if (!seen1.has(key)) {
+        if (!seen1.has(key))
+        {
             seen1.add(key);
             console.log(key);
             return true;
@@ -2237,7 +2373,8 @@ when we call a function with the new keyword it creates a new Object and this ke
 i.e in new keyword creates a object and assign to this keyword and return it, if you are returning anything it will return that's the difference to be observed.
 */
 
-function showCall() {
+function showCall()
+{
     //behind the scenes object will be assigned to this keyword, this = {} and it will be implicit return and if any explicit return preferece would be given to explicit return.
     this.name =
         'a new Object will be created and assigned to this keyword else preference would be given to return keyword';
@@ -2334,12 +2471,13 @@ console.log(resultedString);
 // Elimianting the use of constructor boiler plate code
 
 // Simplified Class Field declaration.
-class Car {
+class Car
+{
     color = 'blue'; // Directly defining the properties.
     age = 2; // another property.
 
     // still constructor is optional here.
-    constructor() {}
+    constructor() { }
 }
 
 const car = new Car();
@@ -2347,23 +2485,27 @@ console.log(car.color);
 console.log(car.age);
 
 // Private Instance Methods and Accessors
-class PersonClass {
+class PersonClass
+{
     #firstName = 'Joseph';
     #lastName = 'Stevens';
     // Optional consturcutor.
-    construtor() {}
-    get Name() {
+    construtor() { }
+    get Name()
+    {
         return `${this.#firstName} ${this.#lastName}`;
     }
 
-    set value(params) {
+    set value(params)
+    {
         console.log(params);
         this.a = params.firstName;
         this.b = params.lastName;
         return `${this.a} ${this.b}`;
     }
 
-    get value() {
+    get value()
+    {
         return `${this.a} - ${this.b}`;
     }
 }
@@ -2388,10 +2530,12 @@ Before Es13 static fields and methods were typically defined outside of the clas
 methods directly within the class body improving readability and organization.
 */
 
-class MathUtilities {
+class MathUtilities
+{
     static PI = 3.14159;
 
-    static calculateCircumference(radius) {
+    static calculateCircumference(radius)
+    {
         return 2 * MathUtilities.PI * radius;
     }
 }
@@ -2417,7 +2561,8 @@ ES13 introduces WeakRef and FinalizationRegistry, providing native support for w
 let refobj = { name: 'jhon' };
 const weakRef = new WeakRef(refobj);
 
-const registry = new FinalizationRegistry((heldValue) => {
+const registry = new FinalizationRegistry((heldValue) =>
+{
     console.log(`Cleanup: ${heldValue}`);
 });
 
@@ -2428,7 +2573,8 @@ console.log(weakRef.deref()?.name);  // Output: 'jhon'
 
 refobj = null; // Now refobj is eligible for garbage collection
 
-setTimeout(() => {
+setTimeout(() =>
+{
     console.log(weakRef.deref()?.name); // Output: undefined (if garbage collected)
 }, 1000);
 
@@ -2437,16 +2583,20 @@ setTimeout(() => {
  */
 
 // Checking for private fields using workarounds (Before ES13)
-class Car1 {
-    constructor() {
+class Car1
+{
+    constructor()
+    {
         this.engineStarted = false; // Public field
     }
 
-    startEngine() {
+    startEngine()
+    {
         this.engineStarted = true;
     }
 
-    static isCar(obj) {
+    static isCar(obj)
+    {
         return obj instanceof Car; // Not reliable for truly private fields
     }
 }
@@ -2455,14 +2605,17 @@ const myCar1 = new Car1();
 console.log(Car1.isCar(myCar1)); // true
 
 // Ergonomic brand checks for private fields (ES13)
-class Car9 {
+class Car9
+{
     #engineStarted = false;
 
-    startEngine() {
+    startEngine()
+    {
         this.#engineStarted = true;
     }
 
-    static isCar(obj) {
+    static isCar(obj)
+    {
         return #engineStarted in obj;
     }
 }
@@ -2506,7 +2659,8 @@ const entries11 = [
     ['age', 30],
 ];
 const obj19 = {};
-entries11.forEach(([key, value]) => {
+entries11.forEach(([key, value]) =>
+{
     obj19[key] = value;
 });
 console.log(obj19); // { name: 'John', age: 30 }
