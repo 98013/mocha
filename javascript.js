@@ -423,9 +423,9 @@ function functionBorrowing()
     return this.x + this.y + this.z;
 }
 
-console.log(functionBorrowing.call(this, 10, 20, 30)); // functionBorrowing.call(null,10,20,30)
-console.log(functionBorrowing.apply(this, [10, 20, 30])); // functionBorrowing.apply(null,[10,20,30])
-var bindingFunction = functionBorrowing.bind(this, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
+console.log(functionBorrowing.call(functionBorrowing, 10, 20, 30)); // functionBorrowing.call(null,10,20,30)
+console.log(functionBorrowing.apply(functionBorrowing, [10, 20, 30])); // functionBorrowing.apply(null,[10,20,30])
+var bindingFunction = functionBorrowing.bind(functionBorrowing, 10, 20, 30); // functionBorrowing.bind(null,10,20,30)
 console.log(bindingFunction());
 var x = 1,
     y = 2,
@@ -1591,7 +1591,7 @@ inc();
 inc();
 inc();
 inc();
-logger = inc();
+const logger = inc();
 console.log(logger);
 
 /* 
@@ -2026,7 +2026,7 @@ console.log(rev());
 /**
  * Mutation Observer - MutationObserver interface provides the ability to watch for changes being made to the DOM tree.
  */
-const { JSDOM } = require('jsdom');
+import { JSDOM } from "jsdom";
 const dom = new JSDOM(
     `<div class="parent d-flex">
         <p class="p-2 flex-fill" contenteditable="true">First Element</p>
