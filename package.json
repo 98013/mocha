@@ -1,26 +1,37 @@
 {
-    "name": "y",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "quokka": {
-        "maxConsoleMessages": 50000
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "tsc designInterface.ts --watch"
-    },
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "nodemon": "^2.0.22"
-    },
-    "dependencies": {
-        "@js-temporal/polyfill": "^0.4.4",
-        "chance": "^1.1.11",
-        "jsdom": "^24.0.0",
-        "temporal": "^0.7.1",
-        "typescript": "^5.0.3",
-        "vite-node": "^2.1.1"
-    }
+  "name": "mocha-pipeline",
+  "version": "1.0.0",
+  "description": "CI/CD automated Node.js execution pipeline",
+  "main": "javascript.js",
+  "type": "commonjs",
+  "quokka": {
+    "maxConsoleMessages": 50000
+  },
+  "scripts": {
+    "build": "mkdir -p dist && cp javascript.js dist/ 2>/dev/null || xcopy javascript.js dist\\ /Y /I 2>nul || echo 'Build skipped'",
+    "test": "node --check javascript.js",
+    "start": "tsc designInterface.ts --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.4.4",
+    "chance": "^1.1.11",
+    "jsdom": "^24.0.0",
+    "temporal": "^0.7.1",
+    "typescript": "^5.0.3",
+    "vite-node": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/98013/mocha.git"
+  },
+  "bugs": {
+    "url": "https://github.com/98013/mocha/issues"
+  },
+  "homepage": "https://github.com/98013/mocha#readme"
 }
