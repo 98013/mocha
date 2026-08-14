@@ -4,6 +4,9 @@
   "description": "CI/CD automated Node.js execution pipeline",
   "main": "javascript.js",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "quokka": {
     "maxConsoleMessages": 50000
   },
