@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "CI/CD automated Node.js execution pipeline",
   "main": "javascript.js",
-  "type": "commonjs",
+  "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "mkdir -p dist && cp javascript.js dist/ 2>/dev/null || xcopy javascript.js dist\\ /Y /I 2>nul || echo 'Build skipped'",
-    "test": "node --check javascript.js",
+    "test": "mocha",
     "start": "tsc designInterface.ts --watch"
   },
   "keywords": [],
@@ -20,13 +20,14 @@
   "license": "ISC",
   "dependencies": {
     "@js-temporal/polyfill": "^0.4.4",
-    "chance": "^1.1.11",
+    "chance": "^1.1.13",
     "jsdom": "^24.0.0",
     "temporal": "^0.7.1",
     "typescript": "^5.0.3",
     "vite-node": "^2.1.1"
   },
   "devDependencies": {
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.22"
   },
   "repository": {
