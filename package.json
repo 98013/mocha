@@ -1,112 +1,40 @@
-name: CI/CD Pipeline
-
-on:
-  pull_request:
-    branches: [ main, develop, staging, production ]
-  push:
-    branches: [ main, develop, staging, production ]
-
-jobs:
-  # ==================================================
-  # 1. BUILD & TEST (Runs on PRs and all pushes)
-  # ==================================================
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm i || npm ci
-
-      - name: Build Dist Folder
-        run: npm run build --if-present
-
-      - name: Run Tests
-        run: npm test --if-present
-
-  # ==================================================
-  # 2. MAIN DEPLOYMENT
-  # ==================================================
-  deploy-main:
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment: main
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Execute Script in Pipeline
-        run: node dist/javascript.js || node javascript.js
-
-  # ==================================================
-  # 3. DEV DEPLOYMENT
-  # ==================================================
-  deploy-dev:
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-    runs-on: ubuntu-latest
-    environment: develop
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Execute Script in Pipeline
-        run: node dist/javascript.js || node javascript.js
-
-  # ==================================================
-  # 4. STAGING DEPLOYMENT
-  # ==================================================
-  deploy-staging:
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Execute Script in Pipeline
-        run: node dist/javascript.js || node javascript.js
-
-  # ==================================================
-  # 5. PRODUCTION DEPLOYMENT
-  # ==================================================
-  deploy-production:
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Execute Script in Pipeline
-        run: node dist/javascript.js || node javascript.js
+{
+  "name": "mocha-pipeline",
+  "version": "1.0.0",
+  "description": "CI/CD automated Node.js execution pipeline",
+  "main": "javascript.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "quokka": {
+    "maxConsoleMessages": 50000
+  },
+  "scripts": {
+    "build": "mkdir -p dist && cp javascript.js dist/ 2>/dev/null || xcopy javascript.js dist\\ /Y /I 2>nul || echo 'Build skipped'",
+    "test": "node --check javascript.js",
+    "start": "tsc designInterface.ts --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.4.4",
+    "chance": "^1.1.11",
+    "jsdom": "^24.0.0",
+    "temporal": "^0.7.1",
+    "typescript": "^5.0.3",
+    "vite-node": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/98013/mocha.git"
+  },
+  "bugs": {
+    "url": "https://github.com/98013/mocha/issues"
+  },
+  "homepage": "https://github.com/98013/mocha#readme"
+}

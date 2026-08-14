@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
           cache: 'npm'
 
       - name: Install Dependencies
@@ -46,7 +46,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
 
       - name: Execute Script in Pipeline
         run: node dist/javascript.js || node javascript.js
@@ -86,7 +86,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
 
       - name: Execute Script in Pipeline
         run: node dist/javascript.js || node javascript.js
@@ -106,7 +106,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: 'package.json'
 
       - name: Execute Script in Pipeline
         run: node dist/javascript.js || node javascript.js
