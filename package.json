@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "mkdir -p dist && cp javascript.js dist/ 2>/dev/null || xcopy javascript.js dist\\ /Y /I 2>nul || echo 'Build skipped'",
-    "test": "mocha",
+     "test": "node --check javascript.mjs",
     "start": "tsc designInterface.ts --watch"
   },
   "keywords": [],
