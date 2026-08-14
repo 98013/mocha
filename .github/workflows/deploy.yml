@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   pull_request:
-    branches: [ develop, staging, production ] # Added production for PR checks
+    branches: [ main, develop, staging, production ]
   push:
-    branches: [ develop, staging, production ]
+    branches: [ main, develop, staging, production ]
 
 jobs:
   # ==================================================
@@ -32,13 +32,13 @@ jobs:
         run: npm test --if-present
 
   # ==================================================
-  # 2. DEV DEPLOYMENT (Pushes to 'develop' branch)
+  # 2. MAIN DEPLOYMENT (Pushes to 'main' branch)
   # ==================================================
-  deploy-dev:
+  deploy-main:
     needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: develop # Matches GitHub Environment settings
+    environment: main
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -58,7 +58,33 @@ jobs:
         run: node dist/javascript.js || node javascript.js
 
   # ==================================================
-  # 3. STAGING DEPLOYMENT (Pushes to 'staging' branch)
+  # 3. DEV DEPLOYMENT (Pushes to 'develop' branch)
+  # ==================================================
+  deploy-dev:
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: develop
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Dist Folder
+        run: npm run build --if-present
+
+      - name: Execute Script in Pipeline
+        run: node dist/javascript.js || node javascript.js
+
+  # ==================================================
+  # 4. STAGING DEPLOYMENT (Pushes to 'staging' branch)
   # ==================================================
   deploy-staging:
     needs: build-and-test
@@ -84,7 +110,7 @@ jobs:
         run: node dist/javascript.js || node javascript.js
 
   # ==================================================
-  # 4. PRODUCTION DEPLOYMENT (Pushes to 'production' branch)
+  # 5. PRODUCTION DEPLOYMENT (Pushes to 'production' branch)
   # ==================================================
   deploy-production:
     needs: build-and-test
